@@ -1,0 +1,525 @@
+2024-10-07 01:35:59.146 +02:00 [INF] User profile is available. Using '/Users/hermanrov/.aspnet/DataProtection-Keys' as key repository; keys will not be encrypted at rest.
+2024-10-07 01:35:59.331 +02:00 [INF] Now listening on: http://localhost:5217
+2024-10-07 01:35:59.334 +02:00 [INF] Application started. Press Ctrl+C to shut down.
+2024-10-07 01:35:59.335 +02:00 [INF] Hosting environment: Development
+2024-10-07 01:35:59.336 +02:00 [INF] Content root path: /Users/hermanrov/Documents/GitHub/ITPE3200/ITPE3200X/ITPE3200X
+2024-10-07 01:35:59.956 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:5217/ - null null
+2024-10-07 01:36:00.055 +02:00 [INF] Executing endpoint 'ITPE3200X.Controllers.HomeController.Index (ITPE3200X)'
+2024-10-07 01:36:00.131 +02:00 [INF] Route matched with {action = "Index", controller = "Home", page = "", area = ""}. Executing controller action with signature Microsoft.AspNetCore.Mvc.IActionResult Index() on controller ITPE3200X.Controllers.HomeController (ITPE3200X).
+2024-10-07 01:36:00.141 +02:00 [INF] Executing action method ITPE3200X.Controllers.HomeController.Index (ITPE3200X) - Validation state: "Valid"
+2024-10-07 01:36:00.147 +02:00 [INF] Executed action method ITPE3200X.Controllers.HomeController.Index (ITPE3200X), returned result Microsoft.AspNetCore.Mvc.ViewResult in 0.6129ms.
+2024-10-07 01:36:00.204 +02:00 [INF] Executing ViewResult, running view Index.
+2024-10-07 01:36:00.814 +02:00 [INF] Executed ViewResult - view Index executed in 655.1354ms.
+2024-10-07 01:36:00.817 +02:00 [INF] Executed action ITPE3200X.Controllers.HomeController.Index (ITPE3200X) in 684.479ms
+2024-10-07 01:36:00.817 +02:00 [INF] Executed endpoint 'ITPE3200X.Controllers.HomeController.Index (ITPE3200X)'
+2024-10-07 01:36:00.826 +02:00 [INF] Request finished HTTP/1.1 GET http://localhost:5217/ - 200 null text/html; charset=utf-8 884.1427ms
+2024-10-07 01:36:00.858 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:5217/lib/bootstrap/dist/css/bootstrap.min.css - null null
+2024-10-07 01:36:00.858 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:5217/css/site.css?v=r22M7xOahcMheWCkoVof2Nt7pQmj7mMSFKTei-SfmQ0 - null null
+2024-10-07 01:36:00.892 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:5217/ITPE3200X.styles.css?v=qMxxAcutiQNQ6Z0TxkHgQh9J1BZKs0g96F73Y2Z2sSA - null null
+2024-10-07 01:36:00.986 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:5217/lib/jquery/dist/jquery.min.js - null null
+2024-10-07 01:36:00.988 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:5217/lib/bootstrap/dist/js/bootstrap.bundle.min.js - null null
+2024-10-07 01:36:01.026 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:5217/js/site.js?v=y_Ngd8W21UpuCUhEqGbUKDEqFnNfTjAfb24GhJJGUyM - null null
+2024-10-07 01:36:01.070 +02:00 [INF] Sending file. Request path: '/js/site.js'. Physical path: '/Users/hermanrov/Documents/GitHub/ITPE3200/ITPE3200X/ITPE3200X/wwwroot/js/site.js'
+2024-10-07 01:36:01.071 +02:00 [INF] Sending file. Request path: '/css/site.css'. Physical path: '/Users/hermanrov/Documents/GitHub/ITPE3200/ITPE3200X/ITPE3200X/wwwroot/css/site.css'
+2024-10-07 01:36:01.071 +02:00 [INF] Request finished HTTP/1.1 GET http://localhost:5217/js/site.js?v=y_Ngd8W21UpuCUhEqGbUKDEqFnNfTjAfb24GhJJGUyM - 200 227 text/javascript 44.8592ms
+2024-10-07 01:36:01.071 +02:00 [INF] Request finished HTTP/1.1 GET http://localhost:5217/css/site.css?v=r22M7xOahcMheWCkoVof2Nt7pQmj7mMSFKTei-SfmQ0 - 200 341 text/css 213.1546ms
+2024-10-07 01:36:01.071 +02:00 [INF] Sending file. Request path: '/ITPE3200X.styles.css'. Physical path: '/Users/hermanrov/Documents/GitHub/ITPE3200/ITPE3200X/ITPE3200X/obj/Debug/net8.0/scopedcss/bundle/ITPE3200X.styles.css'
+2024-10-07 01:36:01.072 +02:00 [INF] Request finished HTTP/1.1 GET http://localhost:5217/ITPE3200X.styles.css?v=qMxxAcutiQNQ6Z0TxkHgQh9J1BZKs0g96F73Y2Z2sSA - 200 1078 text/css 179.5812ms
+2024-10-07 01:36:01.073 +02:00 [INF] Sending file. Request path: '/lib/bootstrap/dist/js/bootstrap.bundle.min.js'. Physical path: '/Users/hermanrov/Documents/GitHub/ITPE3200/ITPE3200X/ITPE3200X/wwwroot/lib/bootstrap/dist/js/bootstrap.bundle.min.js'
+2024-10-07 01:36:01.074 +02:00 [INF] Request finished HTTP/1.1 GET http://localhost:5217/lib/bootstrap/dist/js/bootstrap.bundle.min.js - 200 78468 text/javascript 85.6395ms
+2024-10-07 01:36:01.075 +02:00 [INF] Sending file. Request path: '/lib/jquery/dist/jquery.min.js'. Physical path: '/Users/hermanrov/Documents/GitHub/ITPE3200/ITPE3200X/ITPE3200X/wwwroot/lib/jquery/dist/jquery.min.js'
+2024-10-07 01:36:01.075 +02:00 [INF] Request finished HTTP/1.1 GET http://localhost:5217/lib/jquery/dist/jquery.min.js - 200 89501 text/javascript 89.8097ms
+2024-10-07 01:36:01.076 +02:00 [INF] Sending file. Request path: '/lib/bootstrap/dist/css/bootstrap.min.css'. Physical path: '/Users/hermanrov/Documents/GitHub/ITPE3200/ITPE3200X/ITPE3200X/wwwroot/lib/bootstrap/dist/css/bootstrap.min.css'
+2024-10-07 01:36:01.076 +02:00 [INF] Request finished HTTP/1.1 GET http://localhost:5217/lib/bootstrap/dist/css/bootstrap.min.css - 200 162720 text/css 218.1436ms
+2024-10-07 01:36:01.176 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:5217/favicon.ico - null null
+2024-10-07 01:36:01.181 +02:00 [INF] Sending file. Request path: '/favicon.ico'. Physical path: '/Users/hermanrov/Documents/GitHub/ITPE3200/ITPE3200X/ITPE3200X/wwwroot/favicon.ico'
+2024-10-07 01:36:01.182 +02:00 [INF] Request finished HTTP/1.1 GET http://localhost:5217/favicon.ico - 200 5430 image/x-icon 5.9727ms
+2024-10-07 01:36:03.475 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:5217/Identity/Account/Register - null null
+2024-10-07 01:36:03.489 +02:00 [INF] Executing endpoint '/Account/Register'
+2024-10-07 01:36:03.519 +02:00 [INF] Route matched with {page = "/Account/Register", area = "Identity", action = "", controller = ""}. Executing page /Account/Register
+2024-10-07 01:36:03.565 +02:00 [INF] Executing handler method ITPE3200X.Areas.Identity.Pages.Account.RegisterModel.OnGetAsync - ModelState is "Valid"
+2024-10-07 01:36:03.567 +02:00 [INF] Executed handler method OnGetAsync, returned result .
+2024-10-07 01:36:03.572 +02:00 [INF] Executing an implicit handler method - ModelState is "Valid"
+2024-10-07 01:36:03.573 +02:00 [INF] Executed an implicit handler method, returned result Microsoft.AspNetCore.Mvc.RazorPages.PageResult.
+2024-10-07 01:36:03.623 +02:00 [INF] Executed page /Account/Register in 103.8215ms
+2024-10-07 01:36:03.623 +02:00 [INF] Executed endpoint '/Account/Register'
+2024-10-07 01:36:03.624 +02:00 [INF] Request finished HTTP/1.1 GET http://localhost:5217/Identity/Account/Register - 200 null text/html; charset=utf-8 154.6888ms
+2024-10-07 01:36:03.651 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:5217/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js - null null
+2024-10-07 01:36:03.651 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:5217/lib/jquery-validation/dist/jquery.validate.min.js - null null
+2024-10-07 01:36:03.705 +02:00 [INF] Sending file. Request path: '/lib/jquery-validation/dist/jquery.validate.min.js'. Physical path: '/Users/hermanrov/Documents/GitHub/ITPE3200/ITPE3200X/ITPE3200X/wwwroot/lib/jquery-validation/dist/jquery.validate.min.js'
+2024-10-07 01:36:03.705 +02:00 [INF] Request finished HTTP/1.1 GET http://localhost:5217/lib/jquery-validation/dist/jquery.validate.min.js - 200 24601 text/javascript 54.0077ms
+2024-10-07 01:36:03.729 +02:00 [INF] Sending file. Request path: '/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js'. Physical path: '/Users/hermanrov/Documents/GitHub/ITPE3200/ITPE3200X/ITPE3200X/wwwroot/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js'
+2024-10-07 01:36:03.735 +02:00 [INF] Request finished HTTP/1.1 GET http://localhost:5217/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js - 200 5824 text/javascript 84.4976ms
+2024-10-07 01:36:06.958 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:5217/Identity/Account/Login - null null
+2024-10-07 01:36:06.967 +02:00 [INF] Executing endpoint '/Account/Login'
+2024-10-07 01:36:06.978 +02:00 [INF] Route matched with {page = "/Account/Login", area = "Identity", action = "", controller = ""}. Executing page /Account/Login
+2024-10-07 01:36:06.986 +02:00 [INF] Executing handler method ITPE3200X.Areas.Identity.Pages.Account.LoginModel.OnGetAsync - ModelState is "Valid"
+2024-10-07 01:36:06.991 +02:00 [INF] AuthenticationScheme: Identity.External signed out.
+2024-10-07 01:36:06.991 +02:00 [INF] Executed handler method OnGetAsync, returned result .
+2024-10-07 01:36:06.992 +02:00 [INF] Executing an implicit handler method - ModelState is "Valid"
+2024-10-07 01:36:06.992 +02:00 [INF] Executed an implicit handler method, returned result Microsoft.AspNetCore.Mvc.RazorPages.PageResult.
+2024-10-07 01:36:07.014 +02:00 [INF] Executed page /Account/Login in 35.8409ms
+2024-10-07 01:36:07.014 +02:00 [INF] Executed endpoint '/Account/Login'
+2024-10-07 01:36:07.014 +02:00 [INF] Request finished HTTP/1.1 GET http://localhost:5217/Identity/Account/Login - 200 null text/html; charset=utf-8 56.5313ms
+2024-10-07 01:36:07.899 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:5217/Identity/Account/Register - null null
+2024-10-07 01:36:07.900 +02:00 [INF] Executing endpoint '/Account/Register'
+2024-10-07 01:36:07.900 +02:00 [INF] Route matched with {page = "/Account/Register", area = "Identity", action = "", controller = ""}. Executing page /Account/Register
+2024-10-07 01:36:07.902 +02:00 [INF] Executing handler method ITPE3200X.Areas.Identity.Pages.Account.RegisterModel.OnGetAsync - ModelState is "Valid"
+2024-10-07 01:36:07.902 +02:00 [INF] Executed handler method OnGetAsync, returned result .
+2024-10-07 01:36:07.903 +02:00 [INF] Executing an implicit handler method - ModelState is "Valid"
+2024-10-07 01:36:07.903 +02:00 [INF] Executed an implicit handler method, returned result Microsoft.AspNetCore.Mvc.RazorPages.PageResult.
+2024-10-07 01:36:07.909 +02:00 [INF] Executed page /Account/Register in 8.6944ms
+2024-10-07 01:36:07.909 +02:00 [INF] Executed endpoint '/Account/Register'
+2024-10-07 01:36:07.910 +02:00 [INF] Request finished HTTP/1.1 GET http://localhost:5217/Identity/Account/Register - 200 null text/html; charset=utf-8 10.9171ms
+2024-10-07 01:36:08.553 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:5217/Identity/Account/Login - null null
+2024-10-07 01:36:08.554 +02:00 [INF] Executing endpoint '/Account/Login'
+2024-10-07 01:36:08.555 +02:00 [INF] Route matched with {page = "/Account/Login", area = "Identity", action = "", controller = ""}. Executing page /Account/Login
+2024-10-07 01:36:08.557 +02:00 [INF] Executing handler method ITPE3200X.Areas.Identity.Pages.Account.LoginModel.OnGetAsync - ModelState is "Valid"
+2024-10-07 01:36:08.557 +02:00 [INF] AuthenticationScheme: Identity.External signed out.
+2024-10-07 01:36:08.557 +02:00 [INF] Executed handler method OnGetAsync, returned result .
+2024-10-07 01:36:08.557 +02:00 [INF] Executing an implicit handler method - ModelState is "Valid"
+2024-10-07 01:36:08.557 +02:00 [INF] Executed an implicit handler method, returned result Microsoft.AspNetCore.Mvc.RazorPages.PageResult.
+2024-10-07 01:36:08.561 +02:00 [INF] Executed page /Account/Login in 5.7638ms
+2024-10-07 01:36:08.561 +02:00 [INF] Executed endpoint '/Account/Login'
+2024-10-07 01:36:08.561 +02:00 [INF] Request finished HTTP/1.1 GET http://localhost:5217/Identity/Account/Login - 200 null text/html; charset=utf-8 7.9228ms
+2024-10-07 01:36:09.074 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:5217/Identity/Account/Register - null null
+2024-10-07 01:36:09.074 +02:00 [INF] Executing endpoint '/Account/Register'
+2024-10-07 01:36:09.074 +02:00 [INF] Route matched with {page = "/Account/Register", area = "Identity", action = "", controller = ""}. Executing page /Account/Register
+2024-10-07 01:36:09.075 +02:00 [INF] Executing handler method ITPE3200X.Areas.Identity.Pages.Account.RegisterModel.OnGetAsync - ModelState is "Valid"
+2024-10-07 01:36:09.075 +02:00 [INF] Executed handler method OnGetAsync, returned result .
+2024-10-07 01:36:09.075 +02:00 [INF] Executing an implicit handler method - ModelState is "Valid"
+2024-10-07 01:36:09.075 +02:00 [INF] Executed an implicit handler method, returned result Microsoft.AspNetCore.Mvc.RazorPages.PageResult.
+2024-10-07 01:36:09.077 +02:00 [INF] Executed page /Account/Register in 2.3334ms
+2024-10-07 01:36:09.077 +02:00 [INF] Executed endpoint '/Account/Register'
+2024-10-07 01:36:09.077 +02:00 [INF] Request finished HTTP/1.1 GET http://localhost:5217/Identity/Account/Register - 200 null text/html; charset=utf-8 3.2151ms
+2024-10-07 01:36:09.533 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:5217/Identity/Account/Login - null null
+2024-10-07 01:36:09.534 +02:00 [INF] Executing endpoint '/Account/Login'
+2024-10-07 01:36:09.535 +02:00 [INF] Route matched with {page = "/Account/Login", area = "Identity", action = "", controller = ""}. Executing page /Account/Login
+2024-10-07 01:36:09.536 +02:00 [INF] Executing handler method ITPE3200X.Areas.Identity.Pages.Account.LoginModel.OnGetAsync - ModelState is "Valid"
+2024-10-07 01:36:09.536 +02:00 [INF] AuthenticationScheme: Identity.External signed out.
+2024-10-07 01:36:09.536 +02:00 [INF] Executed handler method OnGetAsync, returned result .
+2024-10-07 01:36:09.536 +02:00 [INF] Executing an implicit handler method - ModelState is "Valid"
+2024-10-07 01:36:09.536 +02:00 [INF] Executed an implicit handler method, returned result Microsoft.AspNetCore.Mvc.RazorPages.PageResult.
+2024-10-07 01:36:09.540 +02:00 [INF] Executed page /Account/Login in 5.122ms
+2024-10-07 01:36:09.540 +02:00 [INF] Executed endpoint '/Account/Login'
+2024-10-07 01:36:09.540 +02:00 [INF] Request finished HTTP/1.1 GET http://localhost:5217/Identity/Account/Login - 200 null text/html; charset=utf-8 7.1772ms
+2024-10-07 01:36:09.939 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:5217/Identity/Account/Register - null null
+2024-10-07 01:36:09.940 +02:00 [INF] Executing endpoint '/Account/Register'
+2024-10-07 01:36:09.940 +02:00 [INF] Route matched with {page = "/Account/Register", area = "Identity", action = "", controller = ""}. Executing page /Account/Register
+2024-10-07 01:36:09.942 +02:00 [INF] Executing handler method ITPE3200X.Areas.Identity.Pages.Account.RegisterModel.OnGetAsync - ModelState is "Valid"
+2024-10-07 01:36:09.942 +02:00 [INF] Executed handler method OnGetAsync, returned result .
+2024-10-07 01:36:09.942 +02:00 [INF] Executing an implicit handler method - ModelState is "Valid"
+2024-10-07 01:36:09.942 +02:00 [INF] Executed an implicit handler method, returned result Microsoft.AspNetCore.Mvc.RazorPages.PageResult.
+2024-10-07 01:36:09.945 +02:00 [INF] Executed page /Account/Register in 4.4638ms
+2024-10-07 01:36:09.945 +02:00 [INF] Executed endpoint '/Account/Register'
+2024-10-07 01:36:09.945 +02:00 [INF] Request finished HTTP/1.1 GET http://localhost:5217/Identity/Account/Register - 200 null text/html; charset=utf-8 6.5367ms
+2024-10-07 01:36:39.020 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:5217/Identity/Account/Login - null null
+2024-10-07 01:36:39.026 +02:00 [INF] Executing endpoint '/Account/Login'
+2024-10-07 01:36:39.028 +02:00 [INF] Route matched with {page = "/Account/Login", area = "Identity", action = "", controller = ""}. Executing page /Account/Login
+2024-10-07 01:36:39.032 +02:00 [INF] Executing handler method ITPE3200X.Areas.Identity.Pages.Account.LoginModel.OnGetAsync - ModelState is "Valid"
+2024-10-07 01:36:39.033 +02:00 [INF] AuthenticationScheme: Identity.External signed out.
+2024-10-07 01:36:39.033 +02:00 [INF] Executed handler method OnGetAsync, returned result .
+2024-10-07 01:36:39.033 +02:00 [INF] Executing an implicit handler method - ModelState is "Valid"
+2024-10-07 01:36:39.033 +02:00 [INF] Executed an implicit handler method, returned result Microsoft.AspNetCore.Mvc.RazorPages.PageResult.
+2024-10-07 01:36:39.041 +02:00 [INF] Executed page /Account/Login in 12.7539ms
+2024-10-07 01:36:39.041 +02:00 [INF] Executed endpoint '/Account/Login'
+2024-10-07 01:36:39.041 +02:00 [INF] Request finished HTTP/1.1 GET http://localhost:5217/Identity/Account/Login - 200 null text/html; charset=utf-8 21.6946ms
+2024-10-07 01:36:39.973 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:5217/Identity/Account/Register - null null
+2024-10-07 01:36:39.974 +02:00 [INF] Executing endpoint '/Account/Register'
+2024-10-07 01:36:39.974 +02:00 [INF] Route matched with {page = "/Account/Register", area = "Identity", action = "", controller = ""}. Executing page /Account/Register
+2024-10-07 01:36:39.975 +02:00 [INF] Executing handler method ITPE3200X.Areas.Identity.Pages.Account.RegisterModel.OnGetAsync - ModelState is "Valid"
+2024-10-07 01:36:39.975 +02:00 [INF] Executed handler method OnGetAsync, returned result .
+2024-10-07 01:36:39.975 +02:00 [INF] Executing an implicit handler method - ModelState is "Valid"
+2024-10-07 01:36:39.976 +02:00 [INF] Executed an implicit handler method, returned result Microsoft.AspNetCore.Mvc.RazorPages.PageResult.
+2024-10-07 01:36:39.979 +02:00 [INF] Executed page /Account/Register in 5.379ms
+2024-10-07 01:36:39.980 +02:00 [INF] Executed endpoint '/Account/Register'
+2024-10-07 01:36:39.980 +02:00 [INF] Request finished HTTP/1.1 GET http://localhost:5217/Identity/Account/Register - 200 null text/html; charset=utf-8 7.3907ms
+2024-10-07 01:36:41.299 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:5217/Identity/Account/Login - null null
+2024-10-07 01:36:41.300 +02:00 [INF] Executing endpoint '/Account/Login'
+2024-10-07 01:36:41.300 +02:00 [INF] Route matched with {page = "/Account/Login", area = "Identity", action = "", controller = ""}. Executing page /Account/Login
+2024-10-07 01:36:41.301 +02:00 [INF] Executing handler method ITPE3200X.Areas.Identity.Pages.Account.LoginModel.OnGetAsync - ModelState is "Valid"
+2024-10-07 01:36:41.301 +02:00 [INF] AuthenticationScheme: Identity.External signed out.
+2024-10-07 01:36:41.302 +02:00 [INF] Executed handler method OnGetAsync, returned result .
+2024-10-07 01:36:41.302 +02:00 [INF] Executing an implicit handler method - ModelState is "Valid"
+2024-10-07 01:36:41.302 +02:00 [INF] Executed an implicit handler method, returned result Microsoft.AspNetCore.Mvc.RazorPages.PageResult.
+2024-10-07 01:36:41.304 +02:00 [INF] Executed page /Account/Login in 3.3201ms
+2024-10-07 01:36:41.304 +02:00 [INF] Executed endpoint '/Account/Login'
+2024-10-07 01:36:41.304 +02:00 [INF] Request finished HTTP/1.1 GET http://localhost:5217/Identity/Account/Login - 200 null text/html; charset=utf-8 4.8357ms
+2024-10-07 01:36:41.773 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:5217/Identity/Account/Register - null null
+2024-10-07 01:36:41.774 +02:00 [INF] Executing endpoint '/Account/Register'
+2024-10-07 01:36:41.774 +02:00 [INF] Route matched with {page = "/Account/Register", area = "Identity", action = "", controller = ""}. Executing page /Account/Register
+2024-10-07 01:36:41.775 +02:00 [INF] Executing handler method ITPE3200X.Areas.Identity.Pages.Account.RegisterModel.OnGetAsync - ModelState is "Valid"
+2024-10-07 01:36:41.775 +02:00 [INF] Executed handler method OnGetAsync, returned result .
+2024-10-07 01:36:41.775 +02:00 [INF] Executing an implicit handler method - ModelState is "Valid"
+2024-10-07 01:36:41.775 +02:00 [INF] Executed an implicit handler method, returned result Microsoft.AspNetCore.Mvc.RazorPages.PageResult.
+2024-10-07 01:36:41.779 +02:00 [INF] Executed page /Account/Register in 5.3328ms
+2024-10-07 01:36:41.779 +02:00 [INF] Executed endpoint '/Account/Register'
+2024-10-07 01:36:41.780 +02:00 [INF] Request finished HTTP/1.1 GET http://localhost:5217/Identity/Account/Register - 200 null text/html; charset=utf-8 6.743ms
+2024-10-07 01:36:42.228 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:5217/Identity/Account/Login - null null
+2024-10-07 01:36:42.229 +02:00 [INF] Executing endpoint '/Account/Login'
+2024-10-07 01:36:42.229 +02:00 [INF] Route matched with {page = "/Account/Login", area = "Identity", action = "", controller = ""}. Executing page /Account/Login
+2024-10-07 01:36:42.230 +02:00 [INF] Executing handler method ITPE3200X.Areas.Identity.Pages.Account.LoginModel.OnGetAsync - ModelState is "Valid"
+2024-10-07 01:36:42.231 +02:00 [INF] AuthenticationScheme: Identity.External signed out.
+2024-10-07 01:36:42.231 +02:00 [INF] Executed handler method OnGetAsync, returned result .
+2024-10-07 01:36:42.232 +02:00 [INF] Executing an implicit handler method - ModelState is "Valid"
+2024-10-07 01:36:42.232 +02:00 [INF] Executed an implicit handler method, returned result Microsoft.AspNetCore.Mvc.RazorPages.PageResult.
+2024-10-07 01:36:42.236 +02:00 [INF] Executed page /Account/Login in 6.3365ms
+2024-10-07 01:36:42.236 +02:00 [INF] Executed endpoint '/Account/Login'
+2024-10-07 01:36:42.236 +02:00 [INF] Request finished HTTP/1.1 GET http://localhost:5217/Identity/Account/Login - 200 null text/html; charset=utf-8 7.9409ms
+2024-10-07 01:36:42.703 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:5217/Identity/Account/Register - null null
+2024-10-07 01:36:42.704 +02:00 [INF] Executing endpoint '/Account/Register'
+2024-10-07 01:36:42.704 +02:00 [INF] Route matched with {page = "/Account/Register", area = "Identity", action = "", controller = ""}. Executing page /Account/Register
+2024-10-07 01:36:42.706 +02:00 [INF] Executing handler method ITPE3200X.Areas.Identity.Pages.Account.RegisterModel.OnGetAsync - ModelState is "Valid"
+2024-10-07 01:36:42.706 +02:00 [INF] Executed handler method OnGetAsync, returned result .
+2024-10-07 01:36:42.706 +02:00 [INF] Executing an implicit handler method - ModelState is "Valid"
+2024-10-07 01:36:42.706 +02:00 [INF] Executed an implicit handler method, returned result Microsoft.AspNetCore.Mvc.RazorPages.PageResult.
+2024-10-07 01:36:42.710 +02:00 [INF] Executed page /Account/Register in 5.6177ms
+2024-10-07 01:36:42.711 +02:00 [INF] Executed endpoint '/Account/Register'
+2024-10-07 01:36:42.711 +02:00 [INF] Request finished HTTP/1.1 GET http://localhost:5217/Identity/Account/Register - 200 null text/html; charset=utf-8 7.7265ms
+2024-10-07 01:36:43.218 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:5217/Identity/Account/Login - null null
+2024-10-07 01:36:43.219 +02:00 [INF] Executing endpoint '/Account/Login'
+2024-10-07 01:36:43.219 +02:00 [INF] Route matched with {page = "/Account/Login", area = "Identity", action = "", controller = ""}. Executing page /Account/Login
+2024-10-07 01:36:43.220 +02:00 [INF] Executing handler method ITPE3200X.Areas.Identity.Pages.Account.LoginModel.OnGetAsync - ModelState is "Valid"
+2024-10-07 01:36:43.221 +02:00 [INF] AuthenticationScheme: Identity.External signed out.
+2024-10-07 01:36:43.221 +02:00 [INF] Executed handler method OnGetAsync, returned result .
+2024-10-07 01:36:43.221 +02:00 [INF] Executing an implicit handler method - ModelState is "Valid"
+2024-10-07 01:36:43.221 +02:00 [INF] Executed an implicit handler method, returned result Microsoft.AspNetCore.Mvc.RazorPages.PageResult.
+2024-10-07 01:36:43.226 +02:00 [INF] Executed page /Account/Login in 7.263ms
+2024-10-07 01:36:43.227 +02:00 [INF] Executed endpoint '/Account/Login'
+2024-10-07 01:36:43.227 +02:00 [INF] Request finished HTTP/1.1 GET http://localhost:5217/Identity/Account/Login - 200 null text/html; charset=utf-8 8.9201ms
+2024-10-07 01:36:43.643 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:5217/Identity/Account/Register - null null
+2024-10-07 01:36:43.643 +02:00 [INF] Executing endpoint '/Account/Register'
+2024-10-07 01:36:43.644 +02:00 [INF] Route matched with {page = "/Account/Register", area = "Identity", action = "", controller = ""}. Executing page /Account/Register
+2024-10-07 01:36:43.645 +02:00 [INF] Executing handler method ITPE3200X.Areas.Identity.Pages.Account.RegisterModel.OnGetAsync - ModelState is "Valid"
+2024-10-07 01:36:43.645 +02:00 [INF] Executed handler method OnGetAsync, returned result .
+2024-10-07 01:36:43.645 +02:00 [INF] Executing an implicit handler method - ModelState is "Valid"
+2024-10-07 01:36:43.645 +02:00 [INF] Executed an implicit handler method, returned result Microsoft.AspNetCore.Mvc.RazorPages.PageResult.
+2024-10-07 01:36:43.648 +02:00 [INF] Executed page /Account/Register in 4.1623ms
+2024-10-07 01:36:43.648 +02:00 [INF] Executed endpoint '/Account/Register'
+2024-10-07 01:36:43.648 +02:00 [INF] Request finished HTTP/1.1 GET http://localhost:5217/Identity/Account/Register - 200 null text/html; charset=utf-8 5.4085ms
+2024-10-07 01:36:44.111 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:5217/Identity/Account/Login - null null
+2024-10-07 01:36:44.112 +02:00 [INF] Executing endpoint '/Account/Login'
+2024-10-07 01:36:44.112 +02:00 [INF] Route matched with {page = "/Account/Login", area = "Identity", action = "", controller = ""}. Executing page /Account/Login
+2024-10-07 01:36:44.113 +02:00 [INF] Executing handler method ITPE3200X.Areas.Identity.Pages.Account.LoginModel.OnGetAsync - ModelState is "Valid"
+2024-10-07 01:36:44.114 +02:00 [INF] AuthenticationScheme: Identity.External signed out.
+2024-10-07 01:36:44.114 +02:00 [INF] Executed handler method OnGetAsync, returned result .
+2024-10-07 01:36:44.114 +02:00 [INF] Executing an implicit handler method - ModelState is "Valid"
+2024-10-07 01:36:44.114 +02:00 [INF] Executed an implicit handler method, returned result Microsoft.AspNetCore.Mvc.RazorPages.PageResult.
+2024-10-07 01:36:44.119 +02:00 [INF] Executed page /Account/Login in 6.4782ms
+2024-10-07 01:36:44.119 +02:00 [INF] Executed endpoint '/Account/Login'
+2024-10-07 01:36:44.119 +02:00 [INF] Request finished HTTP/1.1 GET http://localhost:5217/Identity/Account/Login - 200 null text/html; charset=utf-8 8.1645ms
+2024-10-07 01:36:44.472 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:5217/Identity/Account/Register - null null
+2024-10-07 01:36:44.472 +02:00 [INF] Executing endpoint '/Account/Register'
+2024-10-07 01:36:44.473 +02:00 [INF] Route matched with {page = "/Account/Register", area = "Identity", action = "", controller = ""}. Executing page /Account/Register
+2024-10-07 01:36:44.474 +02:00 [INF] Executing handler method ITPE3200X.Areas.Identity.Pages.Account.RegisterModel.OnGetAsync - ModelState is "Valid"
+2024-10-07 01:36:44.474 +02:00 [INF] Executed handler method OnGetAsync, returned result .
+2024-10-07 01:36:44.475 +02:00 [INF] Executing an implicit handler method - ModelState is "Valid"
+2024-10-07 01:36:44.475 +02:00 [INF] Executed an implicit handler method, returned result Microsoft.AspNetCore.Mvc.RazorPages.PageResult.
+2024-10-07 01:36:44.480 +02:00 [INF] Executed page /Account/Register in 7.5589ms
+2024-10-07 01:36:44.480 +02:00 [INF] Executed endpoint '/Account/Register'
+2024-10-07 01:36:44.481 +02:00 [INF] Request finished HTTP/1.1 GET http://localhost:5217/Identity/Account/Register - 200 null text/html; charset=utf-8 8.9773ms
+2024-10-07 01:41:04.874 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:5217/Identity/Account/Login - null null
+2024-10-07 01:41:04.881 +02:00 [INF] Executing endpoint '/Account/Login'
+2024-10-07 01:41:04.882 +02:00 [INF] Route matched with {page = "/Account/Login", area = "Identity", action = "", controller = ""}. Executing page /Account/Login
+2024-10-07 01:41:04.887 +02:00 [INF] Executing handler method ITPE3200X.Areas.Identity.Pages.Account.LoginModel.OnGetAsync - ModelState is "Valid"
+2024-10-07 01:41:04.887 +02:00 [INF] AuthenticationScheme: Identity.External signed out.
+2024-10-07 01:41:04.888 +02:00 [INF] Executed handler method OnGetAsync, returned result .
+2024-10-07 01:41:04.888 +02:00 [INF] Executing an implicit handler method - ModelState is "Valid"
+2024-10-07 01:41:04.888 +02:00 [INF] Executed an implicit handler method, returned result Microsoft.AspNetCore.Mvc.RazorPages.PageResult.
+2024-10-07 01:41:04.944 +02:00 [INF] Executed page /Account/Login in 61.8377ms
+2024-10-07 01:41:04.945 +02:00 [INF] Executed endpoint '/Account/Login'
+2024-10-07 01:41:04.945 +02:00 [INF] Request finished HTTP/1.1 GET http://localhost:5217/Identity/Account/Login - 200 null text/html; charset=utf-8 71.4404ms
+2024-10-07 01:41:04.969 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:5217/ITPE3200X.styles.css?v=qMxxAcutiQNQ6Z0TxkHgQh9J1BZKs0g96F73Y2Z2sSA - null null
+2024-10-07 01:41:04.973 +02:00 [INF] The file /ITPE3200X.styles.css was not modified
+2024-10-07 01:41:04.974 +02:00 [INF] Request finished HTTP/1.1 GET http://localhost:5217/ITPE3200X.styles.css?v=qMxxAcutiQNQ6Z0TxkHgQh9J1BZKs0g96F73Y2Z2sSA - 304 null text/css 4.5152ms
+2024-10-07 01:41:06.382 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:5217/Identity/Account/Register - null null
+2024-10-07 01:41:06.383 +02:00 [INF] Executing endpoint '/Account/Register'
+2024-10-07 01:41:06.384 +02:00 [INF] Route matched with {page = "/Account/Register", area = "Identity", action = "", controller = ""}. Executing page /Account/Register
+2024-10-07 01:41:06.385 +02:00 [INF] Executing handler method ITPE3200X.Areas.Identity.Pages.Account.RegisterModel.OnGetAsync - ModelState is "Valid"
+2024-10-07 01:41:06.385 +02:00 [INF] Executed handler method OnGetAsync, returned result .
+2024-10-07 01:41:06.385 +02:00 [INF] Executing an implicit handler method - ModelState is "Valid"
+2024-10-07 01:41:06.385 +02:00 [INF] Executed an implicit handler method, returned result Microsoft.AspNetCore.Mvc.RazorPages.PageResult.
+2024-10-07 01:41:06.390 +02:00 [INF] Executed page /Account/Register in 6.4818ms
+2024-10-07 01:41:06.390 +02:00 [INF] Executed endpoint '/Account/Register'
+2024-10-07 01:41:06.390 +02:00 [INF] Request finished HTTP/1.1 GET http://localhost:5217/Identity/Account/Register - 200 null text/html; charset=utf-8 8.3588ms
+2024-10-07 01:41:07.068 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:5217/Identity/Account/Login - null null
+2024-10-07 01:41:07.069 +02:00 [INF] Executing endpoint '/Account/Login'
+2024-10-07 01:41:07.070 +02:00 [INF] Route matched with {page = "/Account/Login", area = "Identity", action = "", controller = ""}. Executing page /Account/Login
+2024-10-07 01:41:07.071 +02:00 [INF] Executing handler method ITPE3200X.Areas.Identity.Pages.Account.LoginModel.OnGetAsync - ModelState is "Valid"
+2024-10-07 01:41:07.071 +02:00 [INF] AuthenticationScheme: Identity.External signed out.
+2024-10-07 01:41:07.071 +02:00 [INF] Executed handler method OnGetAsync, returned result .
+2024-10-07 01:41:07.072 +02:00 [INF] Executing an implicit handler method - ModelState is "Valid"
+2024-10-07 01:41:07.072 +02:00 [INF] Executed an implicit handler method, returned result Microsoft.AspNetCore.Mvc.RazorPages.PageResult.
+2024-10-07 01:41:07.077 +02:00 [INF] Executed page /Account/Login in 7.2799ms
+2024-10-07 01:41:07.077 +02:00 [INF] Executed endpoint '/Account/Login'
+2024-10-07 01:41:07.078 +02:00 [INF] Request finished HTTP/1.1 GET http://localhost:5217/Identity/Account/Login - 200 null text/html; charset=utf-8 9.2737ms
+2024-10-07 01:41:07.390 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:5217/Identity/Account/Register - null null
+2024-10-07 01:41:07.391 +02:00 [INF] Executing endpoint '/Account/Register'
+2024-10-07 01:41:07.391 +02:00 [INF] Route matched with {page = "/Account/Register", area = "Identity", action = "", controller = ""}. Executing page /Account/Register
+2024-10-07 01:41:07.392 +02:00 [INF] Executing handler method ITPE3200X.Areas.Identity.Pages.Account.RegisterModel.OnGetAsync - ModelState is "Valid"
+2024-10-07 01:41:07.392 +02:00 [INF] Executed handler method OnGetAsync, returned result .
+2024-10-07 01:41:07.392 +02:00 [INF] Executing an implicit handler method - ModelState is "Valid"
+2024-10-07 01:41:07.393 +02:00 [INF] Executed an implicit handler method, returned result Microsoft.AspNetCore.Mvc.RazorPages.PageResult.
+2024-10-07 01:41:07.397 +02:00 [INF] Executed page /Account/Register in 6.4425ms
+2024-10-07 01:41:07.398 +02:00 [INF] Executed endpoint '/Account/Register'
+2024-10-07 01:41:07.398 +02:00 [INF] Request finished HTTP/1.1 GET http://localhost:5217/Identity/Account/Register - 200 null text/html; charset=utf-8 7.9484ms
+2024-10-07 01:41:07.978 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:5217/Identity/Account/Login - null null
+2024-10-07 01:41:07.979 +02:00 [INF] Executing endpoint '/Account/Login'
+2024-10-07 01:41:07.979 +02:00 [INF] Route matched with {page = "/Account/Login", area = "Identity", action = "", controller = ""}. Executing page /Account/Login
+2024-10-07 01:41:07.980 +02:00 [INF] Executing handler method ITPE3200X.Areas.Identity.Pages.Account.LoginModel.OnGetAsync - ModelState is "Valid"
+2024-10-07 01:41:07.981 +02:00 [INF] AuthenticationScheme: Identity.External signed out.
+2024-10-07 01:41:07.981 +02:00 [INF] Executed handler method OnGetAsync, returned result .
+2024-10-07 01:41:07.981 +02:00 [INF] Executing an implicit handler method - ModelState is "Valid"
+2024-10-07 01:41:07.981 +02:00 [INF] Executed an implicit handler method, returned result Microsoft.AspNetCore.Mvc.RazorPages.PageResult.
+2024-10-07 01:41:07.986 +02:00 [INF] Executed page /Account/Login in 6.284ms
+2024-10-07 01:41:07.986 +02:00 [INF] Executed endpoint '/Account/Login'
+2024-10-07 01:41:07.986 +02:00 [INF] Request finished HTTP/1.1 GET http://localhost:5217/Identity/Account/Login - 200 null text/html; charset=utf-8 7.8392ms
+2024-10-07 01:41:08.357 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:5217/Identity/Account/Register - null null
+2024-10-07 01:41:08.357 +02:00 [INF] Executing endpoint '/Account/Register'
+2024-10-07 01:41:08.357 +02:00 [INF] Route matched with {page = "/Account/Register", area = "Identity", action = "", controller = ""}. Executing page /Account/Register
+2024-10-07 01:41:08.359 +02:00 [INF] Executing handler method ITPE3200X.Areas.Identity.Pages.Account.RegisterModel.OnGetAsync - ModelState is "Valid"
+2024-10-07 01:41:08.359 +02:00 [INF] Executed handler method OnGetAsync, returned result .
+2024-10-07 01:41:08.359 +02:00 [INF] Executing an implicit handler method - ModelState is "Valid"
+2024-10-07 01:41:08.360 +02:00 [INF] Executed an implicit handler method, returned result Microsoft.AspNetCore.Mvc.RazorPages.PageResult.
+2024-10-07 01:41:08.364 +02:00 [INF] Executed page /Account/Register in 6.76ms
+2024-10-07 01:41:08.364 +02:00 [INF] Executed endpoint '/Account/Register'
+2024-10-07 01:41:08.365 +02:00 [INF] Request finished HTTP/1.1 GET http://localhost:5217/Identity/Account/Register - 200 null text/html; charset=utf-8 8.1267ms
+2024-10-07 01:41:08.606 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:5217/Identity/Account/Login - null null
+2024-10-07 01:41:08.607 +02:00 [INF] Executing endpoint '/Account/Login'
+2024-10-07 01:41:08.607 +02:00 [INF] Route matched with {page = "/Account/Login", area = "Identity", action = "", controller = ""}. Executing page /Account/Login
+2024-10-07 01:41:08.609 +02:00 [INF] Executing handler method ITPE3200X.Areas.Identity.Pages.Account.LoginModel.OnGetAsync - ModelState is "Valid"
+2024-10-07 01:41:08.609 +02:00 [INF] AuthenticationScheme: Identity.External signed out.
+2024-10-07 01:41:08.609 +02:00 [INF] Executed handler method OnGetAsync, returned result .
+2024-10-07 01:41:08.609 +02:00 [INF] Executing an implicit handler method - ModelState is "Valid"
+2024-10-07 01:41:08.609 +02:00 [INF] Executed an implicit handler method, returned result Microsoft.AspNetCore.Mvc.RazorPages.PageResult.
+2024-10-07 01:41:08.613 +02:00 [INF] Executed page /Account/Login in 5.7568ms
+2024-10-07 01:41:08.613 +02:00 [INF] Executed endpoint '/Account/Login'
+2024-10-07 01:41:08.614 +02:00 [INF] Request finished HTTP/1.1 GET http://localhost:5217/Identity/Account/Login - 200 null text/html; charset=utf-8 7.206ms
+2024-10-07 01:41:08.827 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:5217/Identity/Account/Register - null null
+2024-10-07 01:41:08.828 +02:00 [INF] Executing endpoint '/Account/Register'
+2024-10-07 01:41:08.828 +02:00 [INF] Route matched with {page = "/Account/Register", area = "Identity", action = "", controller = ""}. Executing page /Account/Register
+2024-10-07 01:41:08.830 +02:00 [INF] Executing handler method ITPE3200X.Areas.Identity.Pages.Account.RegisterModel.OnGetAsync - ModelState is "Valid"
+2024-10-07 01:41:08.830 +02:00 [INF] Executed handler method OnGetAsync, returned result .
+2024-10-07 01:41:08.830 +02:00 [INF] Executing an implicit handler method - ModelState is "Valid"
+2024-10-07 01:41:08.830 +02:00 [INF] Executed an implicit handler method, returned result Microsoft.AspNetCore.Mvc.RazorPages.PageResult.
+2024-10-07 01:41:08.834 +02:00 [INF] Executed page /Account/Register in 5.9927ms
+2024-10-07 01:41:08.835 +02:00 [INF] Executed endpoint '/Account/Register'
+2024-10-07 01:41:08.835 +02:00 [INF] Request finished HTTP/1.1 GET http://localhost:5217/Identity/Account/Register - 200 null text/html; charset=utf-8 7.5229ms
+2024-10-07 01:41:09.039 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:5217/Identity/Account/Login - null null
+2024-10-07 01:41:09.044 +02:00 [INF] Executing endpoint '/Account/Login'
+2024-10-07 01:41:09.044 +02:00 [INF] Route matched with {page = "/Account/Login", area = "Identity", action = "", controller = ""}. Executing page /Account/Login
+2024-10-07 01:41:09.046 +02:00 [INF] Executing handler method ITPE3200X.Areas.Identity.Pages.Account.LoginModel.OnGetAsync - ModelState is "Valid"
+2024-10-07 01:41:09.047 +02:00 [INF] AuthenticationScheme: Identity.External signed out.
+2024-10-07 01:41:09.047 +02:00 [INF] Executed handler method OnGetAsync, returned result .
+2024-10-07 01:41:09.047 +02:00 [INF] Executing an implicit handler method - ModelState is "Valid"
+2024-10-07 01:41:09.047 +02:00 [INF] Executed an implicit handler method, returned result Microsoft.AspNetCore.Mvc.RazorPages.PageResult.
+2024-10-07 01:41:09.052 +02:00 [INF] Executed page /Account/Login in 7.3475ms
+2024-10-07 01:41:09.052 +02:00 [INF] Executed endpoint '/Account/Login'
+2024-10-07 01:41:09.052 +02:00 [INF] Request finished HTTP/1.1 GET http://localhost:5217/Identity/Account/Login - 200 null text/html; charset=utf-8 13.688ms
+2024-10-07 01:41:09.236 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:5217/Identity/Account/Register - null null
+2024-10-07 01:41:09.237 +02:00 [INF] Executing endpoint '/Account/Register'
+2024-10-07 01:41:09.237 +02:00 [INF] Route matched with {page = "/Account/Register", area = "Identity", action = "", controller = ""}. Executing page /Account/Register
+2024-10-07 01:41:09.239 +02:00 [INF] Executing handler method ITPE3200X.Areas.Identity.Pages.Account.RegisterModel.OnGetAsync - ModelState is "Valid"
+2024-10-07 01:41:09.239 +02:00 [INF] Executed handler method OnGetAsync, returned result .
+2024-10-07 01:41:09.239 +02:00 [INF] Executing an implicit handler method - ModelState is "Valid"
+2024-10-07 01:41:09.239 +02:00 [INF] Executed an implicit handler method, returned result Microsoft.AspNetCore.Mvc.RazorPages.PageResult.
+2024-10-07 01:41:09.244 +02:00 [INF] Executed page /Account/Register in 7.012ms
+2024-10-07 01:41:09.244 +02:00 [INF] Executed endpoint '/Account/Register'
+2024-10-07 01:41:09.245 +02:00 [INF] Request finished HTTP/1.1 GET http://localhost:5217/Identity/Account/Register - 200 null text/html; charset=utf-8 8.6679ms
+2024-10-07 01:41:09.449 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:5217/Identity/Account/Login - null null
+2024-10-07 01:41:09.450 +02:00 [INF] Executing endpoint '/Account/Login'
+2024-10-07 01:41:09.451 +02:00 [INF] Route matched with {page = "/Account/Login", area = "Identity", action = "", controller = ""}. Executing page /Account/Login
+2024-10-07 01:41:09.453 +02:00 [INF] Executing handler method ITPE3200X.Areas.Identity.Pages.Account.LoginModel.OnGetAsync - ModelState is "Valid"
+2024-10-07 01:41:09.453 +02:00 [INF] AuthenticationScheme: Identity.External signed out.
+2024-10-07 01:41:09.453 +02:00 [INF] Executed handler method OnGetAsync, returned result .
+2024-10-07 01:41:09.453 +02:00 [INF] Executing an implicit handler method - ModelState is "Valid"
+2024-10-07 01:41:09.454 +02:00 [INF] Executed an implicit handler method, returned result Microsoft.AspNetCore.Mvc.RazorPages.PageResult.
+2024-10-07 01:41:09.458 +02:00 [INF] Executed page /Account/Login in 7.6712ms
+2024-10-07 01:41:09.459 +02:00 [INF] Executed endpoint '/Account/Login'
+2024-10-07 01:41:09.459 +02:00 [INF] Request finished HTTP/1.1 GET http://localhost:5217/Identity/Account/Login - 200 null text/html; charset=utf-8 9.4577ms
+2024-10-07 01:41:09.625 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:5217/Identity/Account/Register - null null
+2024-10-07 01:41:09.626 +02:00 [INF] Executing endpoint '/Account/Register'
+2024-10-07 01:41:09.626 +02:00 [INF] Route matched with {page = "/Account/Register", area = "Identity", action = "", controller = ""}. Executing page /Account/Register
+2024-10-07 01:41:09.627 +02:00 [INF] Executing handler method ITPE3200X.Areas.Identity.Pages.Account.RegisterModel.OnGetAsync - ModelState is "Valid"
+2024-10-07 01:41:09.627 +02:00 [INF] Executed handler method OnGetAsync, returned result .
+2024-10-07 01:41:09.628 +02:00 [INF] Executing an implicit handler method - ModelState is "Valid"
+2024-10-07 01:41:09.628 +02:00 [INF] Executed an implicit handler method, returned result Microsoft.AspNetCore.Mvc.RazorPages.PageResult.
+2024-10-07 01:41:09.631 +02:00 [INF] Executed page /Account/Register in 5.1436ms
+2024-10-07 01:41:09.632 +02:00 [INF] Executed endpoint '/Account/Register'
+2024-10-07 01:41:09.632 +02:00 [INF] Request finished HTTP/1.1 GET http://localhost:5217/Identity/Account/Register - 200 null text/html; charset=utf-8 6.6746ms
+2024-10-07 01:41:09.825 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:5217/Identity/Account/Login - null null
+2024-10-07 01:41:09.828 +02:00 [INF] Executing endpoint '/Account/Login'
+2024-10-07 01:41:09.829 +02:00 [INF] Route matched with {page = "/Account/Login", area = "Identity", action = "", controller = ""}. Executing page /Account/Login
+2024-10-07 01:41:09.831 +02:00 [INF] Executing handler method ITPE3200X.Areas.Identity.Pages.Account.LoginModel.OnGetAsync - ModelState is "Valid"
+2024-10-07 01:41:09.832 +02:00 [INF] AuthenticationScheme: Identity.External signed out.
+2024-10-07 01:41:09.833 +02:00 [INF] Executed handler method OnGetAsync, returned result .
+2024-10-07 01:41:09.833 +02:00 [INF] Executing an implicit handler method - ModelState is "Valid"
+2024-10-07 01:41:09.834 +02:00 [INF] Executed an implicit handler method, returned result Microsoft.AspNetCore.Mvc.RazorPages.PageResult.
+2024-10-07 01:41:09.838 +02:00 [INF] Executed page /Account/Login in 8.8732ms
+2024-10-07 01:41:09.838 +02:00 [INF] Executed endpoint '/Account/Login'
+2024-10-07 01:41:09.838 +02:00 [INF] Request finished HTTP/1.1 GET http://localhost:5217/Identity/Account/Login - 200 null text/html; charset=utf-8 13.8427ms
+2024-10-07 01:41:10.044 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:5217/Identity/Account/Register - null null
+2024-10-07 01:41:10.045 +02:00 [INF] Executing endpoint '/Account/Register'
+2024-10-07 01:41:10.046 +02:00 [INF] Route matched with {page = "/Account/Register", area = "Identity", action = "", controller = ""}. Executing page /Account/Register
+2024-10-07 01:41:10.047 +02:00 [INF] Executing handler method ITPE3200X.Areas.Identity.Pages.Account.RegisterModel.OnGetAsync - ModelState is "Valid"
+2024-10-07 01:41:10.047 +02:00 [INF] Executed handler method OnGetAsync, returned result .
+2024-10-07 01:41:10.048 +02:00 [INF] Executing an implicit handler method - ModelState is "Valid"
+2024-10-07 01:41:10.048 +02:00 [INF] Executed an implicit handler method, returned result Microsoft.AspNetCore.Mvc.RazorPages.PageResult.
+2024-10-07 01:41:10.052 +02:00 [INF] Executed page /Account/Register in 6.4147ms
+2024-10-07 01:41:10.052 +02:00 [INF] Executed endpoint '/Account/Register'
+2024-10-07 01:41:10.053 +02:00 [INF] Request finished HTTP/1.1 GET http://localhost:5217/Identity/Account/Register - 200 null text/html; charset=utf-8 8.68ms
+2024-10-07 01:41:10.271 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:5217/Identity/Account/Login - null null
+2024-10-07 01:41:10.272 +02:00 [INF] Executing endpoint '/Account/Login'
+2024-10-07 01:41:10.272 +02:00 [INF] Route matched with {page = "/Account/Login", area = "Identity", action = "", controller = ""}. Executing page /Account/Login
+2024-10-07 01:41:10.274 +02:00 [INF] Executing handler method ITPE3200X.Areas.Identity.Pages.Account.LoginModel.OnGetAsync - ModelState is "Valid"
+2024-10-07 01:41:10.274 +02:00 [INF] AuthenticationScheme: Identity.External signed out.
+2024-10-07 01:41:10.274 +02:00 [INF] Executed handler method OnGetAsync, returned result .
+2024-10-07 01:41:10.274 +02:00 [INF] Executing an implicit handler method - ModelState is "Valid"
+2024-10-07 01:41:10.274 +02:00 [INF] Executed an implicit handler method, returned result Microsoft.AspNetCore.Mvc.RazorPages.PageResult.
+2024-10-07 01:41:10.279 +02:00 [INF] Executed page /Account/Login in 6.9977ms
+2024-10-07 01:41:10.279 +02:00 [INF] Executed endpoint '/Account/Login'
+2024-10-07 01:41:10.279 +02:00 [INF] Request finished HTTP/1.1 GET http://localhost:5217/Identity/Account/Login - 200 null text/html; charset=utf-8 8.4027ms
+2024-10-07 01:41:10.464 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:5217/Identity/Account/Register - null null
+2024-10-07 01:41:10.464 +02:00 [INF] Executing endpoint '/Account/Register'
+2024-10-07 01:41:10.465 +02:00 [INF] Route matched with {page = "/Account/Register", area = "Identity", action = "", controller = ""}. Executing page /Account/Register
+2024-10-07 01:41:10.466 +02:00 [INF] Executing handler method ITPE3200X.Areas.Identity.Pages.Account.RegisterModel.OnGetAsync - ModelState is "Valid"
+2024-10-07 01:41:10.466 +02:00 [INF] Executed handler method OnGetAsync, returned result .
+2024-10-07 01:41:10.466 +02:00 [INF] Executing an implicit handler method - ModelState is "Valid"
+2024-10-07 01:41:10.466 +02:00 [INF] Executed an implicit handler method, returned result Microsoft.AspNetCore.Mvc.RazorPages.PageResult.
+2024-10-07 01:41:10.470 +02:00 [INF] Executed page /Account/Register in 5.1429ms
+2024-10-07 01:41:10.470 +02:00 [INF] Executed endpoint '/Account/Register'
+2024-10-07 01:41:10.470 +02:00 [INF] Request finished HTTP/1.1 GET http://localhost:5217/Identity/Account/Register - 200 null text/html; charset=utf-8 6.6069ms
+2024-10-07 01:41:10.695 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:5217/Identity/Account/Login - null null
+2024-10-07 01:41:10.696 +02:00 [INF] Executing endpoint '/Account/Login'
+2024-10-07 01:41:10.696 +02:00 [INF] Route matched with {page = "/Account/Login", area = "Identity", action = "", controller = ""}. Executing page /Account/Login
+2024-10-07 01:41:10.698 +02:00 [INF] Executing handler method ITPE3200X.Areas.Identity.Pages.Account.LoginModel.OnGetAsync - ModelState is "Valid"
+2024-10-07 01:41:10.699 +02:00 [INF] AuthenticationScheme: Identity.External signed out.
+2024-10-07 01:41:10.699 +02:00 [INF] Executed handler method OnGetAsync, returned result .
+2024-10-07 01:41:10.699 +02:00 [INF] Executing an implicit handler method - ModelState is "Valid"
+2024-10-07 01:41:10.699 +02:00 [INF] Executed an implicit handler method, returned result Microsoft.AspNetCore.Mvc.RazorPages.PageResult.
+2024-10-07 01:41:10.703 +02:00 [INF] Executed page /Account/Login in 7.3906ms
+2024-10-07 01:41:10.703 +02:00 [INF] Executed endpoint '/Account/Login'
+2024-10-07 01:41:10.704 +02:00 [INF] Request finished HTTP/1.1 GET http://localhost:5217/Identity/Account/Login - 200 null text/html; charset=utf-8 8.8044ms
+2024-10-07 01:41:10.887 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:5217/Identity/Account/Register - null null
+2024-10-07 01:41:10.888 +02:00 [INF] Executing endpoint '/Account/Register'
+2024-10-07 01:41:10.888 +02:00 [INF] Route matched with {page = "/Account/Register", area = "Identity", action = "", controller = ""}. Executing page /Account/Register
+2024-10-07 01:41:10.890 +02:00 [INF] Executing handler method ITPE3200X.Areas.Identity.Pages.Account.RegisterModel.OnGetAsync - ModelState is "Valid"
+2024-10-07 01:41:10.890 +02:00 [INF] Executed handler method OnGetAsync, returned result .
+2024-10-07 01:41:10.890 +02:00 [INF] Executing an implicit handler method - ModelState is "Valid"
+2024-10-07 01:41:10.891 +02:00 [INF] Executed an implicit handler method, returned result Microsoft.AspNetCore.Mvc.RazorPages.PageResult.
+2024-10-07 01:41:10.896 +02:00 [INF] Executed page /Account/Register in 7.1945ms
+2024-10-07 01:41:10.896 +02:00 [INF] Executed endpoint '/Account/Register'
+2024-10-07 01:41:10.896 +02:00 [INF] Request finished HTTP/1.1 GET http://localhost:5217/Identity/Account/Register - 200 null text/html; charset=utf-8 9.4386ms
+2024-10-07 01:41:12.561 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:5217/Home/Privacy - null null
+2024-10-07 01:41:12.586 +02:00 [INF] Executing endpoint 'ITPE3200X.Controllers.HomeController.Privacy (ITPE3200X)'
+2024-10-07 01:41:12.591 +02:00 [INF] Route matched with {action = "Privacy", controller = "Home", page = "", area = ""}. Executing controller action with signature Microsoft.AspNetCore.Mvc.IActionResult Privacy() on controller ITPE3200X.Controllers.HomeController (ITPE3200X).
+2024-10-07 01:41:12.591 +02:00 [INF] Executing action method ITPE3200X.Controllers.HomeController.Privacy (ITPE3200X) - Validation state: "Valid"
+2024-10-07 01:41:12.592 +02:00 [INF] Executed action method ITPE3200X.Controllers.HomeController.Privacy (ITPE3200X), returned result Microsoft.AspNetCore.Mvc.ViewResult in 0.5616ms.
+2024-10-07 01:41:12.599 +02:00 [INF] Executing ViewResult, running view Privacy.
+2024-10-07 01:41:12.607 +02:00 [INF] Executed ViewResult - view Privacy executed in 14.3183ms.
+2024-10-07 01:41:12.607 +02:00 [INF] Executed action ITPE3200X.Controllers.HomeController.Privacy (ITPE3200X) in 16.7015ms
+2024-10-07 01:41:12.608 +02:00 [INF] Executed endpoint 'ITPE3200X.Controllers.HomeController.Privacy (ITPE3200X)'
+2024-10-07 01:41:12.608 +02:00 [INF] Request finished HTTP/1.1 GET http://localhost:5217/Home/Privacy - 200 null text/html; charset=utf-8 46.6366ms
+2024-10-07 01:41:12.963 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:5217/ - null null
+2024-10-07 01:41:12.964 +02:00 [INF] Executing endpoint 'ITPE3200X.Controllers.HomeController.Index (ITPE3200X)'
+2024-10-07 01:41:12.964 +02:00 [INF] Route matched with {action = "Index", controller = "Home", page = "", area = ""}. Executing controller action with signature Microsoft.AspNetCore.Mvc.IActionResult Index() on controller ITPE3200X.Controllers.HomeController (ITPE3200X).
+2024-10-07 01:41:12.964 +02:00 [INF] Executing action method ITPE3200X.Controllers.HomeController.Index (ITPE3200X) - Validation state: "Valid"
+2024-10-07 01:41:12.964 +02:00 [INF] Executed action method ITPE3200X.Controllers.HomeController.Index (ITPE3200X), returned result Microsoft.AspNetCore.Mvc.ViewResult in 0.0238ms.
+2024-10-07 01:41:12.965 +02:00 [INF] Executing ViewResult, running view Index.
+2024-10-07 01:41:12.967 +02:00 [INF] Executed ViewResult - view Index executed in 2.5437ms.
+2024-10-07 01:41:12.967 +02:00 [INF] Executed action ITPE3200X.Controllers.HomeController.Index (ITPE3200X) in 3.1922ms
+2024-10-07 01:41:12.967 +02:00 [INF] Executed endpoint 'ITPE3200X.Controllers.HomeController.Index (ITPE3200X)'
+2024-10-07 01:41:12.967 +02:00 [INF] Request finished HTTP/1.1 GET http://localhost:5217/ - 200 null text/html; charset=utf-8 4.8301ms
+2024-10-07 01:41:13.668 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:5217/Home/Privacy - null null
+2024-10-07 01:41:13.669 +02:00 [INF] Executing endpoint 'ITPE3200X.Controllers.HomeController.Privacy (ITPE3200X)'
+2024-10-07 01:41:13.669 +02:00 [INF] Route matched with {action = "Privacy", controller = "Home", page = "", area = ""}. Executing controller action with signature Microsoft.AspNetCore.Mvc.IActionResult Privacy() on controller ITPE3200X.Controllers.HomeController (ITPE3200X).
+2024-10-07 01:41:13.670 +02:00 [INF] Executing action method ITPE3200X.Controllers.HomeController.Privacy (ITPE3200X) - Validation state: "Valid"
+2024-10-07 01:41:13.670 +02:00 [INF] Executed action method ITPE3200X.Controllers.HomeController.Privacy (ITPE3200X), returned result Microsoft.AspNetCore.Mvc.ViewResult in 0.0371ms.
+2024-10-07 01:41:13.670 +02:00 [INF] Executing ViewResult, running view Privacy.
+2024-10-07 01:41:13.673 +02:00 [INF] Executed ViewResult - view Privacy executed in 3.0922ms.
+2024-10-07 01:41:13.674 +02:00 [INF] Executed action ITPE3200X.Controllers.HomeController.Privacy (ITPE3200X) in 4.1869ms
+2024-10-07 01:41:13.674 +02:00 [INF] Executed endpoint 'ITPE3200X.Controllers.HomeController.Privacy (ITPE3200X)'
+2024-10-07 01:41:13.674 +02:00 [INF] Request finished HTTP/1.1 GET http://localhost:5217/Home/Privacy - 200 null text/html; charset=utf-8 6.3037ms
+2024-10-07 01:41:13.963 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:5217/ - null null
+2024-10-07 01:41:13.964 +02:00 [INF] Executing endpoint 'ITPE3200X.Controllers.HomeController.Index (ITPE3200X)'
+2024-10-07 01:41:13.964 +02:00 [INF] Route matched with {action = "Index", controller = "Home", page = "", area = ""}. Executing controller action with signature Microsoft.AspNetCore.Mvc.IActionResult Index() on controller ITPE3200X.Controllers.HomeController (ITPE3200X).
+2024-10-07 01:41:13.964 +02:00 [INF] Executing action method ITPE3200X.Controllers.HomeController.Index (ITPE3200X) - Validation state: "Valid"
+2024-10-07 01:41:13.964 +02:00 [INF] Executed action method ITPE3200X.Controllers.HomeController.Index (ITPE3200X), returned result Microsoft.AspNetCore.Mvc.ViewResult in 0.0222ms.
+2024-10-07 01:41:13.964 +02:00 [INF] Executing ViewResult, running view Index.
+2024-10-07 01:41:13.967 +02:00 [INF] Executed ViewResult - view Index executed in 2.7767ms.
+2024-10-07 01:41:13.967 +02:00 [INF] Executed action ITPE3200X.Controllers.HomeController.Index (ITPE3200X) in 3.4166ms
+2024-10-07 01:41:13.967 +02:00 [INF] Executed endpoint 'ITPE3200X.Controllers.HomeController.Index (ITPE3200X)'
+2024-10-07 01:41:13.968 +02:00 [INF] Request finished HTTP/1.1 GET http://localhost:5217/ - 200 null text/html; charset=utf-8 4.75ms
+2024-10-07 01:41:14.220 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:5217/Home/Privacy - null null
+2024-10-07 01:41:14.221 +02:00 [INF] Executing endpoint 'ITPE3200X.Controllers.HomeController.Privacy (ITPE3200X)'
+2024-10-07 01:41:14.221 +02:00 [INF] Route matched with {action = "Privacy", controller = "Home", page = "", area = ""}. Executing controller action with signature Microsoft.AspNetCore.Mvc.IActionResult Privacy() on controller ITPE3200X.Controllers.HomeController (ITPE3200X).
+2024-10-07 01:41:14.221 +02:00 [INF] Executing action method ITPE3200X.Controllers.HomeController.Privacy (ITPE3200X) - Validation state: "Valid"
+2024-10-07 01:41:14.222 +02:00 [INF] Executed action method ITPE3200X.Controllers.HomeController.Privacy (ITPE3200X), returned result Microsoft.AspNetCore.Mvc.ViewResult in 0.0203ms.
+2024-10-07 01:41:14.222 +02:00 [INF] Executing ViewResult, running view Privacy.
+2024-10-07 01:41:14.224 +02:00 [INF] Executed ViewResult - view Privacy executed in 2.212ms.
+2024-10-07 01:41:14.224 +02:00 [INF] Executed action ITPE3200X.Controllers.HomeController.Privacy (ITPE3200X) in 3.0837ms
+2024-10-07 01:41:14.224 +02:00 [INF] Executed endpoint 'ITPE3200X.Controllers.HomeController.Privacy (ITPE3200X)'
+2024-10-07 01:41:14.224 +02:00 [INF] Request finished HTTP/1.1 GET http://localhost:5217/Home/Privacy - 200 null text/html; charset=utf-8 4.4205ms
+2024-10-07 01:41:15.965 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:5217/Identity/Account/Login - null null
+2024-10-07 01:41:15.966 +02:00 [INF] Executing endpoint '/Account/Login'
+2024-10-07 01:41:15.966 +02:00 [INF] Route matched with {page = "/Account/Login", area = "Identity", action = "", controller = ""}. Executing page /Account/Login
+2024-10-07 01:41:15.968 +02:00 [INF] Executing handler method ITPE3200X.Areas.Identity.Pages.Account.LoginModel.OnGetAsync - ModelState is "Valid"
+2024-10-07 01:41:15.968 +02:00 [INF] AuthenticationScheme: Identity.External signed out.
+2024-10-07 01:41:15.968 +02:00 [INF] Executed handler method OnGetAsync, returned result .
+2024-10-07 01:41:15.968 +02:00 [INF] Executing an implicit handler method - ModelState is "Valid"
+2024-10-07 01:41:15.968 +02:00 [INF] Executed an implicit handler method, returned result Microsoft.AspNetCore.Mvc.RazorPages.PageResult.
+2024-10-07 01:41:15.972 +02:00 [INF] Executed page /Account/Login in 5.8848ms
+2024-10-07 01:41:15.972 +02:00 [INF] Executed endpoint '/Account/Login'
+2024-10-07 01:41:15.973 +02:00 [INF] Request finished HTTP/1.1 GET http://localhost:5217/Identity/Account/Login - 200 null text/html; charset=utf-8 7.383ms
+2024-10-07 01:41:16.112 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:5217/Identity/Account/Login - null null
+2024-10-07 01:41:16.113 +02:00 [INF] Executing endpoint '/Account/Login'
+2024-10-07 01:41:16.113 +02:00 [INF] Route matched with {page = "/Account/Login", area = "Identity", action = "", controller = ""}. Executing page /Account/Login
+2024-10-07 01:41:16.114 +02:00 [INF] Executing handler method ITPE3200X.Areas.Identity.Pages.Account.LoginModel.OnGetAsync - ModelState is "Valid"
+2024-10-07 01:41:16.114 +02:00 [INF] AuthenticationScheme: Identity.External signed out.
+2024-10-07 01:41:16.114 +02:00 [INF] Executed handler method OnGetAsync, returned result .
+2024-10-07 01:41:16.115 +02:00 [INF] Executing an implicit handler method - ModelState is "Valid"
+2024-10-07 01:41:16.115 +02:00 [INF] Executed an implicit handler method, returned result Microsoft.AspNetCore.Mvc.RazorPages.PageResult.
+2024-10-07 01:41:16.120 +02:00 [INF] Executed page /Account/Login in 6.6492ms
+2024-10-07 01:41:16.121 +02:00 [INF] Executed endpoint '/Account/Login'
+2024-10-07 01:41:16.121 +02:00 [INF] Request finished HTTP/1.1 GET http://localhost:5217/Identity/Account/Login - 200 null text/html; charset=utf-8 8.8506ms
+2024-10-07 01:41:16.386 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:5217/Identity/Account/Register - null null
+2024-10-07 01:41:16.388 +02:00 [INF] Executing endpoint '/Account/Register'
+2024-10-07 01:41:16.388 +02:00 [INF] Route matched with {page = "/Account/Register", area = "Identity", action = "", controller = ""}. Executing page /Account/Register
+2024-10-07 01:41:16.389 +02:00 [INF] Executing handler method ITPE3200X.Areas.Identity.Pages.Account.RegisterModel.OnGetAsync - ModelState is "Valid"
+2024-10-07 01:41:16.389 +02:00 [INF] Executed handler method OnGetAsync, returned result .
+2024-10-07 01:41:16.389 +02:00 [INF] Executing an implicit handler method - ModelState is "Valid"
+2024-10-07 01:41:16.389 +02:00 [INF] Executed an implicit handler method, returned result Microsoft.AspNetCore.Mvc.RazorPages.PageResult.
+2024-10-07 01:41:16.394 +02:00 [INF] Executed page /Account/Register in 5.7372ms
+2024-10-07 01:41:16.394 +02:00 [INF] Executed endpoint '/Account/Register'
+2024-10-07 01:41:16.394 +02:00 [INF] Request finished HTTP/1.1 GET http://localhost:5217/Identity/Account/Register - 200 null text/html; charset=utf-8 7.7881ms
+2024-10-07 01:41:16.987 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:5217/Identity/Account/Login - null null
+2024-10-07 01:41:16.987 +02:00 [INF] Executing endpoint '/Account/Login'
+2024-10-07 01:41:16.988 +02:00 [INF] Route matched with {page = "/Account/Login", area = "Identity", action = "", controller = ""}. Executing page /Account/Login
+2024-10-07 01:41:16.989 +02:00 [INF] Executing handler method ITPE3200X.Areas.Identity.Pages.Account.LoginModel.OnGetAsync - ModelState is "Valid"
+2024-10-07 01:41:16.989 +02:00 [INF] AuthenticationScheme: Identity.External signed out.
+2024-10-07 01:41:16.989 +02:00 [INF] Executed handler method OnGetAsync, returned result .
+2024-10-07 01:41:16.989 +02:00 [INF] Executing an implicit handler method - ModelState is "Valid"
+2024-10-07 01:41:16.989 +02:00 [INF] Executed an implicit handler method, returned result Microsoft.AspNetCore.Mvc.RazorPages.PageResult.
+2024-10-07 01:41:16.994 +02:00 [INF] Executed page /Account/Login in 6.4388ms
+2024-10-07 01:41:16.994 +02:00 [INF] Executed endpoint '/Account/Login'
+2024-10-07 01:41:16.995 +02:00 [INF] Request finished HTTP/1.1 GET http://localhost:5217/Identity/Account/Login - 200 null text/html; charset=utf-8 7.9237ms
+2024-10-07 01:41:17.232 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:5217/Identity/Account/Register - null null
+2024-10-07 01:41:17.233 +02:00 [INF] Executing endpoint '/Account/Register'
+2024-10-07 01:41:17.233 +02:00 [INF] Route matched with {page = "/Account/Register", area = "Identity", action = "", controller = ""}. Executing page /Account/Register
+2024-10-07 01:41:17.235 +02:00 [INF] Executing handler method ITPE3200X.Areas.Identity.Pages.Account.RegisterModel.OnGetAsync - ModelState is "Valid"
+2024-10-07 01:41:17.235 +02:00 [INF] Executed handler method OnGetAsync, returned result .
+2024-10-07 01:41:17.235 +02:00 [INF] Executing an implicit handler method - ModelState is "Valid"
+2024-10-07 01:41:17.235 +02:00 [INF] Executed an implicit handler method, returned result Microsoft.AspNetCore.Mvc.RazorPages.PageResult.
+2024-10-07 01:41:17.240 +02:00 [INF] Executed page /Account/Register in 6.445ms
+2024-10-07 01:41:17.240 +02:00 [INF] Executed endpoint '/Account/Register'
+2024-10-07 01:41:17.240 +02:00 [INF] Request finished HTTP/1.1 GET http://localhost:5217/Identity/Account/Register - 200 null text/html; charset=utf-8 7.963ms
+2024-10-07 01:41:21.238 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:5217/ - null null
+2024-10-07 01:41:21.239 +02:00 [INF] Executing endpoint 'ITPE3200X.Controllers.HomeController.Index (ITPE3200X)'
+2024-10-07 01:41:21.239 +02:00 [INF] Route matched with {action = "Index", controller = "Home", page = "", area = ""}. Executing controller action with signature Microsoft.AspNetCore.Mvc.IActionResult Index() on controller ITPE3200X.Controllers.HomeController (ITPE3200X).
+2024-10-07 01:41:21.240 +02:00 [INF] Executing action method ITPE3200X.Controllers.HomeController.Index (ITPE3200X) - Validation state: "Valid"
+2024-10-07 01:41:21.240 +02:00 [INF] Executed action method ITPE3200X.Controllers.HomeController.Index (ITPE3200X), returned result Microsoft.AspNetCore.Mvc.ViewResult in 0.037ms.
+2024-10-07 01:41:21.241 +02:00 [INF] Executing ViewResult, running view Index.
+2024-10-07 01:41:21.244 +02:00 [INF] Executed ViewResult - view Index executed in 3.428ms.
+2024-10-07 01:41:21.244 +02:00 [INF] Executed action ITPE3200X.Controllers.HomeController.Index (ITPE3200X) in 4.4941ms
+2024-10-07 01:41:21.244 +02:00 [INF] Executed endpoint 'ITPE3200X.Controllers.HomeController.Index (ITPE3200X)'
+2024-10-07 01:41:21.244 +02:00 [INF] Request finished HTTP/1.1 GET http://localhost:5217/ - 200 null text/html; charset=utf-8 6.2807ms

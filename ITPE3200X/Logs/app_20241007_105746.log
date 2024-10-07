@@ -1,0 +1,506 @@
+2024-10-07 10:57:46.586 +02:00 [INF] User profile is available. Using '/Users/hermanrov/.aspnet/DataProtection-Keys' as key repository; keys will not be encrypted at rest.
+2024-10-07 10:57:46.852 +02:00 [INF] Now listening on: http://localhost:5217
+2024-10-07 10:57:46.856 +02:00 [INF] Application started. Press Ctrl+C to shut down.
+2024-10-07 10:57:46.859 +02:00 [INF] Hosting environment: Development
+2024-10-07 10:57:46.860 +02:00 [INF] Content root path: /Users/hermanrov/Documents/GitHub/ITPE3200/ITPE3200X/ITPE3200X
+2024-10-07 10:57:47.439 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:5217/ - null null
+2024-10-07 10:57:47.489 +02:00 [INF] Executing endpoint 'ITPE3200X.Controllers.HomeController.Index (ITPE3200X)'
+2024-10-07 10:57:47.528 +02:00 [INF] Route matched with {action = "Index", controller = "Home", page = "", area = ""}. Executing controller action with signature Microsoft.AspNetCore.Mvc.IActionResult Index() on controller ITPE3200X.Controllers.HomeController (ITPE3200X).
+2024-10-07 10:57:47.544 +02:00 [INF] Executing action method ITPE3200X.Controllers.HomeController.Index (ITPE3200X) - Validation state: "Valid"
+2024-10-07 10:57:47.560 +02:00 [INF] Executed action method ITPE3200X.Controllers.HomeController.Index (ITPE3200X), returned result Microsoft.AspNetCore.Mvc.ViewResult in 1.2997ms.
+2024-10-07 10:57:47.574 +02:00 [INF] Executing ViewResult, running view Index.
+2024-10-07 10:57:48.048 +02:00 [INF] Executed ViewResult - view Index executed in 476.2677ms.
+2024-10-07 10:57:48.049 +02:00 [INF] Executed action ITPE3200X.Controllers.HomeController.Index (ITPE3200X) in 521.2616ms
+2024-10-07 10:57:48.049 +02:00 [INF] Executed endpoint 'ITPE3200X.Controllers.HomeController.Index (ITPE3200X)'
+2024-10-07 10:57:48.058 +02:00 [INF] Request finished HTTP/1.1 GET http://localhost:5217/ - 200 null text/html; charset=utf-8 621.9445ms
+2024-10-07 10:57:49.605 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:5217/Identity/Account/Register - null null
+2024-10-07 10:57:49.642 +02:00 [INF] Executing endpoint '/Account/Register'
+2024-10-07 10:57:49.656 +02:00 [INF] Route matched with {page = "/Account/Register", area = "Identity", action = "", controller = ""}. Executing page /Account/Register
+2024-10-07 10:57:49.670 +02:00 [INF] Executing handler method ITPE3200X.Areas.Identity.Pages.Account.RegisterModel.OnGetAsync - ModelState is "Valid"
+2024-10-07 10:57:49.671 +02:00 [INF] Executed handler method OnGetAsync, returned result .
+2024-10-07 10:57:49.675 +02:00 [INF] Executing an implicit handler method - ModelState is "Valid"
+2024-10-07 10:57:49.675 +02:00 [INF] Executed an implicit handler method, returned result Microsoft.AspNetCore.Mvc.RazorPages.PageResult.
+2024-10-07 10:57:49.707 +02:00 [INF] Executed page /Account/Register in 50.8395ms
+2024-10-07 10:57:49.707 +02:00 [INF] Executed endpoint '/Account/Register'
+2024-10-07 10:57:49.707 +02:00 [INF] Request finished HTTP/1.1 GET http://localhost:5217/Identity/Account/Register - 200 null text/html; charset=utf-8 104.8227ms
+2024-10-07 10:58:00.943 +02:00 [INF] Request starting HTTP/1.1 POST http://localhost:5217/Identity/Account/Register - application/x-www-form-urlencoded 280
+2024-10-07 10:58:00.955 +02:00 [INF] Executing endpoint '/Account/Register'
+2024-10-07 10:58:00.956 +02:00 [INF] Route matched with {page = "/Account/Register", area = "Identity", action = "", controller = ""}. Executing page /Account/Register
+2024-10-07 10:58:00.997 +02:00 [INF] Executing handler method ITPE3200X.Areas.Identity.Pages.Account.RegisterModel.OnPostAsync - ModelState is "Valid"
+2024-10-07 10:58:02.297 +02:00 [INF] User created a new account with password.
+2024-10-07 10:58:02.395 +02:00 [INF] AuthenticationScheme: Identity.Application signed in.
+2024-10-07 10:58:02.396 +02:00 [INF] Executed handler method OnPostAsync, returned result Microsoft.AspNetCore.Mvc.LocalRedirectResult.
+2024-10-07 10:58:02.399 +02:00 [INF] Executing LocalRedirectResult, redirecting to /.
+2024-10-07 10:58:02.399 +02:00 [INF] Executed page /Account/Register in 1442.8728ms
+2024-10-07 10:58:02.400 +02:00 [INF] Executed endpoint '/Account/Register'
+2024-10-07 10:58:02.405 +02:00 [INF] Request finished HTTP/1.1 POST http://localhost:5217/Identity/Account/Register - 302 0 null 1467.9006ms
+2024-10-07 10:58:02.407 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:5217/ - null null
+2024-10-07 10:58:02.410 +02:00 [INF] Executing endpoint 'ITPE3200X.Controllers.HomeController.Index (ITPE3200X)'
+2024-10-07 10:58:02.410 +02:00 [INF] Route matched with {action = "Index", controller = "Home", page = "", area = ""}. Executing controller action with signature Microsoft.AspNetCore.Mvc.IActionResult Index() on controller ITPE3200X.Controllers.HomeController (ITPE3200X).
+2024-10-07 10:58:02.410 +02:00 [INF] Executing action method ITPE3200X.Controllers.HomeController.Index (ITPE3200X) - Validation state: "Valid"
+2024-10-07 10:58:02.411 +02:00 [INF] Executed action method ITPE3200X.Controllers.HomeController.Index (ITPE3200X), returned result Microsoft.AspNetCore.Mvc.ViewResult in 0.0344ms.
+2024-10-07 10:58:02.411 +02:00 [INF] Executing ViewResult, running view Index.
+2024-10-07 10:58:02.417 +02:00 [INF] Executed ViewResult - view Index executed in 6.4614ms.
+2024-10-07 10:58:02.417 +02:00 [INF] Executed action ITPE3200X.Controllers.HomeController.Index (ITPE3200X) in 7.0103ms
+2024-10-07 10:58:02.417 +02:00 [INF] Executed endpoint 'ITPE3200X.Controllers.HomeController.Index (ITPE3200X)'
+2024-10-07 10:58:02.418 +02:00 [INF] Request finished HTTP/1.1 GET http://localhost:5217/ - 200 null text/html; charset=utf-8 10.5038ms
+2024-10-07 10:58:06.812 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:5217/Identity/Account/Manage - null null
+2024-10-07 10:58:06.836 +02:00 [INF] Executing endpoint '/Account/Manage/Index'
+2024-10-07 10:58:06.843 +02:00 [INF] Route matched with {page = "/Account/Manage/Index", area = "Identity", action = "", controller = ""}. Executing page /Account/Manage/Index
+2024-10-07 10:58:06.849 +02:00 [INF] Executing handler method ITPE3200X.Areas.Identity.Pages.Account.Manage.IndexModel.OnGetAsync - ModelState is "Valid"
+2024-10-07 10:58:06.918 +02:00 [INF] Executed handler method OnGetAsync, returned result Microsoft.AspNetCore.Mvc.RazorPages.PageResult.
+2024-10-07 10:58:06.941 +02:00 [INF] Executed page /Account/Manage/Index in 98.1058ms
+2024-10-07 10:58:06.941 +02:00 [INF] Executed endpoint '/Account/Manage/Index'
+2024-10-07 10:58:06.942 +02:00 [INF] Request finished HTTP/1.1 GET http://localhost:5217/Identity/Account/Manage - 200 null text/html; charset=utf-8 129.612ms
+2024-10-07 10:58:12.462 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:5217/Identity/Account/Manage/Email - null null
+2024-10-07 10:58:12.468 +02:00 [INF] Executing endpoint '/Account/Manage/Email'
+2024-10-07 10:58:12.474 +02:00 [INF] Route matched with {page = "/Account/Manage/Email", area = "Identity", action = "", controller = ""}. Executing page /Account/Manage/Email
+2024-10-07 10:58:12.479 +02:00 [INF] Executing handler method ITPE3200X.Areas.Identity.Pages.Account.Manage.EmailModel.OnGetAsync - ModelState is "Valid"
+2024-10-07 10:58:12.504 +02:00 [INF] Executed handler method OnGetAsync, returned result Microsoft.AspNetCore.Mvc.RazorPages.PageResult.
+2024-10-07 10:58:12.524 +02:00 [INF] Executed page /Account/Manage/Email in 50.1959ms
+2024-10-07 10:58:12.524 +02:00 [INF] Executed endpoint '/Account/Manage/Email'
+2024-10-07 10:58:12.524 +02:00 [INF] Request finished HTTP/1.1 GET http://localhost:5217/Identity/Account/Manage/Email - 200 null text/html; charset=utf-8 62.6077ms
+2024-10-07 10:58:13.551 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:5217/Identity/Account/Manage/ChangePassword - null null
+2024-10-07 10:58:13.563 +02:00 [INF] Executing endpoint '/Account/Manage/ChangePassword'
+2024-10-07 10:58:13.572 +02:00 [INF] Route matched with {page = "/Account/Manage/ChangePassword", area = "Identity", action = "", controller = ""}. Executing page /Account/Manage/ChangePassword
+2024-10-07 10:58:13.574 +02:00 [INF] Executing handler method ITPE3200X.Areas.Identity.Pages.Account.Manage.ChangePasswordModel.OnGetAsync - ModelState is "Valid"
+2024-10-07 10:58:13.586 +02:00 [INF] Executed handler method OnGetAsync, returned result Microsoft.AspNetCore.Mvc.RazorPages.PageResult.
+2024-10-07 10:58:13.608 +02:00 [INF] Executed page /Account/Manage/ChangePassword in 35.7197ms
+2024-10-07 10:58:13.608 +02:00 [INF] Executed endpoint '/Account/Manage/ChangePassword'
+2024-10-07 10:58:13.609 +02:00 [INF] Request finished HTTP/1.1 GET http://localhost:5217/Identity/Account/Manage/ChangePassword - 200 null text/html; charset=utf-8 57.2759ms
+2024-10-07 10:58:15.147 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:5217/Identity/Account/Manage/TwoFactorAuthentication - null null
+2024-10-07 10:58:15.149 +02:00 [INF] Executing endpoint '/Account/Manage/TwoFactorAuthentication'
+2024-10-07 10:58:15.154 +02:00 [INF] Route matched with {page = "/Account/Manage/TwoFactorAuthentication", area = "Identity", action = "", controller = ""}. Executing page /Account/Manage/TwoFactorAuthentication
+2024-10-07 10:58:15.159 +02:00 [INF] Executing handler method ITPE3200X.Areas.Identity.Pages.Account.Manage.TwoFactorAuthenticationModel.OnGetAsync - ModelState is "Valid"
+2024-10-07 10:58:15.211 +02:00 [INF] Executed handler method OnGetAsync, returned result Microsoft.AspNetCore.Mvc.RazorPages.PageResult.
+2024-10-07 10:58:15.221 +02:00 [INF] Executed page /Account/Manage/TwoFactorAuthentication in 66.4498ms
+2024-10-07 10:58:15.221 +02:00 [INF] Executed endpoint '/Account/Manage/TwoFactorAuthentication'
+2024-10-07 10:58:15.221 +02:00 [INF] Request finished HTTP/1.1 GET http://localhost:5217/Identity/Account/Manage/TwoFactorAuthentication - 200 null text/html; charset=utf-8 73.799ms
+2024-10-07 10:58:16.707 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:5217/Identity/Account/Manage/PersonalData - null null
+2024-10-07 10:58:16.708 +02:00 [INF] Executing endpoint '/Account/Manage/PersonalData'
+2024-10-07 10:58:16.712 +02:00 [INF] Route matched with {page = "/Account/Manage/PersonalData", area = "Identity", action = "", controller = ""}. Executing page /Account/Manage/PersonalData
+2024-10-07 10:58:16.713 +02:00 [INF] Executing handler method ITPE3200X.Areas.Identity.Pages.Account.Manage.PersonalDataModel.OnGet - ModelState is "Valid"
+2024-10-07 10:58:16.717 +02:00 [INF] Executed handler method OnGet, returned result Microsoft.AspNetCore.Mvc.RazorPages.PageResult.
+2024-10-07 10:58:16.726 +02:00 [INF] Executed page /Account/Manage/PersonalData in 14.36ms
+2024-10-07 10:58:16.726 +02:00 [INF] Executed endpoint '/Account/Manage/PersonalData'
+2024-10-07 10:58:16.726 +02:00 [INF] Request finished HTTP/1.1 GET http://localhost:5217/Identity/Account/Manage/PersonalData - 200 null text/html; charset=utf-8 19.3692ms
+2024-10-07 10:58:26.361 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:5217/Identity/Account/Manage - null null
+2024-10-07 10:58:26.371 +02:00 [INF] Executing endpoint '/Account/Manage/Index'
+2024-10-07 10:58:26.372 +02:00 [INF] Route matched with {page = "/Account/Manage/Index", area = "Identity", action = "", controller = ""}. Executing page /Account/Manage/Index
+2024-10-07 10:58:26.374 +02:00 [INF] Executing handler method ITPE3200X.Areas.Identity.Pages.Account.Manage.IndexModel.OnGetAsync - ModelState is "Valid"
+2024-10-07 10:58:26.387 +02:00 [INF] Executed handler method OnGetAsync, returned result Microsoft.AspNetCore.Mvc.RazorPages.PageResult.
+2024-10-07 10:58:26.392 +02:00 [INF] Executed page /Account/Manage/Index in 20.1161ms
+2024-10-07 10:58:26.393 +02:00 [INF] Executed endpoint '/Account/Manage/Index'
+2024-10-07 10:58:26.393 +02:00 [INF] Request finished HTTP/1.1 GET http://localhost:5217/Identity/Account/Manage - 200 null text/html; charset=utf-8 32.9264ms
+2024-10-07 10:58:26.993 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:5217/Identity/Account/Manage/Email - null null
+2024-10-07 10:58:26.994 +02:00 [INF] Executing endpoint '/Account/Manage/Email'
+2024-10-07 10:58:26.995 +02:00 [INF] Route matched with {page = "/Account/Manage/Email", area = "Identity", action = "", controller = ""}. Executing page /Account/Manage/Email
+2024-10-07 10:58:26.996 +02:00 [INF] Executing handler method ITPE3200X.Areas.Identity.Pages.Account.Manage.EmailModel.OnGetAsync - ModelState is "Valid"
+2024-10-07 10:58:27.005 +02:00 [INF] Executed handler method OnGetAsync, returned result Microsoft.AspNetCore.Mvc.RazorPages.PageResult.
+2024-10-07 10:58:27.013 +02:00 [INF] Executed page /Account/Manage/Email in 17.2465ms
+2024-10-07 10:58:27.013 +02:00 [INF] Executed endpoint '/Account/Manage/Email'
+2024-10-07 10:58:27.013 +02:00 [INF] Request finished HTTP/1.1 GET http://localhost:5217/Identity/Account/Manage/Email - 200 null text/html; charset=utf-8 20.6858ms
+2024-10-07 10:58:27.402 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:5217/Identity/Account/Manage/ChangePassword - null null
+2024-10-07 10:58:27.404 +02:00 [INF] Executing endpoint '/Account/Manage/ChangePassword'
+2024-10-07 10:58:27.404 +02:00 [INF] Route matched with {page = "/Account/Manage/ChangePassword", area = "Identity", action = "", controller = ""}. Executing page /Account/Manage/ChangePassword
+2024-10-07 10:58:27.405 +02:00 [INF] Executing handler method ITPE3200X.Areas.Identity.Pages.Account.Manage.ChangePasswordModel.OnGetAsync - ModelState is "Valid"
+2024-10-07 10:58:27.412 +02:00 [INF] Executed handler method OnGetAsync, returned result Microsoft.AspNetCore.Mvc.RazorPages.PageResult.
+2024-10-07 10:58:27.419 +02:00 [INF] Executed page /Account/Manage/ChangePassword in 14.4955ms
+2024-10-07 10:58:27.419 +02:00 [INF] Executed endpoint '/Account/Manage/ChangePassword'
+2024-10-07 10:58:27.419 +02:00 [INF] Request finished HTTP/1.1 GET http://localhost:5217/Identity/Account/Manage/ChangePassword - 200 null text/html; charset=utf-8 17.5326ms
+2024-10-07 10:58:27.798 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:5217/Identity/Account/Manage/TwoFactorAuthentication - null null
+2024-10-07 10:58:27.799 +02:00 [INF] Executing endpoint '/Account/Manage/TwoFactorAuthentication'
+2024-10-07 10:58:27.799 +02:00 [INF] Route matched with {page = "/Account/Manage/TwoFactorAuthentication", area = "Identity", action = "", controller = ""}. Executing page /Account/Manage/TwoFactorAuthentication
+2024-10-07 10:58:27.799 +02:00 [INF] Executing handler method ITPE3200X.Areas.Identity.Pages.Account.Manage.TwoFactorAuthenticationModel.OnGetAsync - ModelState is "Valid"
+2024-10-07 10:58:27.807 +02:00 [INF] Executed handler method OnGetAsync, returned result Microsoft.AspNetCore.Mvc.RazorPages.PageResult.
+2024-10-07 10:58:27.809 +02:00 [INF] Executed page /Account/Manage/TwoFactorAuthentication in 9.6149ms
+2024-10-07 10:58:27.809 +02:00 [INF] Executed endpoint '/Account/Manage/TwoFactorAuthentication'
+2024-10-07 10:58:27.809 +02:00 [INF] Request finished HTTP/1.1 GET http://localhost:5217/Identity/Account/Manage/TwoFactorAuthentication - 200 null text/html; charset=utf-8 11.098ms
+2024-10-07 10:58:28.261 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:5217/Identity/Account/Manage/PersonalData - null null
+2024-10-07 10:58:28.263 +02:00 [INF] Executing endpoint '/Account/Manage/PersonalData'
+2024-10-07 10:58:28.263 +02:00 [INF] Route matched with {page = "/Account/Manage/PersonalData", area = "Identity", action = "", controller = ""}. Executing page /Account/Manage/PersonalData
+2024-10-07 10:58:28.264 +02:00 [INF] Executing handler method ITPE3200X.Areas.Identity.Pages.Account.Manage.PersonalDataModel.OnGet - ModelState is "Valid"
+2024-10-07 10:58:28.271 +02:00 [INF] Executed handler method OnGet, returned result Microsoft.AspNetCore.Mvc.RazorPages.PageResult.
+2024-10-07 10:58:28.279 +02:00 [INF] Executed page /Account/Manage/PersonalData in 15.469ms
+2024-10-07 10:58:28.279 +02:00 [INF] Executed endpoint '/Account/Manage/PersonalData'
+2024-10-07 10:58:28.279 +02:00 [INF] Request finished HTTP/1.1 GET http://localhost:5217/Identity/Account/Manage/PersonalData - 200 null text/html; charset=utf-8 18.6456ms
+2024-10-07 10:58:28.992 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:5217/Identity/Account/Manage - null null
+2024-10-07 10:58:28.993 +02:00 [INF] Executing endpoint '/Account/Manage/Index'
+2024-10-07 10:58:28.993 +02:00 [INF] Route matched with {page = "/Account/Manage/Index", area = "Identity", action = "", controller = ""}. Executing page /Account/Manage/Index
+2024-10-07 10:58:28.994 +02:00 [INF] Executing handler method ITPE3200X.Areas.Identity.Pages.Account.Manage.IndexModel.OnGetAsync - ModelState is "Valid"
+2024-10-07 10:58:29.001 +02:00 [INF] Executed handler method OnGetAsync, returned result Microsoft.AspNetCore.Mvc.RazorPages.PageResult.
+2024-10-07 10:58:29.007 +02:00 [INF] Executed page /Account/Manage/Index in 13.9982ms
+2024-10-07 10:58:29.008 +02:00 [INF] Executed endpoint '/Account/Manage/Index'
+2024-10-07 10:58:29.008 +02:00 [INF] Request finished HTTP/1.1 GET http://localhost:5217/Identity/Account/Manage - 200 null text/html; charset=utf-8 16.6436ms
+2024-10-07 10:58:32.880 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:5217/Identity/Account/Manage/TwoFactorAuthentication - null null
+2024-10-07 10:58:32.883 +02:00 [INF] Executing endpoint '/Account/Manage/TwoFactorAuthentication'
+2024-10-07 10:58:32.883 +02:00 [INF] Route matched with {page = "/Account/Manage/TwoFactorAuthentication", area = "Identity", action = "", controller = ""}. Executing page /Account/Manage/TwoFactorAuthentication
+2024-10-07 10:58:32.884 +02:00 [INF] Executing handler method ITPE3200X.Areas.Identity.Pages.Account.Manage.TwoFactorAuthenticationModel.OnGetAsync - ModelState is "Valid"
+2024-10-07 10:58:32.903 +02:00 [INF] Executed handler method OnGetAsync, returned result Microsoft.AspNetCore.Mvc.RazorPages.PageResult.
+2024-10-07 10:58:32.907 +02:00 [INF] Executed page /Account/Manage/TwoFactorAuthentication in 23.7808ms
+2024-10-07 10:58:32.907 +02:00 [INF] Executed endpoint '/Account/Manage/TwoFactorAuthentication'
+2024-10-07 10:58:32.907 +02:00 [INF] Request finished HTTP/1.1 GET http://localhost:5217/Identity/Account/Manage/TwoFactorAuthentication - 200 null text/html; charset=utf-8 27.1393ms
+2024-10-07 10:58:38.283 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:5217/Identity/Account/Manage/EnableAuthenticator - null null
+2024-10-07 10:58:38.285 +02:00 [INF] Executing endpoint '/Account/Manage/EnableAuthenticator'
+2024-10-07 10:58:38.296 +02:00 [INF] Route matched with {page = "/Account/Manage/EnableAuthenticator", area = "Identity", action = "", controller = ""}. Executing page /Account/Manage/EnableAuthenticator
+2024-10-07 10:58:38.299 +02:00 [INF] Executing handler method ITPE3200X.Areas.Identity.Pages.Account.Manage.EnableAuthenticatorModel.OnGetAsync - ModelState is "Valid"
+2024-10-07 10:58:38.384 +02:00 [INF] Executed handler method OnGetAsync, returned result Microsoft.AspNetCore.Mvc.RazorPages.PageResult.
+2024-10-07 10:58:38.392 +02:00 [INF] Executed page /Account/Manage/EnableAuthenticator in 95.9534ms
+2024-10-07 10:58:38.393 +02:00 [INF] Executed endpoint '/Account/Manage/EnableAuthenticator'
+2024-10-07 10:58:38.393 +02:00 [INF] Request finished HTTP/1.1 GET http://localhost:5217/Identity/Account/Manage/EnableAuthenticator - 200 null text/html; charset=utf-8 109.5292ms
+2024-10-07 10:59:10.347 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:5217/ - null null
+2024-10-07 10:59:10.352 +02:00 [INF] Executing endpoint 'ITPE3200X.Controllers.HomeController.Index (ITPE3200X)'
+2024-10-07 10:59:10.354 +02:00 [INF] Route matched with {action = "Index", controller = "Home", page = "", area = ""}. Executing controller action with signature Microsoft.AspNetCore.Mvc.IActionResult Index() on controller ITPE3200X.Controllers.HomeController (ITPE3200X).
+2024-10-07 10:59:10.355 +02:00 [INF] Executing action method ITPE3200X.Controllers.HomeController.Index (ITPE3200X) - Validation state: "Valid"
+2024-10-07 10:59:10.355 +02:00 [INF] Executed action method ITPE3200X.Controllers.HomeController.Index (ITPE3200X), returned result Microsoft.AspNetCore.Mvc.ViewResult in 0.0634ms.
+2024-10-07 10:59:10.357 +02:00 [INF] Executing ViewResult, running view Index.
+2024-10-07 10:59:10.389 +02:00 [INF] Executed ViewResult - view Index executed in 33.6419ms.
+2024-10-07 10:59:10.389 +02:00 [INF] Executed action ITPE3200X.Controllers.HomeController.Index (ITPE3200X) in 35.5386ms
+2024-10-07 10:59:10.389 +02:00 [INF] Executed endpoint 'ITPE3200X.Controllers.HomeController.Index (ITPE3200X)'
+2024-10-07 10:59:10.390 +02:00 [INF] Request finished HTTP/1.1 GET http://localhost:5217/ - 200 null text/html; charset=utf-8 43.0161ms
+2024-10-07 10:59:12.902 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:5217/Identity/Account/Manage - null null
+2024-10-07 10:59:12.903 +02:00 [INF] Executing endpoint '/Account/Manage/Index'
+2024-10-07 10:59:12.903 +02:00 [INF] Route matched with {page = "/Account/Manage/Index", area = "Identity", action = "", controller = ""}. Executing page /Account/Manage/Index
+2024-10-07 10:59:12.904 +02:00 [INF] Executing handler method ITPE3200X.Areas.Identity.Pages.Account.Manage.IndexModel.OnGetAsync - ModelState is "Valid"
+2024-10-07 10:59:12.910 +02:00 [INF] Executed handler method OnGetAsync, returned result Microsoft.AspNetCore.Mvc.RazorPages.PageResult.
+2024-10-07 10:59:12.912 +02:00 [INF] Executed page /Account/Manage/Index in 8.7309ms
+2024-10-07 10:59:12.912 +02:00 [INF] Executed endpoint '/Account/Manage/Index'
+2024-10-07 10:59:12.912 +02:00 [INF] Request finished HTTP/1.1 GET http://localhost:5217/Identity/Account/Manage - 200 null text/html; charset=utf-8 10.7465ms
+2024-10-07 10:59:14.092 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:5217/Identity/Account/Manage/Email - null null
+2024-10-07 10:59:14.093 +02:00 [INF] Executing endpoint '/Account/Manage/Email'
+2024-10-07 10:59:14.094 +02:00 [INF] Route matched with {page = "/Account/Manage/Email", area = "Identity", action = "", controller = ""}. Executing page /Account/Manage/Email
+2024-10-07 10:59:14.094 +02:00 [INF] Executing handler method ITPE3200X.Areas.Identity.Pages.Account.Manage.EmailModel.OnGetAsync - ModelState is "Valid"
+2024-10-07 10:59:14.097 +02:00 [INF] Executed handler method OnGetAsync, returned result Microsoft.AspNetCore.Mvc.RazorPages.PageResult.
+2024-10-07 10:59:14.100 +02:00 [INF] Executed page /Account/Manage/Email in 6.0909ms
+2024-10-07 10:59:14.100 +02:00 [INF] Executed endpoint '/Account/Manage/Email'
+2024-10-07 10:59:14.100 +02:00 [INF] Request finished HTTP/1.1 GET http://localhost:5217/Identity/Account/Manage/Email - 200 null text/html; charset=utf-8 7.4533ms
+2024-10-07 10:59:16.550 +02:00 [INF] Request starting HTTP/1.1 POST http://localhost:5217/Identity/Account/Manage/Email?handler=SendVerificationEmail - application/x-www-form-urlencoded 263
+2024-10-07 10:59:16.552 +02:00 [INF] Executing endpoint '/Account/Manage/Email'
+2024-10-07 10:59:16.554 +02:00 [INF] Route matched with {page = "/Account/Manage/Email", area = "Identity", action = "", controller = ""}. Executing page /Account/Manage/Email
+2024-10-07 10:59:16.574 +02:00 [INF] Executing handler method ITPE3200X.Areas.Identity.Pages.Account.Manage.EmailModel.OnPostSendVerificationEmailAsync - ModelState is "Valid"
+2024-10-07 10:59:16.587 +02:00 [INF] Executed handler method OnPostSendVerificationEmailAsync, returned result Microsoft.AspNetCore.Mvc.RedirectToPageResult.
+2024-10-07 10:59:16.589 +02:00 [INF] Executing RedirectToPageResult, redirecting to null.
+2024-10-07 10:59:16.599 +02:00 [INF] Executed page /Account/Manage/Email in 44.6928ms
+2024-10-07 10:59:16.599 +02:00 [INF] Executed endpoint '/Account/Manage/Email'
+2024-10-07 10:59:16.599 +02:00 [INF] Request finished HTTP/1.1 POST http://localhost:5217/Identity/Account/Manage/Email?handler=SendVerificationEmail - 302 0 null 48.904ms
+2024-10-07 10:59:16.602 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:5217/Identity/Account/Manage/Email - null null
+2024-10-07 10:59:16.603 +02:00 [INF] Executing endpoint '/Account/Manage/Email'
+2024-10-07 10:59:16.603 +02:00 [INF] Route matched with {page = "/Account/Manage/Email", area = "Identity", action = "", controller = ""}. Executing page /Account/Manage/Email
+2024-10-07 10:59:16.606 +02:00 [INF] Executing handler method ITPE3200X.Areas.Identity.Pages.Account.Manage.EmailModel.OnGetAsync - ModelState is "Valid"
+2024-10-07 10:59:16.609 +02:00 [INF] Executed handler method OnGetAsync, returned result Microsoft.AspNetCore.Mvc.RazorPages.PageResult.
+2024-10-07 10:59:16.611 +02:00 [INF] Executed page /Account/Manage/Email in 7.8345ms
+2024-10-07 10:59:16.611 +02:00 [INF] Executed endpoint '/Account/Manage/Email'
+2024-10-07 10:59:16.611 +02:00 [INF] Request finished HTTP/1.1 GET http://localhost:5217/Identity/Account/Manage/Email - 200 null text/html; charset=utf-8 8.9955ms
+2024-10-07 11:00:23.521 +02:00 [INF] Request starting HTTP/1.1 POST http://localhost:5217/Identity/Account/Manage/Email?handler=SendVerificationEmail - application/x-www-form-urlencoded 263
+2024-10-07 11:00:23.532 +02:00 [INF] Executing endpoint '/Account/Manage/Email'
+2024-10-07 11:00:23.533 +02:00 [INF] Route matched with {page = "/Account/Manage/Email", area = "Identity", action = "", controller = ""}. Executing page /Account/Manage/Email
+2024-10-07 11:00:23.546 +02:00 [INF] Executing handler method ITPE3200X.Areas.Identity.Pages.Account.Manage.EmailModel.OnPostSendVerificationEmailAsync - ModelState is "Valid"
+2024-10-07 11:00:23.570 +02:00 [INF] Executed handler method OnPostSendVerificationEmailAsync, returned result Microsoft.AspNetCore.Mvc.RedirectToPageResult.
+2024-10-07 11:00:23.571 +02:00 [INF] Executing RedirectToPageResult, redirecting to null.
+2024-10-07 11:00:23.573 +02:00 [INF] Executed page /Account/Manage/Email in 39.3122ms
+2024-10-07 11:00:23.574 +02:00 [INF] Executed endpoint '/Account/Manage/Email'
+2024-10-07 11:00:23.574 +02:00 [INF] Request finished HTTP/1.1 POST http://localhost:5217/Identity/Account/Manage/Email?handler=SendVerificationEmail - 302 0 null 53.6087ms
+2024-10-07 11:00:23.581 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:5217/Identity/Account/Manage/Email - null null
+2024-10-07 11:00:23.584 +02:00 [INF] Executing endpoint '/Account/Manage/Email'
+2024-10-07 11:00:23.584 +02:00 [INF] Route matched with {page = "/Account/Manage/Email", area = "Identity", action = "", controller = ""}. Executing page /Account/Manage/Email
+2024-10-07 11:00:23.585 +02:00 [INF] Executing handler method ITPE3200X.Areas.Identity.Pages.Account.Manage.EmailModel.OnGetAsync - ModelState is "Valid"
+2024-10-07 11:00:23.588 +02:00 [INF] Executed handler method OnGetAsync, returned result Microsoft.AspNetCore.Mvc.RazorPages.PageResult.
+2024-10-07 11:00:23.592 +02:00 [INF] Executed page /Account/Manage/Email in 8.0508ms
+2024-10-07 11:00:23.592 +02:00 [INF] Executed endpoint '/Account/Manage/Email'
+2024-10-07 11:00:23.592 +02:00 [INF] Request finished HTTP/1.1 GET http://localhost:5217/Identity/Account/Manage/Email - 200 null text/html; charset=utf-8 10.7153ms
+2024-10-07 11:00:24.513 +02:00 [INF] Request starting HTTP/1.1 POST http://localhost:5217/Identity/Account/Manage/Email?handler=SendVerificationEmail - application/x-www-form-urlencoded 263
+2024-10-07 11:00:24.545 +02:00 [INF] Executing endpoint '/Account/Manage/Email'
+2024-10-07 11:00:24.545 +02:00 [INF] Route matched with {page = "/Account/Manage/Email", area = "Identity", action = "", controller = ""}. Executing page /Account/Manage/Email
+2024-10-07 11:00:24.547 +02:00 [INF] Executing handler method ITPE3200X.Areas.Identity.Pages.Account.Manage.EmailModel.OnPostSendVerificationEmailAsync - ModelState is "Valid"
+2024-10-07 11:00:24.558 +02:00 [INF] Executed handler method OnPostSendVerificationEmailAsync, returned result Microsoft.AspNetCore.Mvc.RedirectToPageResult.
+2024-10-07 11:00:24.561 +02:00 [INF] Executing RedirectToPageResult, redirecting to null.
+2024-10-07 11:00:24.561 +02:00 [INF] Executed page /Account/Manage/Email in 15.9253ms
+2024-10-07 11:00:24.562 +02:00 [INF] Executed endpoint '/Account/Manage/Email'
+2024-10-07 11:00:24.563 +02:00 [INF] Request finished HTTP/1.1 POST http://localhost:5217/Identity/Account/Manage/Email?handler=SendVerificationEmail - 302 0 null 49.534ms
+2024-10-07 11:00:24.566 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:5217/Identity/Account/Manage/Email - null null
+2024-10-07 11:00:24.568 +02:00 [INF] Executing endpoint '/Account/Manage/Email'
+2024-10-07 11:00:24.569 +02:00 [INF] Route matched with {page = "/Account/Manage/Email", area = "Identity", action = "", controller = ""}. Executing page /Account/Manage/Email
+2024-10-07 11:00:24.569 +02:00 [INF] Executing handler method ITPE3200X.Areas.Identity.Pages.Account.Manage.EmailModel.OnGetAsync - ModelState is "Valid"
+2024-10-07 11:00:24.574 +02:00 [INF] Executed handler method OnGetAsync, returned result Microsoft.AspNetCore.Mvc.RazorPages.PageResult.
+2024-10-07 11:00:24.577 +02:00 [INF] Executed page /Account/Manage/Email in 8.2022ms
+2024-10-07 11:00:24.577 +02:00 [INF] Executed endpoint '/Account/Manage/Email'
+2024-10-07 11:00:24.577 +02:00 [INF] Request finished HTTP/1.1 GET http://localhost:5217/Identity/Account/Manage/Email - 200 null text/html; charset=utf-8 10.8405ms
+2024-10-07 11:00:25.063 +02:00 [INF] Request starting HTTP/1.1 POST http://localhost:5217/Identity/Account/Manage/Email?handler=SendVerificationEmail - application/x-www-form-urlencoded 263
+2024-10-07 11:00:25.064 +02:00 [INF] Executing endpoint '/Account/Manage/Email'
+2024-10-07 11:00:25.065 +02:00 [INF] Route matched with {page = "/Account/Manage/Email", area = "Identity", action = "", controller = ""}. Executing page /Account/Manage/Email
+2024-10-07 11:00:25.066 +02:00 [INF] Executing handler method ITPE3200X.Areas.Identity.Pages.Account.Manage.EmailModel.OnPostSendVerificationEmailAsync - ModelState is "Valid"
+2024-10-07 11:00:25.072 +02:00 [INF] Executed handler method OnPostSendVerificationEmailAsync, returned result Microsoft.AspNetCore.Mvc.RedirectToPageResult.
+2024-10-07 11:00:25.073 +02:00 [INF] Executing RedirectToPageResult, redirecting to null.
+2024-10-07 11:00:25.073 +02:00 [INF] Executed page /Account/Manage/Email in 8.5805ms
+2024-10-07 11:00:25.073 +02:00 [INF] Executed endpoint '/Account/Manage/Email'
+2024-10-07 11:00:25.074 +02:00 [INF] Request finished HTTP/1.1 POST http://localhost:5217/Identity/Account/Manage/Email?handler=SendVerificationEmail - 302 0 null 10.8122ms
+2024-10-07 11:00:25.077 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:5217/Identity/Account/Manage/Email - null null
+2024-10-07 11:00:25.079 +02:00 [INF] Executing endpoint '/Account/Manage/Email'
+2024-10-07 11:00:25.079 +02:00 [INF] Route matched with {page = "/Account/Manage/Email", area = "Identity", action = "", controller = ""}. Executing page /Account/Manage/Email
+2024-10-07 11:00:25.081 +02:00 [INF] Executing handler method ITPE3200X.Areas.Identity.Pages.Account.Manage.EmailModel.OnGetAsync - ModelState is "Valid"
+2024-10-07 11:00:25.087 +02:00 [INF] Executed handler method OnGetAsync, returned result Microsoft.AspNetCore.Mvc.RazorPages.PageResult.
+2024-10-07 11:00:25.091 +02:00 [INF] Executed page /Account/Manage/Email in 11.7236ms
+2024-10-07 11:00:25.091 +02:00 [INF] Executed endpoint '/Account/Manage/Email'
+2024-10-07 11:00:25.091 +02:00 [INF] Request finished HTTP/1.1 GET http://localhost:5217/Identity/Account/Manage/Email - 200 null text/html; charset=utf-8 14.449ms
+2024-10-07 11:00:25.260 +02:00 [INF] Request starting HTTP/1.1 POST http://localhost:5217/Identity/Account/Manage/Email?handler=SendVerificationEmail - application/x-www-form-urlencoded 263
+2024-10-07 11:00:25.262 +02:00 [INF] Executing endpoint '/Account/Manage/Email'
+2024-10-07 11:00:25.262 +02:00 [INF] Route matched with {page = "/Account/Manage/Email", area = "Identity", action = "", controller = ""}. Executing page /Account/Manage/Email
+2024-10-07 11:00:25.263 +02:00 [INF] Executing handler method ITPE3200X.Areas.Identity.Pages.Account.Manage.EmailModel.OnPostSendVerificationEmailAsync - ModelState is "Valid"
+2024-10-07 11:00:25.266 +02:00 [INF] Executed handler method OnPostSendVerificationEmailAsync, returned result Microsoft.AspNetCore.Mvc.RedirectToPageResult.
+2024-10-07 11:00:25.267 +02:00 [INF] Executing RedirectToPageResult, redirecting to null.
+2024-10-07 11:00:25.267 +02:00 [INF] Executed page /Account/Manage/Email in 4.805ms
+2024-10-07 11:00:25.267 +02:00 [INF] Executed endpoint '/Account/Manage/Email'
+2024-10-07 11:00:25.267 +02:00 [INF] Request finished HTTP/1.1 POST http://localhost:5217/Identity/Account/Manage/Email?handler=SendVerificationEmail - 302 0 null 6.8884ms
+2024-10-07 11:00:25.269 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:5217/Identity/Account/Manage/Email - null null
+2024-10-07 11:00:25.270 +02:00 [INF] Executing endpoint '/Account/Manage/Email'
+2024-10-07 11:00:25.270 +02:00 [INF] Route matched with {page = "/Account/Manage/Email", area = "Identity", action = "", controller = ""}. Executing page /Account/Manage/Email
+2024-10-07 11:00:25.270 +02:00 [INF] Executing handler method ITPE3200X.Areas.Identity.Pages.Account.Manage.EmailModel.OnGetAsync - ModelState is "Valid"
+2024-10-07 11:00:25.272 +02:00 [INF] Executed handler method OnGetAsync, returned result Microsoft.AspNetCore.Mvc.RazorPages.PageResult.
+2024-10-07 11:00:25.273 +02:00 [INF] Executed page /Account/Manage/Email in 3.579ms
+2024-10-07 11:00:25.273 +02:00 [INF] Executed endpoint '/Account/Manage/Email'
+2024-10-07 11:00:25.274 +02:00 [INF] Request finished HTTP/1.1 GET http://localhost:5217/Identity/Account/Manage/Email - 200 null text/html; charset=utf-8 4.5509ms
+2024-10-07 11:00:25.433 +02:00 [INF] Request starting HTTP/1.1 POST http://localhost:5217/Identity/Account/Manage/Email?handler=SendVerificationEmail - application/x-www-form-urlencoded 263
+2024-10-07 11:00:25.435 +02:00 [INF] Executing endpoint '/Account/Manage/Email'
+2024-10-07 11:00:25.435 +02:00 [INF] Route matched with {page = "/Account/Manage/Email", area = "Identity", action = "", controller = ""}. Executing page /Account/Manage/Email
+2024-10-07 11:00:25.437 +02:00 [INF] Executing handler method ITPE3200X.Areas.Identity.Pages.Account.Manage.EmailModel.OnPostSendVerificationEmailAsync - ModelState is "Valid"
+2024-10-07 11:00:25.445 +02:00 [INF] Executed handler method OnPostSendVerificationEmailAsync, returned result Microsoft.AspNetCore.Mvc.RedirectToPageResult.
+2024-10-07 11:00:25.446 +02:00 [INF] Executing RedirectToPageResult, redirecting to null.
+2024-10-07 11:00:25.446 +02:00 [INF] Executed page /Account/Manage/Email in 10.3832ms
+2024-10-07 11:00:25.446 +02:00 [INF] Executed endpoint '/Account/Manage/Email'
+2024-10-07 11:00:25.446 +02:00 [INF] Request finished HTTP/1.1 POST http://localhost:5217/Identity/Account/Manage/Email?handler=SendVerificationEmail - 302 0 null 12.7572ms
+2024-10-07 11:00:25.449 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:5217/Identity/Account/Manage/Email - null null
+2024-10-07 11:00:25.453 +02:00 [INF] Executing endpoint '/Account/Manage/Email'
+2024-10-07 11:00:25.453 +02:00 [INF] Route matched with {page = "/Account/Manage/Email", area = "Identity", action = "", controller = ""}. Executing page /Account/Manage/Email
+2024-10-07 11:00:25.454 +02:00 [INF] Executing handler method ITPE3200X.Areas.Identity.Pages.Account.Manage.EmailModel.OnGetAsync - ModelState is "Valid"
+2024-10-07 11:00:25.459 +02:00 [INF] Executed handler method OnGetAsync, returned result Microsoft.AspNetCore.Mvc.RazorPages.PageResult.
+2024-10-07 11:00:25.461 +02:00 [INF] Executed page /Account/Manage/Email in 8.1242ms
+2024-10-07 11:00:25.461 +02:00 [INF] Executed endpoint '/Account/Manage/Email'
+2024-10-07 11:00:25.462 +02:00 [INF] Request finished HTTP/1.1 GET http://localhost:5217/Identity/Account/Manage/Email - 200 null text/html; charset=utf-8 12.0844ms
+2024-10-07 11:00:25.694 +02:00 [INF] Request starting HTTP/1.1 POST http://localhost:5217/Identity/Account/Manage/Email?handler=SendVerificationEmail - application/x-www-form-urlencoded 263
+2024-10-07 11:00:25.695 +02:00 [INF] Executing endpoint '/Account/Manage/Email'
+2024-10-07 11:00:25.696 +02:00 [INF] Route matched with {page = "/Account/Manage/Email", area = "Identity", action = "", controller = ""}. Executing page /Account/Manage/Email
+2024-10-07 11:00:25.697 +02:00 [INF] Executing handler method ITPE3200X.Areas.Identity.Pages.Account.Manage.EmailModel.OnPostSendVerificationEmailAsync - ModelState is "Valid"
+2024-10-07 11:00:25.705 +02:00 [INF] Executed handler method OnPostSendVerificationEmailAsync, returned result Microsoft.AspNetCore.Mvc.RedirectToPageResult.
+2024-10-07 11:00:25.705 +02:00 [INF] Executing RedirectToPageResult, redirecting to null.
+2024-10-07 11:00:25.705 +02:00 [INF] Executed page /Account/Manage/Email in 9.7365ms
+2024-10-07 11:00:25.705 +02:00 [INF] Executed endpoint '/Account/Manage/Email'
+2024-10-07 11:00:25.706 +02:00 [INF] Request finished HTTP/1.1 POST http://localhost:5217/Identity/Account/Manage/Email?handler=SendVerificationEmail - 302 0 null 11.8154ms
+2024-10-07 11:00:25.709 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:5217/Identity/Account/Manage/Email - null null
+2024-10-07 11:00:25.710 +02:00 [INF] Executing endpoint '/Account/Manage/Email'
+2024-10-07 11:00:25.710 +02:00 [INF] Route matched with {page = "/Account/Manage/Email", area = "Identity", action = "", controller = ""}. Executing page /Account/Manage/Email
+2024-10-07 11:00:25.711 +02:00 [INF] Executing handler method ITPE3200X.Areas.Identity.Pages.Account.Manage.EmailModel.OnGetAsync - ModelState is "Valid"
+2024-10-07 11:00:25.715 +02:00 [INF] Executed handler method OnGetAsync, returned result Microsoft.AspNetCore.Mvc.RazorPages.PageResult.
+2024-10-07 11:00:25.718 +02:00 [INF] Executed page /Account/Manage/Email in 7.9509ms
+2024-10-07 11:00:25.718 +02:00 [INF] Executed endpoint '/Account/Manage/Email'
+2024-10-07 11:00:25.718 +02:00 [INF] Request finished HTTP/1.1 GET http://localhost:5217/Identity/Account/Manage/Email - 200 null text/html; charset=utf-8 9.381ms
+2024-10-07 11:00:25.821 +02:00 [INF] Request starting HTTP/1.1 POST http://localhost:5217/Identity/Account/Manage/Email?handler=SendVerificationEmail - application/x-www-form-urlencoded 263
+2024-10-07 11:00:25.822 +02:00 [INF] Executing endpoint '/Account/Manage/Email'
+2024-10-07 11:00:25.823 +02:00 [INF] Route matched with {page = "/Account/Manage/Email", area = "Identity", action = "", controller = ""}. Executing page /Account/Manage/Email
+2024-10-07 11:00:25.824 +02:00 [INF] Executing handler method ITPE3200X.Areas.Identity.Pages.Account.Manage.EmailModel.OnPostSendVerificationEmailAsync - ModelState is "Valid"
+2024-10-07 11:00:25.830 +02:00 [INF] Executed handler method OnPostSendVerificationEmailAsync, returned result Microsoft.AspNetCore.Mvc.RedirectToPageResult.
+2024-10-07 11:00:25.830 +02:00 [INF] Executing RedirectToPageResult, redirecting to null.
+2024-10-07 11:00:25.831 +02:00 [INF] Executed page /Account/Manage/Email in 8.0034ms
+2024-10-07 11:00:25.831 +02:00 [INF] Executed endpoint '/Account/Manage/Email'
+2024-10-07 11:00:25.831 +02:00 [INF] Request finished HTTP/1.1 POST http://localhost:5217/Identity/Account/Manage/Email?handler=SendVerificationEmail - 302 0 null 10.1536ms
+2024-10-07 11:00:25.834 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:5217/Identity/Account/Manage/Email - null null
+2024-10-07 11:00:25.835 +02:00 [INF] Executing endpoint '/Account/Manage/Email'
+2024-10-07 11:00:25.835 +02:00 [INF] Route matched with {page = "/Account/Manage/Email", area = "Identity", action = "", controller = ""}. Executing page /Account/Manage/Email
+2024-10-07 11:00:25.835 +02:00 [INF] Executing handler method ITPE3200X.Areas.Identity.Pages.Account.Manage.EmailModel.OnGetAsync - ModelState is "Valid"
+2024-10-07 11:00:25.842 +02:00 [INF] Executed handler method OnGetAsync, returned result Microsoft.AspNetCore.Mvc.RazorPages.PageResult.
+2024-10-07 11:00:25.847 +02:00 [INF] Executed page /Account/Manage/Email in 12.5458ms
+2024-10-07 11:00:25.848 +02:00 [INF] Executed endpoint '/Account/Manage/Email'
+2024-10-07 11:00:25.848 +02:00 [INF] Request finished HTTP/1.1 GET http://localhost:5217/Identity/Account/Manage/Email - 200 null text/html; charset=utf-8 14.2515ms
+2024-10-07 11:00:26.024 +02:00 [INF] Request starting HTTP/1.1 POST http://localhost:5217/Identity/Account/Manage/Email?handler=SendVerificationEmail - application/x-www-form-urlencoded 263
+2024-10-07 11:00:26.026 +02:00 [INF] Executing endpoint '/Account/Manage/Email'
+2024-10-07 11:00:26.026 +02:00 [INF] Route matched with {page = "/Account/Manage/Email", area = "Identity", action = "", controller = ""}. Executing page /Account/Manage/Email
+2024-10-07 11:00:26.027 +02:00 [INF] Executing handler method ITPE3200X.Areas.Identity.Pages.Account.Manage.EmailModel.OnPostSendVerificationEmailAsync - ModelState is "Valid"
+2024-10-07 11:00:26.036 +02:00 [INF] Executed handler method OnPostSendVerificationEmailAsync, returned result Microsoft.AspNetCore.Mvc.RedirectToPageResult.
+2024-10-07 11:00:26.036 +02:00 [INF] Executing RedirectToPageResult, redirecting to null.
+2024-10-07 11:00:26.036 +02:00 [INF] Executed page /Account/Manage/Email in 10.3125ms
+2024-10-07 11:00:26.037 +02:00 [INF] Executed endpoint '/Account/Manage/Email'
+2024-10-07 11:00:26.037 +02:00 [INF] Request finished HTTP/1.1 POST http://localhost:5217/Identity/Account/Manage/Email?handler=SendVerificationEmail - 302 0 null 13.516ms
+2024-10-07 11:00:26.040 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:5217/Identity/Account/Manage/Email - null null
+2024-10-07 11:00:26.042 +02:00 [INF] Executing endpoint '/Account/Manage/Email'
+2024-10-07 11:00:26.042 +02:00 [INF] Route matched with {page = "/Account/Manage/Email", area = "Identity", action = "", controller = ""}. Executing page /Account/Manage/Email
+2024-10-07 11:00:26.043 +02:00 [INF] Executing handler method ITPE3200X.Areas.Identity.Pages.Account.Manage.EmailModel.OnGetAsync - ModelState is "Valid"
+2024-10-07 11:00:26.047 +02:00 [INF] Executed handler method OnGetAsync, returned result Microsoft.AspNetCore.Mvc.RazorPages.PageResult.
+2024-10-07 11:00:26.051 +02:00 [INF] Executed page /Account/Manage/Email in 8.6557ms
+2024-10-07 11:00:26.051 +02:00 [INF] Executed endpoint '/Account/Manage/Email'
+2024-10-07 11:00:26.052 +02:00 [INF] Request finished HTTP/1.1 GET http://localhost:5217/Identity/Account/Manage/Email - 200 null text/html; charset=utf-8 11.1552ms
+2024-10-07 11:00:26.334 +02:00 [INF] Request starting HTTP/1.1 POST http://localhost:5217/Identity/Account/Manage/Email?handler=SendVerificationEmail - application/x-www-form-urlencoded 263
+2024-10-07 11:00:26.336 +02:00 [INF] Executing endpoint '/Account/Manage/Email'
+2024-10-07 11:00:26.336 +02:00 [INF] Route matched with {page = "/Account/Manage/Email", area = "Identity", action = "", controller = ""}. Executing page /Account/Manage/Email
+2024-10-07 11:00:26.336 +02:00 [INF] Executing handler method ITPE3200X.Areas.Identity.Pages.Account.Manage.EmailModel.OnPostSendVerificationEmailAsync - ModelState is "Valid"
+2024-10-07 11:00:26.340 +02:00 [INF] Executed handler method OnPostSendVerificationEmailAsync, returned result Microsoft.AspNetCore.Mvc.RedirectToPageResult.
+2024-10-07 11:00:26.340 +02:00 [INF] Executing RedirectToPageResult, redirecting to null.
+2024-10-07 11:00:26.340 +02:00 [INF] Executed page /Account/Manage/Email in 4.7091ms
+2024-10-07 11:00:26.340 +02:00 [INF] Executed endpoint '/Account/Manage/Email'
+2024-10-07 11:00:26.341 +02:00 [INF] Request finished HTTP/1.1 POST http://localhost:5217/Identity/Account/Manage/Email?handler=SendVerificationEmail - 302 0 null 6.3362ms
+2024-10-07 11:00:26.343 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:5217/Identity/Account/Manage/Email - null null
+2024-10-07 11:00:26.344 +02:00 [INF] Executing endpoint '/Account/Manage/Email'
+2024-10-07 11:00:26.344 +02:00 [INF] Route matched with {page = "/Account/Manage/Email", area = "Identity", action = "", controller = ""}. Executing page /Account/Manage/Email
+2024-10-07 11:00:26.344 +02:00 [INF] Executing handler method ITPE3200X.Areas.Identity.Pages.Account.Manage.EmailModel.OnGetAsync - ModelState is "Valid"
+2024-10-07 11:00:26.347 +02:00 [INF] Executed handler method OnGetAsync, returned result Microsoft.AspNetCore.Mvc.RazorPages.PageResult.
+2024-10-07 11:00:26.349 +02:00 [INF] Executed page /Account/Manage/Email in 4.9221ms
+2024-10-07 11:00:26.349 +02:00 [INF] Executed endpoint '/Account/Manage/Email'
+2024-10-07 11:00:26.350 +02:00 [INF] Request finished HTTP/1.1 GET http://localhost:5217/Identity/Account/Manage/Email - 200 null text/html; charset=utf-8 6.2501ms
+2024-10-07 11:00:26.468 +02:00 [INF] Request starting HTTP/1.1 POST http://localhost:5217/Identity/Account/Manage/Email?handler=SendVerificationEmail - application/x-www-form-urlencoded 263
+2024-10-07 11:00:26.469 +02:00 [INF] Executing endpoint '/Account/Manage/Email'
+2024-10-07 11:00:26.469 +02:00 [INF] Route matched with {page = "/Account/Manage/Email", area = "Identity", action = "", controller = ""}. Executing page /Account/Manage/Email
+2024-10-07 11:00:26.470 +02:00 [INF] Executing handler method ITPE3200X.Areas.Identity.Pages.Account.Manage.EmailModel.OnPostSendVerificationEmailAsync - ModelState is "Valid"
+2024-10-07 11:00:26.476 +02:00 [INF] Executed handler method OnPostSendVerificationEmailAsync, returned result Microsoft.AspNetCore.Mvc.RedirectToPageResult.
+2024-10-07 11:00:26.476 +02:00 [INF] Executing RedirectToPageResult, redirecting to null.
+2024-10-07 11:00:26.476 +02:00 [INF] Executed page /Account/Manage/Email in 6.8423ms
+2024-10-07 11:00:26.476 +02:00 [INF] Executed endpoint '/Account/Manage/Email'
+2024-10-07 11:00:26.476 +02:00 [INF] Request finished HTTP/1.1 POST http://localhost:5217/Identity/Account/Manage/Email?handler=SendVerificationEmail - 302 0 null 8.9455ms
+2024-10-07 11:00:26.479 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:5217/Identity/Account/Manage/Email - null null
+2024-10-07 11:00:26.480 +02:00 [INF] Executing endpoint '/Account/Manage/Email'
+2024-10-07 11:00:26.480 +02:00 [INF] Route matched with {page = "/Account/Manage/Email", area = "Identity", action = "", controller = ""}. Executing page /Account/Manage/Email
+2024-10-07 11:00:26.481 +02:00 [INF] Executing handler method ITPE3200X.Areas.Identity.Pages.Account.Manage.EmailModel.OnGetAsync - ModelState is "Valid"
+2024-10-07 11:00:26.486 +02:00 [INF] Executed handler method OnGetAsync, returned result Microsoft.AspNetCore.Mvc.RazorPages.PageResult.
+2024-10-07 11:00:26.489 +02:00 [INF] Executed page /Account/Manage/Email in 8.808ms
+2024-10-07 11:00:26.489 +02:00 [INF] Executed endpoint '/Account/Manage/Email'
+2024-10-07 11:00:26.490 +02:00 [INF] Request finished HTTP/1.1 GET http://localhost:5217/Identity/Account/Manage/Email - 200 null text/html; charset=utf-8 10.8509ms
+2024-10-07 11:01:04.943 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:5217/Identity/Account/Manage/ChangePassword - null null
+2024-10-07 11:01:04.966 +02:00 [INF] Executing endpoint '/Account/Manage/ChangePassword'
+2024-10-07 11:01:04.969 +02:00 [INF] Route matched with {page = "/Account/Manage/ChangePassword", area = "Identity", action = "", controller = ""}. Executing page /Account/Manage/ChangePassword
+2024-10-07 11:01:04.974 +02:00 [INF] Executing handler method ITPE3200X.Areas.Identity.Pages.Account.Manage.ChangePasswordModel.OnGetAsync - ModelState is "Valid"
+2024-10-07 11:01:04.997 +02:00 [INF] Executed handler method OnGetAsync, returned result Microsoft.AspNetCore.Mvc.RazorPages.PageResult.
+2024-10-07 11:01:05.004 +02:00 [INF] Executed page /Account/Manage/ChangePassword in 34.8442ms
+2024-10-07 11:01:05.005 +02:00 [INF] Executed endpoint '/Account/Manage/ChangePassword'
+2024-10-07 11:01:05.006 +02:00 [INF] Request finished HTTP/1.1 GET http://localhost:5217/Identity/Account/Manage/ChangePassword - 200 null text/html; charset=utf-8 63.5559ms
+2024-10-07 11:01:25.641 +02:00 [INF] Request starting HTTP/1.1 POST http://localhost:5217/Identity/Account/Manage/ChangePassword - application/x-www-form-urlencoded 328
+2024-10-07 11:01:25.644 +02:00 [INF] Executing endpoint '/Account/Manage/ChangePassword'
+2024-10-07 11:01:25.644 +02:00 [INF] Route matched with {page = "/Account/Manage/ChangePassword", area = "Identity", action = "", controller = ""}. Executing page /Account/Manage/ChangePassword
+2024-10-07 11:01:25.656 +02:00 [INF] Executing handler method ITPE3200X.Areas.Identity.Pages.Account.Manage.ChangePasswordModel.OnPostAsync - ModelState is "Valid"
+2024-10-07 11:01:25.778 +02:00 [INF] AuthenticationScheme: Identity.Application signed in.
+2024-10-07 11:01:25.778 +02:00 [INF] User changed their password successfully.
+2024-10-07 11:01:25.778 +02:00 [INF] Executed handler method OnPostAsync, returned result Microsoft.AspNetCore.Mvc.RedirectToPageResult.
+2024-10-07 11:01:25.779 +02:00 [INF] Executing RedirectToPageResult, redirecting to null.
+2024-10-07 11:01:25.779 +02:00 [INF] Executed page /Account/Manage/ChangePassword in 135.1018ms
+2024-10-07 11:01:25.779 +02:00 [INF] Executed endpoint '/Account/Manage/ChangePassword'
+2024-10-07 11:01:25.779 +02:00 [INF] Request finished HTTP/1.1 POST http://localhost:5217/Identity/Account/Manage/ChangePassword - 302 0 null 138.028ms
+2024-10-07 11:01:25.784 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:5217/Identity/Account/Manage/ChangePassword - null null
+2024-10-07 11:01:25.784 +02:00 [INF] Executing endpoint '/Account/Manage/ChangePassword'
+2024-10-07 11:01:25.785 +02:00 [INF] Route matched with {page = "/Account/Manage/ChangePassword", area = "Identity", action = "", controller = ""}. Executing page /Account/Manage/ChangePassword
+2024-10-07 11:01:25.785 +02:00 [INF] Executing handler method ITPE3200X.Areas.Identity.Pages.Account.Manage.ChangePasswordModel.OnGetAsync - ModelState is "Valid"
+2024-10-07 11:01:25.786 +02:00 [INF] Executed handler method OnGetAsync, returned result Microsoft.AspNetCore.Mvc.RazorPages.PageResult.
+2024-10-07 11:01:25.787 +02:00 [INF] Executed page /Account/Manage/ChangePassword in 2.6175ms
+2024-10-07 11:01:25.787 +02:00 [INF] Executed endpoint '/Account/Manage/ChangePassword'
+2024-10-07 11:01:25.788 +02:00 [INF] Request finished HTTP/1.1 GET http://localhost:5217/Identity/Account/Manage/ChangePassword - 200 null text/html; charset=utf-8 3.5136ms
+2024-10-07 11:01:30.072 +02:00 [INF] Request starting HTTP/1.1 POST http://localhost:5217/Identity/Account/Logout?returnUrl=%2F - application/x-www-form-urlencoded 225
+2024-10-07 11:01:30.074 +02:00 [INF] Executing endpoint '/Account/Logout'
+2024-10-07 11:01:30.080 +02:00 [INF] Route matched with {page = "/Account/Logout", area = "Identity", action = "", controller = ""}. Executing page /Account/Logout
+2024-10-07 11:01:30.088 +02:00 [INF] Executing handler method ITPE3200X.Areas.Identity.Pages.Account.LogoutModel.OnPost - ModelState is "Valid"
+2024-10-07 11:01:30.091 +02:00 [INF] AuthenticationScheme: Identity.Application signed out.
+2024-10-07 11:01:30.092 +02:00 [INF] AuthenticationScheme: Identity.External signed out.
+2024-10-07 11:01:30.092 +02:00 [INF] AuthenticationScheme: Identity.TwoFactorUserId signed out.
+2024-10-07 11:01:30.093 +02:00 [INF] User logged out.
+2024-10-07 11:01:30.093 +02:00 [INF] Executed handler method OnPost, returned result Microsoft.AspNetCore.Mvc.LocalRedirectResult.
+2024-10-07 11:01:30.093 +02:00 [INF] Executing LocalRedirectResult, redirecting to /.
+2024-10-07 11:01:30.093 +02:00 [INF] Executed page /Account/Logout in 12.3442ms
+2024-10-07 11:01:30.093 +02:00 [INF] Executed endpoint '/Account/Logout'
+2024-10-07 11:01:30.093 +02:00 [INF] Request finished HTTP/1.1 POST http://localhost:5217/Identity/Account/Logout?returnUrl=%2F - 302 0 null 22.0821ms
+2024-10-07 11:01:30.097 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:5217/ - null null
+2024-10-07 11:01:30.097 +02:00 [INF] Executing endpoint 'ITPE3200X.Controllers.HomeController.Index (ITPE3200X)'
+2024-10-07 11:01:30.097 +02:00 [INF] Route matched with {action = "Index", controller = "Home", page = "", area = ""}. Executing controller action with signature Microsoft.AspNetCore.Mvc.IActionResult Index() on controller ITPE3200X.Controllers.HomeController (ITPE3200X).
+2024-10-07 11:01:30.097 +02:00 [INF] Executing action method ITPE3200X.Controllers.HomeController.Index (ITPE3200X) - Validation state: "Valid"
+2024-10-07 11:01:30.097 +02:00 [INF] Executed action method ITPE3200X.Controllers.HomeController.Index (ITPE3200X), returned result Microsoft.AspNetCore.Mvc.ViewResult in 0.0136ms.
+2024-10-07 11:01:30.097 +02:00 [INF] Executing ViewResult, running view Index.
+2024-10-07 11:01:30.098 +02:00 [INF] Executed ViewResult - view Index executed in 0.9081ms.
+2024-10-07 11:01:30.098 +02:00 [INF] Executed action ITPE3200X.Controllers.HomeController.Index (ITPE3200X) in 1.1092ms
+2024-10-07 11:01:30.098 +02:00 [INF] Executed endpoint 'ITPE3200X.Controllers.HomeController.Index (ITPE3200X)'
+2024-10-07 11:01:30.098 +02:00 [INF] Request finished HTTP/1.1 GET http://localhost:5217/ - 200 null text/html; charset=utf-8 1.541ms
+2024-10-07 11:01:30.914 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:5217/Identity/Account/Login - null null
+2024-10-07 11:01:30.916 +02:00 [INF] Executing endpoint '/Account/Login'
+2024-10-07 11:01:30.928 +02:00 [INF] Route matched with {page = "/Account/Login", area = "Identity", action = "", controller = ""}. Executing page /Account/Login
+2024-10-07 11:01:30.932 +02:00 [INF] Executing handler method ITPE3200X.Areas.Identity.Pages.Account.LoginModel.OnGetAsync - ModelState is "Valid"
+2024-10-07 11:01:30.934 +02:00 [INF] AuthenticationScheme: Identity.External signed out.
+2024-10-07 11:01:30.935 +02:00 [INF] Executed handler method OnGetAsync, returned result .
+2024-10-07 11:01:30.935 +02:00 [INF] Executing an implicit handler method - ModelState is "Valid"
+2024-10-07 11:01:30.935 +02:00 [INF] Executed an implicit handler method, returned result Microsoft.AspNetCore.Mvc.RazorPages.PageResult.
+2024-10-07 11:01:30.973 +02:00 [INF] Executed page /Account/Login in 44.485ms
+2024-10-07 11:01:30.973 +02:00 [INF] Executed endpoint '/Account/Login'
+2024-10-07 11:01:30.973 +02:00 [INF] Request finished HTTP/1.1 GET http://localhost:5217/Identity/Account/Login - 200 null text/html; charset=utf-8 59.5964ms
+2024-10-07 11:01:41.899 +02:00 [INF] Request starting HTTP/1.1 POST http://localhost:5217/Identity/Account/Login - application/x-www-form-urlencoded 293
+2024-10-07 11:01:41.900 +02:00 [INF] Executing endpoint '/Account/Login'
+2024-10-07 11:01:41.900 +02:00 [INF] Route matched with {page = "/Account/Login", area = "Identity", action = "", controller = ""}. Executing page /Account/Login
+2024-10-07 11:01:41.913 +02:00 [INF] Executing handler method ITPE3200X.Areas.Identity.Pages.Account.LoginModel.OnPostAsync - ModelState is "Valid"
+2024-10-07 11:01:42.002 +02:00 [INF] AuthenticationScheme: Identity.Application signed in.
+2024-10-07 11:01:42.002 +02:00 [INF] User logged in.
+2024-10-07 11:01:42.002 +02:00 [INF] Executed handler method OnPostAsync, returned result Microsoft.AspNetCore.Mvc.LocalRedirectResult.
+2024-10-07 11:01:42.002 +02:00 [INF] Executing LocalRedirectResult, redirecting to /.
+2024-10-07 11:01:42.002 +02:00 [INF] Executed page /Account/Login in 102.5029ms
+2024-10-07 11:01:42.002 +02:00 [INF] Executed endpoint '/Account/Login'
+2024-10-07 11:01:42.003 +02:00 [INF] Request finished HTTP/1.1 POST http://localhost:5217/Identity/Account/Login - 302 0 null 103.8438ms
+2024-10-07 11:01:42.007 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:5217/ - null null
+2024-10-07 11:01:42.007 +02:00 [INF] Executing endpoint 'ITPE3200X.Controllers.HomeController.Index (ITPE3200X)'
+2024-10-07 11:01:42.007 +02:00 [INF] Route matched with {action = "Index", controller = "Home", page = "", area = ""}. Executing controller action with signature Microsoft.AspNetCore.Mvc.IActionResult Index() on controller ITPE3200X.Controllers.HomeController (ITPE3200X).
+2024-10-07 11:01:42.007 +02:00 [INF] Executing action method ITPE3200X.Controllers.HomeController.Index (ITPE3200X) - Validation state: "Valid"
+2024-10-07 11:01:42.007 +02:00 [INF] Executed action method ITPE3200X.Controllers.HomeController.Index (ITPE3200X), returned result Microsoft.AspNetCore.Mvc.ViewResult in 0.0065ms.
+2024-10-07 11:01:42.007 +02:00 [INF] Executing ViewResult, running view Index.
+2024-10-07 11:01:42.008 +02:00 [INF] Executed ViewResult - view Index executed in 0.4742ms.
+2024-10-07 11:01:42.008 +02:00 [INF] Executed action ITPE3200X.Controllers.HomeController.Index (ITPE3200X) in 0.6288ms
+2024-10-07 11:01:42.008 +02:00 [INF] Executed endpoint 'ITPE3200X.Controllers.HomeController.Index (ITPE3200X)'
+2024-10-07 11:01:42.008 +02:00 [INF] Request finished HTTP/1.1 GET http://localhost:5217/ - 200 null text/html; charset=utf-8 1.1112ms
+2024-10-07 11:01:43.564 +02:00 [INF] Request starting HTTP/1.1 POST http://localhost:5217/Identity/Account/Logout?returnUrl=%2F - application/x-www-form-urlencoded 225
+2024-10-07 11:01:43.565 +02:00 [INF] Executing endpoint '/Account/Logout'
+2024-10-07 11:01:43.565 +02:00 [INF] Route matched with {page = "/Account/Logout", area = "Identity", action = "", controller = ""}. Executing page /Account/Logout
+2024-10-07 11:01:43.566 +02:00 [INF] Executing handler method ITPE3200X.Areas.Identity.Pages.Account.LogoutModel.OnPost - ModelState is "Valid"
+2024-10-07 11:01:43.567 +02:00 [INF] AuthenticationScheme: Identity.Application signed out.
+2024-10-07 11:01:43.567 +02:00 [INF] AuthenticationScheme: Identity.External signed out.
+2024-10-07 11:01:43.567 +02:00 [INF] AuthenticationScheme: Identity.TwoFactorUserId signed out.
+2024-10-07 11:01:43.568 +02:00 [INF] User logged out.
+2024-10-07 11:01:43.568 +02:00 [INF] Executed handler method OnPost, returned result Microsoft.AspNetCore.Mvc.LocalRedirectResult.
+2024-10-07 11:01:43.568 +02:00 [INF] Executing LocalRedirectResult, redirecting to /.
+2024-10-07 11:01:43.569 +02:00 [INF] Executed page /Account/Logout in 3.0976ms
+2024-10-07 11:01:43.569 +02:00 [INF] Executed endpoint '/Account/Logout'
+2024-10-07 11:01:43.569 +02:00 [INF] Request finished HTTP/1.1 POST http://localhost:5217/Identity/Account/Logout?returnUrl=%2F - 302 0 null 5.1271ms
+2024-10-07 11:01:43.570 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:5217/ - null null
+2024-10-07 11:01:43.571 +02:00 [INF] Executing endpoint 'ITPE3200X.Controllers.HomeController.Index (ITPE3200X)'
+2024-10-07 11:01:43.571 +02:00 [INF] Route matched with {action = "Index", controller = "Home", page = "", area = ""}. Executing controller action with signature Microsoft.AspNetCore.Mvc.IActionResult Index() on controller ITPE3200X.Controllers.HomeController (ITPE3200X).
+2024-10-07 11:01:43.571 +02:00 [INF] Executing action method ITPE3200X.Controllers.HomeController.Index (ITPE3200X) - Validation state: "Valid"
+2024-10-07 11:01:43.571 +02:00 [INF] Executed action method ITPE3200X.Controllers.HomeController.Index (ITPE3200X), returned result Microsoft.AspNetCore.Mvc.ViewResult in 0.0157ms.
+2024-10-07 11:01:43.572 +02:00 [INF] Executing ViewResult, running view Index.
+2024-10-07 11:01:43.573 +02:00 [INF] Executed ViewResult - view Index executed in 1.6576ms.
+2024-10-07 11:01:43.573 +02:00 [INF] Executed action ITPE3200X.Controllers.HomeController.Index (ITPE3200X) in 2.3883ms
+2024-10-07 11:01:43.573 +02:00 [INF] Executed endpoint 'ITPE3200X.Controllers.HomeController.Index (ITPE3200X)'
+2024-10-07 11:01:43.574 +02:00 [INF] Request finished HTTP/1.1 GET http://localhost:5217/ - 200 null text/html; charset=utf-8 3.271ms
+2024-10-07 11:01:44.404 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:5217/Identity/Account/Login - null null
+2024-10-07 11:01:44.405 +02:00 [INF] Executing endpoint '/Account/Login'
+2024-10-07 11:01:44.405 +02:00 [INF] Route matched with {page = "/Account/Login", area = "Identity", action = "", controller = ""}. Executing page /Account/Login
+2024-10-07 11:01:44.406 +02:00 [INF] Executing handler method ITPE3200X.Areas.Identity.Pages.Account.LoginModel.OnGetAsync - ModelState is "Valid"
+2024-10-07 11:01:44.406 +02:00 [INF] AuthenticationScheme: Identity.External signed out.
+2024-10-07 11:01:44.406 +02:00 [INF] Executed handler method OnGetAsync, returned result .
+2024-10-07 11:01:44.406 +02:00 [INF] Executing an implicit handler method - ModelState is "Valid"
+2024-10-07 11:01:44.406 +02:00 [INF] Executed an implicit handler method, returned result Microsoft.AspNetCore.Mvc.RazorPages.PageResult.
+2024-10-07 11:01:44.413 +02:00 [INF] Executed page /Account/Login in 8.6107ms
+2024-10-07 11:01:44.414 +02:00 [INF] Executed endpoint '/Account/Login'
+2024-10-07 11:01:44.414 +02:00 [INF] Request finished HTTP/1.1 GET http://localhost:5217/Identity/Account/Login - 200 null text/html; charset=utf-8 10.3724ms
+2024-10-07 11:01:47.295 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:5217/Identity/Account/ForgotPassword - null null
+2024-10-07 11:01:47.297 +02:00 [INF] Executing endpoint '/Account/ForgotPassword'
+2024-10-07 11:01:47.304 +02:00 [INF] Route matched with {page = "/Account/ForgotPassword", area = "Identity", action = "", controller = ""}. Executing page /Account/ForgotPassword
+2024-10-07 11:01:47.305 +02:00 [INF] Executing an implicit handler method - ModelState is "Valid"
+2024-10-07 11:01:47.305 +02:00 [INF] Executed an implicit handler method, returned result Microsoft.AspNetCore.Mvc.RazorPages.PageResult.
+2024-10-07 11:01:47.328 +02:00 [INF] Executed page /Account/ForgotPassword in 23.6145ms
+2024-10-07 11:01:47.328 +02:00 [INF] Executed endpoint '/Account/ForgotPassword'
+2024-10-07 11:01:47.328 +02:00 [INF] Request finished HTTP/1.1 GET http://localhost:5217/Identity/Account/ForgotPassword - 200 null text/html; charset=utf-8 32.6041ms
+2024-10-07 11:01:49.323 +02:00 [INF] Request starting HTTP/1.1 POST http://localhost:5217/Identity/Account/ForgotPassword - application/x-www-form-urlencoded 217
+2024-10-07 11:01:49.323 +02:00 [INF] Executing endpoint '/Account/ForgotPassword'
+2024-10-07 11:01:49.324 +02:00 [INF] Route matched with {page = "/Account/ForgotPassword", area = "Identity", action = "", controller = ""}. Executing page /Account/ForgotPassword
+2024-10-07 11:01:49.328 +02:00 [INF] Executing handler method ITPE3200X.Areas.Identity.Pages.Account.ForgotPasswordModel.OnPostAsync - ModelState is "Valid"
+2024-10-07 11:01:49.391 +02:00 [INF] Executed handler method OnPostAsync, returned result Microsoft.AspNetCore.Mvc.RedirectToPageResult.
+2024-10-07 11:01:49.391 +02:00 [INF] Executing RedirectToPageResult, redirecting to ./ForgotPasswordConfirmation.
+2024-10-07 11:01:49.391 +02:00 [INF] Executed page /Account/ForgotPassword in 67.7536ms
+2024-10-07 11:01:49.392 +02:00 [INF] Executed endpoint '/Account/ForgotPassword'
+2024-10-07 11:01:49.392 +02:00 [INF] Request finished HTTP/1.1 POST http://localhost:5217/Identity/Account/ForgotPassword - 302 0 null 69.0957ms
+2024-10-07 11:01:49.394 +02:00 [INF] Request starting HTTP/1.1 GET http://localhost:5217/Identity/Account/ForgotPasswordConfirmation - null null
+2024-10-07 11:01:49.394 +02:00 [INF] Executing endpoint '/Account/ForgotPasswordConfirmation'
+2024-10-07 11:01:49.397 +02:00 [INF] Route matched with {page = "/Account/ForgotPasswordConfirmation", area = "Identity", action = "", controller = ""}. Executing page /Account/ForgotPasswordConfirmation
+2024-10-07 11:01:49.397 +02:00 [INF] Executing handler method ITPE3200X.Areas.Identity.Pages.Account.ForgotPasswordConfirmation.OnGet - ModelState is "Valid"
+2024-10-07 11:01:49.398 +02:00 [INF] Executed handler method OnGet, returned result .
+2024-10-07 11:01:49.398 +02:00 [INF] Executing an implicit handler method - ModelState is "Valid"
+2024-10-07 11:01:49.398 +02:00 [INF] Executed an implicit handler method, returned result Microsoft.AspNetCore.Mvc.RazorPages.PageResult.
+2024-10-07 11:01:49.401 +02:00 [INF] Executed page /Account/ForgotPasswordConfirmation in 4.2805ms
+2024-10-07 11:01:49.402 +02:00 [INF] Executed endpoint '/Account/ForgotPasswordConfirmation'
+2024-10-07 11:01:49.402 +02:00 [INF] Request finished HTTP/1.1 GET http://localhost:5217/Identity/Account/ForgotPasswordConfirmation - 200 null text/html; charset=utf-8 7.5497ms

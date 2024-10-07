@@ -1,0 +1,94 @@
+using ITPE3200X.Models;
+using Microsoft.EntityFrameworkCore;
+
+namespace ITPE3200X.DAL.Repositories
+{
+    public class UserRepository : IUserRepository
+    {
+        private readonly ApplicationDbContext _context;
+
+        public UserRepository(ApplicationDbContext context)
+        {
+            _context = context;
+        }
+
+        // Follower methods
+        public async Task<IEnumerable<ApplicationUser>> GetFollowersAsync(string userId)
+        {
+            return await _context.Followers
+                .Where(f => f.FollowedUserId == userId)
+                .Select(f => f.FollowerUser)
+                .AsNoTracking()
+                .ToListAsync();
+        }
+
+        public async Task<IEnumerable<ApplicationUser>> GetFollowingAsync(string userId)
+        {
+            return await _context.Followers
+                .Where(f => f.FollowerUserId == userId)
+                .Select(f => f.FollowedUser)
+                .AsNoTracking()
+                .ToListAsync();
+        }
+
+        public async Task AddFollowerAsync(string followerUserId, string followedUserId)
+        {
+            var follower = new Follower(followerUserId, followedUserId);
+            await _context.Followers.AddAsync(follower);
+            await _context.SaveChangesAsync();
+        }
+
+        public async Task RemoveFollowerAsync(string followerUserId, string followedUserId)
+        {
+            var follower = await _context.Followers
+                .FirstOrDefaultAsync(f => f.FollowerUserId == followerUserId && f.FollowedUserId == followedUserId);
+            if (follower != null)
+            {
+                _context.Followers.Remove(follower);
+                await _context.SaveChangesAsync();
+            }
+        }
+
+        public async Task<bool> IsFollowingAsync(string followerUserId, string followedUserId)
+        {
+            return await _context.Followers
+                .AnyAsync(f => f.FollowerUserId == followerUserId && f.FollowedUserId == followedUserId);
+        }
+
+        // SavedPost methods
+        public async Task<IEnumerable<Post>> GetSavedPostsByUserIdAsync(string userId)
+        {
+            return await _context.SavedPosts
+                .Where(sp => sp.UserId == userId)
+                .Select(sp => sp.Post)
+                .Include(p => p.Images)
+                .Include(p => p.User)
+                .AsNoTracking()
+                .ToListAsync();
+        }
+
+        public async Task AddSavedPostAsync(string postId, string userId)
+        {
+            var savedPost = new SavedPost(postId, userId);
+            await _context.SavedPosts.AddAsync(savedPost);
+            await _context.SaveChangesAsync();
+        }
+
+        public async Task RemoveSavedPostAsync(string postId, string userId)
+        {
+            var savedPost = await _context.SavedPosts
+                .FirstOrDefaultAsync(sp => sp.PostId == postId && sp.UserId == userId);
+            if (savedPost != null)
+            {
+                _context.SavedPosts.Remove(savedPost);
+                await _context.SaveChangesAsync();
+            }
+        }
+
+        public async Task<bool> IsPostSavedByUserAsync(string postId, string userId)
+        {
+            return await _context.SavedPosts
+                .AnyAsync(sp => sp.PostId == postId && sp.UserId == userId);
+        }
+    }
+}
