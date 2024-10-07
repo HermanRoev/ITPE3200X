@@ -7129,19 +7129,19 @@
     ]
   },
   "packageFolders": {
-    "/Users/hermanrov/.nuget/packages/": {}
+    "/Users/ludvigstenvik/.nuget/packages/": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "/Users/hermanrov/Documents/GitHub/ITPE3200/ITPE3200X/ITPE3200X/ITPE3200X.csproj",
+      "projectUniqueName": "/Users/ludvigstenvik/Documents/GitHub/ITPE3200X/ITPE3200X/ITPE3200X.csproj",
       "projectName": "ITPE3200X",
-      "projectPath": "/Users/hermanrov/Documents/GitHub/ITPE3200/ITPE3200X/ITPE3200X/ITPE3200X.csproj",
-      "packagesPath": "/Users/hermanrov/.nuget/packages/",
-      "outputPath": "/Users/hermanrov/Documents/GitHub/ITPE3200/ITPE3200X/ITPE3200X/obj/",
+      "projectPath": "/Users/ludvigstenvik/Documents/GitHub/ITPE3200X/ITPE3200X/ITPE3200X.csproj",
+      "packagesPath": "/Users/ludvigstenvik/.nuget/packages/",
+      "outputPath": "/Users/ludvigstenvik/Documents/GitHub/ITPE3200X/ITPE3200X/obj/",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "/Users/hermanrov/.nuget/NuGet/NuGet.Config"
+        "/Users/ludvigstenvik/.nuget/NuGet/NuGet.Config"
       ],
       "originalTargetFrameworks": [
         "net8.0"
@@ -7159,6 +7159,11 @@
         "warnAsError": [
           "NU1605"
         ]
+      },
+      "restoreAuditProperties": {
+        "enableAudit": "true",
+        "auditLevel": "low",
+        "auditMode": "direct"
       }
     },
     "frameworks": {
@@ -7225,7 +7230,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/8.0.100/PortableRuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/8.0.401/PortableRuntimeIdentifierGraph.json"
       }
     }
   }
