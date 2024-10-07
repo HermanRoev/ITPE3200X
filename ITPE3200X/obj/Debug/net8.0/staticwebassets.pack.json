@@ -5,6 +5,14 @@
       "PackagePath": "staticwebassets/ITPE3200X.bundle.scp.css"
     },
     {
+      "Id": "/Users/ludvigstenvik/Documents/GitHub/ITPE3200X/ITPE3200X/wwwroot/Icons-images/icon.png",
+      "PackagePath": "staticwebassets/Icons-images/icon.png"
+    },
+    {
+      "Id": "/Users/ludvigstenvik/Documents/GitHub/ITPE3200X/ITPE3200X/wwwroot/Icons-images/kage_welcome_vector.png",
+      "PackagePath": "staticwebassets/Icons-images/kage_welcome_vector.png"
+    },
+    {
       "Id": "/Users/ludvigstenvik/Documents/GitHub/ITPE3200X/ITPE3200X/wwwroot/css/site.css",
       "PackagePath": "staticwebassets/css/site.css"
     },

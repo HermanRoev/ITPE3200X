@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("ITPE3200X")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+f8ee85d8beee97db6aaaaef1b4051410a871a0df")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+7bde21d4acc075bd638d28d413e50108d705ce38")]
 [assembly: System.Reflection.AssemblyProductAttribute("ITPE3200X")]
 [assembly: System.Reflection.AssemblyTitleAttribute("ITPE3200X")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
