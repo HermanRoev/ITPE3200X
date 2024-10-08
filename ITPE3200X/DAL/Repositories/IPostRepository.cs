@@ -12,7 +12,7 @@ namespace ITPE3200X.DAL.Repositories
         Task DeletePostAsync(string postId);
 
         // Comment methods
-        Task AddCommentAsync(string postId, Comment comment);
+        Task AddCommentAsync(Comment comment);
         Task DeleteCommentAsync(string commentId);
 
         // Like methods
