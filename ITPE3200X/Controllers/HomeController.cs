@@ -1,4 +1,5 @@
 using System.Diagnostics;
+using ITPE3200X.DAL.Repositories;
 using Microsoft.AspNetCore.Mvc;
 using ITPE3200X.Models;
 
@@ -7,15 +8,18 @@ namespace ITPE3200X.Controllers;
 public class HomeController : Controller
 {
     private readonly ILogger<HomeController> _logger;
+    private readonly IPostRepository _postRepository;
 
-    public HomeController(ILogger<HomeController> logger)
+    public HomeController(ILogger<HomeController> logger, IPostRepository postRepository)
     {
         _logger = logger;
+        _postRepository = postRepository;
     }
 
-    public IActionResult Index()
+    public async Task<IActionResult> Index()
     {
-        return View();
+        var posts = await _postRepository.GetAllPostsAsync();
+        return View(posts);
     }
 
     public IActionResult Privacy()

@@ -268,3 +268,4 @@
 /Users/hermanrov/Documents/GitHub/ITPE3200/ITPE3200X/ITPE3200X/obj/Debug/net8.0/ITPE3200X.pdb
 /Users/hermanrov/Documents/GitHub/ITPE3200/ITPE3200X/ITPE3200X/obj/Debug/net8.0/ITPE3200X.genruntimeconfig.cache
 /Users/hermanrov/Documents/GitHub/ITPE3200/ITPE3200X/ITPE3200X/obj/Debug/net8.0/ref/ITPE3200X.dll
+/Users/hermanrov/Documents/GitHub/ITPE3200/ITPE3200X/ITPE3200X/obj/Debug/net8.0/ITPE3200X.sourcelink.json
