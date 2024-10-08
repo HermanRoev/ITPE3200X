@@ -1,0 +1,19 @@
+@model ITPE3200X.Models.ProfileViewModel
+
+<div class="profile-page">
+    <div class="profile-header">
+        <img src="@Model.ProfilePictureUrl" alt="Profile Picture" class="profile-pic"/>
+        <h1>@Model.UserName</h1>
+        <p>@Model.Bio</p>
+    </div>
+    <div class="profile-stats">
+        <span>@Model.FollowersCount followers</span>
+        <span>@Model.FollowingCount following</span>
+    </div>
+    <div class="profile-details">
+        <p>Email: @Model.Email</p>
+    </div>
+</div>
+
+
+
