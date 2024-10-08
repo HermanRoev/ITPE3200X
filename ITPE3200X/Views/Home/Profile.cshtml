@@ -1,20 +1,15 @@
-
-@{
-ViewData["Title"] = "Profile Page";
-}
-
 <div class="profile-page">
     <div class="profile-header">
-        <img src="/" alt="Profile Picture" class="profile-pic"/>
-        <h1>Ludde gutten</h1>
-        <p>Min bio er sick</p>
+        <img src="@Model.ProfilePictureUrl" alt="Profile Picture" class="profile-pic"/>
+        <h1>@Model.UserName</h1>
+        <p>@Model.Bio</p>
     </div>
     <div class="profile-stats">
-        <span>2302325 followers</span>
-        <span>12 following</span>
+        <span>@Model.FollowersCount followers</span>
+        <span>@Model.FollowingCount following</span>
     </div>
     <div class="profile-details">
-        <p>Email: bigdickenergy@gmail.com</p>
+        <p>Email: @Model.Email</p>
     </div>
 </div>
 
