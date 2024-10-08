@@ -8,7 +8,9 @@
 @if (SignInManager.IsSignedIn(User))
 {
     <li class="nav-item">
-        <a id="manage" class="nav-link text-dark" asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage">Hello @UserManager.GetUserName(User)!</a>
+        <a id="manage" class="nav-link text-white" asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage">
+            <img src="/lib/bootstrap/bootstrap-icon/gear.svg" alt="Gear Icon" style="height: 1.8em; vertical-align: middle; margin-right: 5px; filter: invert(100%) sepia(0%) saturate(0%) hue-rotate(0deg) brightness(100%) contrast(100%);">
+        </a>
     </li>
     <li class="nav-item">
         <form id="logoutForm" class="form-inline" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })">
@@ -19,10 +21,9 @@
 else
 {
     <li class="nav-item">
-        <a class="nav-link text-dark" id="register" asp-area="Identity" asp-page="/Account/Register">Register</a>
-    </li>
-    <li class="nav-item">
-        <a class="nav-link text-dark" id="login" asp-area="Identity" asp-page="/Account/Login">Login</a>
+        <a class="nav-link text-light" id="login" asp-area="Identity" asp-page="/Account/Login">
+            <img src="/lib/bootstrap/bootstrap-icon/person.svg" alt="Person Icon" style="height: 2em; vertical-align: middle; margin-right: 5px; filter: invert(100%) sepia(0%) saturate(0%) hue-rotate(0deg) brightness(100%) contrast(100%);">
+        </a>    
     </li>
 }
 </ul>

@@ -25,7 +25,6 @@
     </ItemGroup>
 
     <ItemGroup>
-      <Content Include="wwwroot\favicon.ico" />
       <None Include="wwwroot\Icons-images\icon.png" />
       <None Include="wwwroot\Icons-images\kage_welcome_vector.png" />
     </ItemGroup>
