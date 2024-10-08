@@ -30,6 +30,6 @@ namespace ITPE3200X.Models
         }
 
         // Private parameterless constructor for EF Core
-        private PostImage() { }
+        protected PostImage() { }
     }
 }

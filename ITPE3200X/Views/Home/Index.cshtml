@@ -1,8 +1,45 @@
-﻿@{
+﻿@model IEnumerable<ITPE3200X.Models.Post>
+
+@{
     ViewData["Title"] = "Home Page";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
-</div>
+<h2>Recent Posts</h2>
+
+@foreach (var post in Model)
+{
+    <div class="post">
+        <h3>@post.Title</h3>
+        <p>@post.Content</p>
+        <p>
+            Posted by @post.User.UserName on @post.CreatedAt.ToString("g")
+        </p>
+
+        @if (post.Images.Any())
+        {
+            <div class="post-images">
+                @foreach (var image in post.Images)
+                {
+                    <img src="@image.ImageUrl" alt="Post Image" style="max-width: 200px;" />
+                }
+            </div>
+        }
+
+        @* Display Likes Count *@
+        <p>@post.Likes.Count() Likes</p>
+
+        @* Display Comments *@
+        @if (post.Comments.Any())
+        {
+            <h4>Comments:</h4>
+            @foreach (var comment in post.Comments)
+            {
+                <div class="comment">
+                    <p><strong>@comment.User.UserName:</strong> @comment.Content</p>
+                </div>
+            }
+        }
+
+        <hr />
+    </div>
+}
