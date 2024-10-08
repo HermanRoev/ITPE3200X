@@ -36,7 +36,7 @@ builder.Logging.AddSerilog(logger);
 
 var app = builder.Build();
 
-// DBInit.Seed(app); // Uncomment to seed the database
+DBInit.Seed(app); // Uncomment to seed the database
 
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())
