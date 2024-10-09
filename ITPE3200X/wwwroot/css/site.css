@@ -12,6 +12,23 @@ html {
   box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
 }
 
+.nav-item.active {
+  color: #7cbeea;
+  background-color: rgba(155, 155, 155, 0.16);
+}
+
+.nav-link.active {
+  color: #7cbeea !important;
+}  /* why the f does this or the one above not change the active menu text color... */
+
+.nav-link {
+  color: #ffffff !important;
+}
+
+.nav-item:hover {
+  background-color: rgba(155, 155, 155, 0.16);
+}
+
 html {
   position: relative;
   min-height: 100%;

@@ -5,7 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <title>@ViewData["Title"] - Kage</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css"/>
-    <link rel="stylesheet" href="~/ITPE3200X.styles.css" asp-append-version="true"/>
+    <link rel="stylesheet" href="~/css/site.css"/>
+    <link rel="stylesheet" href="~/ITPE3200X.site.css" asp-append-version="true"/>
 </head>
 <body>
 <header>
@@ -40,16 +41,18 @@
     <div class="row">
         <!-- Sidebar menu -->
         <div class="col-md-3" style="padding: 0; margin: 0;">
-            <div class="bg-dark vh-100">
-                <div class="navbar-brand text-white fs-4 align-content-center" style="margin-top: 0; margin-bottom: 0;">
-                    <img src="~/lib/bootstrap/bootstrap-icon/person-circle.svg" alt="Profile picture" style="height: 6em; margin-right: 5px; filter: invert(100%) sepia(0%) saturate(0%) hue-rotate(0deg) brightness(90%) contrast(100%);>
+            <div class="bg-dark vh-100" style="padding-top: 20px;">
+                <div class="text-center p-4">
+                    <img src="~/lib/bootstrap/bootstrap-icon/person-circle.svg" alt="Profile picture" style="height: 6em; filter: invert(100%) sepia(0%) saturate(0%) hue-rotate(0deg) brightness(90%) contrast(100%);">
+                    <p class="p-1 text-white m-0"> &#64;lud12345</p>
+                    <h3 class="text-white pb-3">Lud</h3>
                 </div>
-                <ul class="nav flex-column">
-                    <li class="nav-item"><a class="nav-link text-white" href="#">Home</a></li>
-                    <li class="nav-item"><a class="nav-link text-white" href="#">Profile</a></li>
-                    <li class="nav-item"><a class="nav-link text-white" href="#">Saved</a></li>
-                    <li class="nav-item"><a class="nav-link text-white" href="#">Search</a></li>
-                    <li class="nav-item"><a class="nav-link text-white" href="#">Settings</a></li>
+                <ul class="nav flex-column text-left" style="font-size: 1.4rem;">
+                    <li class="nav-item mt-3 active"><a class="nav-link" href="#">Home</a></li>
+                    <li class="nav-item mt-3"><a class="nav-link" href="#">Profile</a></li>
+                    <li class="nav-item mt-3"><a class="nav-link" href="#">Saved</a></li>
+                    <li class="nav-item mt-3"><a class="nav-link" href="#">Search</a></li>
+                    <li class="nav-item mt-3"><a class="nav-link" href="#">Settings</a></li>
                 </ul>
             </div>
         </div>
