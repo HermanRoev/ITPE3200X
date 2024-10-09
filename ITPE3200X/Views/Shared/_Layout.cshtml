@@ -9,7 +9,7 @@
 </head>
 <body>
 <header>
-    <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-dark border-bottom py-3 mb-3" style="box-shadow: 0 6px 8px -4px lightblue;">
+    <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-dark py-3 mb-0" style="box-shadow: 0 6px 8px -4px lightblue;">
         <div class="container-fluid">
             <a class="navbar-brand text-white fs-4 px-3" asp-area="" asp-controller="Home" asp-action="Index">
                 <img src="~/Icons-images/icon.png" alt="huh" style="height: 1.4em; vertical-align: middle; margin-right: 5px;"><class></class>
@@ -22,7 +22,7 @@
             <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
                 <ul class="navbar-nav flex-grow-1">
                     <li class="nav-item">
-                    <a class="nav-link text-white" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
+                        <a class="nav-link text-white" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link text-dark" asp-controller="Home" asp-action="Profile">Profile</a>
@@ -34,15 +34,38 @@
         </div>
     </nav>
 </header>
-<div class="container">
-    <main role="main" class="pb-3">
-        @RenderBody()
-    </main>
-</div>
 
-<footer class="border-top footer text-muted bg-dark">
+<!-- This is the main content of the page -->
+<div class="container-fluid">
+    <div class="row">
+        <!-- Sidebar menu -->
+        <div class="col-md-3" style="padding: 0; margin: 0;">
+            <div class="bg-dark vh-100">
+                <div class="navbar-brand text-white fs-4 align-content-center" style="margin-top: 0; margin-bottom: 0;">
+                    <img src="~/lib/bootstrap/bootstrap-icon/person-circle.svg" alt="Profile picture" style="height: 6em; margin-right: 5px; filter: invert(100%) sepia(0%) saturate(0%) hue-rotate(0deg) brightness(90%) contrast(100%);>
+                </div>
+                <ul class="nav flex-column">
+                    <li class="nav-item"><a class="nav-link text-white" href="#">Home</a></li>
+                    <li class="nav-item"><a class="nav-link text-white" href="#">Profile</a></li>
+                    <li class="nav-item"><a class="nav-link text-white" href="#">Saved</a></li>
+                    <li class="nav-item"><a class="nav-link text-white" href="#">Search</a></li>
+                    <li class="nav-item"><a class="nav-link text-white" href="#">Settings</a></li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Main Content, rendered according to the correct page -->
+        <div class="col-md-9">
+            <main role="main" class="pb-3">
+                @RenderBody()
+            </main>
+        </div>
+    </div>
+</div>
+<!-- Footer -->
+<footer class="footer text-muted bg-dark">
     <div class="container bg-dark text-white">
-        &copy; 2024 - Kage - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+        &copy; 2024 - Kage
     </div>
 </footer>
 <script src="~/lib/jquery/dist/jquery.min.js"></script>
