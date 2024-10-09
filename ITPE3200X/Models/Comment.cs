@@ -36,6 +36,6 @@ namespace ITPE3200X.Models
         }
 
         // Private parameterless constructor for EF Core
-        private Comment() { }
+        protected Comment() { }
     }
 }
