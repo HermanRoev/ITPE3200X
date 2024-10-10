@@ -1,10 +1,8 @@
 ﻿@page
 @model LoginModel
-@using Microsoft.AspNetCore.Identity
-@inject SignInManager<ApplicationUser> SignInManager
 
 @{
-ViewData["Title"] = "Log in";
+ViewData["Title"] = "Log in/register";
 }
 <!DOCTYPE html>
 <html lang="en">
@@ -15,17 +13,18 @@ ViewData["Title"] = "Log in";
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css"/>
 </head>
 <body class="vw-100 overflow-hidden">
+<a asp-page="/Index" class="btn-close btn-close-white" aria-label="Close" style="position: absolute; top: 2rem; left: 2rem; font-size: 1.8rem;"></a>
 <div class="container mt-5">
     <div class="row justify-content-center">
         <div class="col-md-8 text-center">
             <img src="~/Icons-images/kage_welcome_vector.png" alt="Vector Image" class="img-fluid my-2" style="height: 26rem">
-            <h2 class="mb-3">Share Your World, Discover Others</h2>
+            <h2 class="mb-3" style="color: #76b5e0;">Share Your World, Discover Others</h2>
             <p class="lead mb-4">Dive into a universe of images and ideas, where your creativity brings us together</p>
 
             <form id="account" method="post" class="card bg-transparent text-light p-4 border-0">
                 <div class="mt-3 text-center">
-                    <a asp-page="./LoginPage" asp-route-returnUrl="@Model.ReturnUrl" class="btn btn-primary btn-lg shadow-sm px-4 py-2 me-2" role="button">Login</a>
-                    <a asp-page="./Register" asp-route-returnUrl="@Model.ReturnUrl" class="btn btn-outline-light btn-lg shadow-sm px-4 py-2" role="button">Register</a>
+                    <a asp-page="./LoginPage" asp-route-returnUrl="@Model.ReturnUrl" class="btn btn-lg me-1 px-4 py-2 loginbtn-primary" role="button">Login</a>
+                    <a asp-page="./Register" asp-route-returnUrl="@Model.ReturnUrl" class="btn btn-lg ms-1 px-4 py-2 loginbtn-secondary" role="button">Register</a>
                 </div>
             </form>
         </div>

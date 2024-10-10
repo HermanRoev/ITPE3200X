@@ -1,11 +1,10 @@
 @page
 @model LoginModel
+@inject SignInManager<ApplicationUser> SignInManager
+
 @{
-    ViewData["Title"] = "Login";
+ViewData["Title"] = "Log in";
 }
-
-<h1>@ViewData["Title"]</h1>
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -14,7 +13,8 @@
     <title>@ViewData["Title"]</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css"/>
 </head>
-<body class="bg-dark text-white">
+<body class="vw-100 overflow-hidden">
+<a asp-page="/Index" class="btn-close btn-close-white" aria-label="Close" style="position: absolute; top: 2rem; left: 2rem; font-size: 1.8rem;"></a>
 <div class="container mt-5">
     <div class="row justify-content-center">
         <div class="col-md-8 text-center">
@@ -49,4 +49,13 @@
     </div>
 </div>
 </body>
+<style>
+    .navbar, .footer, #side-menu-row {
+        display: none !important;
+    }
+
+    .row {
+        justify-content: center !important;
+    }
+</style>
 </html>

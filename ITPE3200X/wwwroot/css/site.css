@@ -17,6 +17,34 @@ body{
   box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
 }
 
+/* Buttons for login and register screens */
+.loginbtn-primary, .loginbtn-secondary {
+  width: 36% !important;
+  border: none !important;
+  transition: background-color 0.3s ease, box-shadow 0.3s ease !important; /* Smooth transition for hover effect */
+}
+
+.loginbtn-primary {
+  background-color: #7CBEEA !important;
+  box-shadow: 0 0.1em 0.8em 0 #7CBEEA !important;
+  color: #212529 !important;
+}
+
+.loginbtn-primary:hover {
+  background-color: #76b5e0 !important; /* Slightly diff shade for hover */
+  box-shadow: 0 0.2em 1.2em 0 #7CBEEA !important; /* Slightly larger shadow for hover */
+}
+
+.loginbtn-secondary {
+  background-color: #ebebeb !important;
+  color: #212529 !important;
+}
+
+.loginbtn-secondary:hover {
+  background-color: #fcfcfc !important; /* Lighten to white for hover */
+  box-shadow: 0 0.18em 0.9em 0 rgba(250, 250, 250, 0.7) !important; /* Subtle shadow for lifted effect */
+}
+
 .nav-item.active {
   color: #7cbeea;
   background-color: rgba(155, 155, 155, 0.16);
