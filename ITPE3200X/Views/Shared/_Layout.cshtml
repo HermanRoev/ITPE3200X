@@ -10,27 +10,18 @@
 </head>
 <body>
 <header>
-    <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-dark py-3 mb-0" style="box-shadow: 0 6px 8px -4px lightblue;">
+    <nav class="navbar navbar-expand-md navbar-toggleable-md navbar-light bg-dark py-3 mb-0" style="box-shadow: 0 6px 8px -4px lightblue;">
         <div class="container-fluid">
             <a class="navbar-brand text-white fs-4 px-3" asp-area="" asp-controller="Home" asp-action="Index">
-                <img src="~/Icons-images/icon.png" alt="huh" style="height: 1.4em; vertical-align: middle; margin-right: 5px;"><class></class>
+                <img src="~/Icons-images/icon.png" alt="Kage Icon" style="height: 1.4em; vertical-align: middle; margin-right: 5px;"><class></class>
                 Kage
             </a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
                     aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
+                <span class="navbar-toggler-icon" style="height: 1.8em; vertical-align: middle; margin-right: 5px; filter: invert(100%) sepia(0%) saturate(0%) hue-rotate(0deg) brightness(100%) contrast(100%);"></span>
             </button>
-            <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
-                <ul class="navbar-nav flex-grow-1">
-                    <li class="nav-item">
-                        <a class="nav-link text-white" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link text-dark" asp-controller="Home" asp-action="Profile">Profile</a>
-                    </li>
-
-                </ul>
-                <partial name="_LoginPartial"/>
+            <div class="navbar-collapse collapse d-md-flex justify-content-between">
+                <partial name="_NavLoginPartial"/>
             </div>
         </div>
     </nav>
@@ -40,22 +31,8 @@
 <div class="container-fluid">
     <div class="row">
         <!-- Sidebar menu -->
-        <div class="col-md-3" style="padding: 0; margin: 0;">
-            <div class="bg-dark vh-100" style="padding-top: 20px;">
-                <div class="text-center p-4">
-                    <img src="~/lib/bootstrap/bootstrap-icon/person-circle.svg" alt="Profile picture" style="height: 6em; filter: invert(100%) sepia(0%) saturate(0%) hue-rotate(0deg) brightness(90%) contrast(100%);">
-                    <p class="p-1 text-white m-0"> &#64;lud12345</p>
-                    <h3 class="text-white pb-3">Lud</h3>
-                </div>
-                <ul class="nav flex-column text-left" style="font-size: 1.4rem;">
-                    <li class="nav-item mt-3"><a id="home" class="nav-link" asp-area="" asp-controller="Home" asp-action="Index" title="Home View">Home</a>
-                    <li class="nav-item mt-3"><a id="profile" class="nav-link" asp-area="" asp-controller="Home" asp-action="Profile" title="Profile View">Profile</a></li>
-                    <li class="nav-item mt-3"><a class="nav-link" href="#">Saved</a></li>
-                    <li class="nav-item mt-3"><a class="nav-link" href="#">Search</a></li>
-                    <li class="nav-item mt-3"><a id="settings" class="nav-link text-white" asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage">Settings</a></li>
-
-                </ul>
-            </div>
+        <div class="col-sm-3 bg-dark d-none d-lg-block d-md-block">
+            <partial name="_SideMenuPartial"/>
         </div>
 
         <!-- Main Content, rendered according to the correct page -->
