@@ -1,0 +1,122 @@
+@model ITPE3200X.Models.Post
+
+<div class="post-card col-md-4 mb-4">
+    <div class="card">
+        <div id="carouselPostImages@Model.PostId" class="carousel slide" data-bs-ride="carousel">
+            <!-- Indicators -->
+            @if (Model.Images.Count > 1)
+            {
+                <div class="carousel-indicators">
+                    @for (int i = 0; i < Model.Images.Count; i++)
+                    {
+                        <button type="button" data-bs-target="#carouselPostImages@Model.PostId" data-bs-slide-to="@i" class="@(i == 0 ? "active" : "")" aria-current="@(i == 0 ? "true" : "false")" aria-label="Slide @(i + 1)"></button>
+                    }
+                </div>
+            }
+
+            <!-- Images -->
+            <div class="carousel-inner">
+                @for (int i = 0; i < Model.Images.Count; i++)
+                {
+                    var image = Model.Images.ElementAt(i);
+                    <div class="carousel-item @(i == 0 ? "active" : "")">
+                        <img src="@image.ImageUrl" class="d-block w-100" alt="Post Image">
+                    </div>
+                }
+            </div>
+
+            <!-- Controls -->
+            @if (Model.Images.Count > 1)
+            {
+                <button class="carousel-control-prev" type="button" data-bs-target="#carouselPostImages@Model.PostId" data-bs-slide="prev">
+                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Previous</span>
+                </button>
+                <button class="carousel-control-next" type="button" data-bs-target="#carouselPostImages@Model.PostId" data-bs-slide="next">
+                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Next</span>
+                </button>
+            }
+        </div>
+
+        <!-- Overlay Content -->
+        <div class="card-img-overlay d-flex flex-column justify-content-end">
+            <div class="d-flex justify-content-between">
+                <!-- User Info -->
+                <div class="user-info text-white">
+                    <img src="@(Model.User.ProfilePictureUrl ?? "/wwwroot/images/test2.jpg")" class="rounded-circle" alt="Profile Picture" style="width: 40px; height: 40px;">
+                    <strong>@Model.User.UserName</strong>
+                </div>
+                <!-- Like and Save Icons -->
+                <div class="icons text-white">
+                    <button type="button" class="btn btn-sm text-white" onclick="likePost('@Model.PostId')">
+                        <i class="bi bi-heart-fill"></i>
+                    </button>
+                    <button type="button" class="btn btn-sm text-white" onclick="savePost('@Model.PostId')">
+                        <i class="bi bi-bookmark-fill"></i>
+                    </button>
+                </div>
+            </div>
+            <!-- Like Count -->
+            <div class="like-count text-white">
+                @Model.Likes.Count() Likes
+            </div>
+            <!-- Content -->
+            <div class="post-content text-white">
+                @if (Model.Content.Length > 100)
+                {
+                    <p id="postContentShort@Model.PostId">@Model.Content.Substring(0, 100)... <a href="javascript:void(0);" onclick="showFullContent('@Model.PostId')">Read more</a></p>
+                    <p id="postContentFull@Model.PostId" style="display: none;">@Model.Content <a href="javascript:void(0);" onclick="showShortContent('@Model.PostId')">Show less</a></p>
+                }
+                else
+                {
+                    <p>@Model.Content</p>
+                }
+            </div>
+        </div>
+
+        <!-- Comments Section -->
+        <div class="card-footer">
+            <button class="btn btn-link" type="button" data-bs-toggle="collapse" data-bs-target="#commentsSection@Model.PostId" aria-expanded="false" aria-controls="commentsSection@Model.PostId">
+                View Comments (@Model.Comments.Count())
+            </button>
+            <div class="collapse" id="commentsSection@Model.PostId">
+                @foreach (var comment in Model.Comments)
+                {
+                    <div class="comment mt-2">
+                        <strong>@comment.User.UserName:</strong> @comment.Content
+                    </div>
+                }
+                <!-- Add Comment Form -->
+                <form method="post" action="/Comments/Add" class="mt-2">
+                    <input type="hidden" name="PostId" value="@Model.PostId" />
+                    <div class="input-group">
+                        <input type="text" name="Content" class="form-control" placeholder="Add a comment..." required />
+                        <button type="submit" class="btn btn-primary">Post</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        function showFullContent(postId) {
+            document.getElementById('postContentShort' + postId).style.display = 'none';
+            document.getElementById('postContentFull' + postId).style.display = 'block';
+        }
+        function showShortContent(postId) {
+            document.getElementById('postContentShort' + postId).style.display = 'block';
+            document.getElementById('postContentFull' + postId).style.display = 'none';
+        }
+        function likePost(postId) {
+            // Implement the like functionality here
+            alert('Liked post ' + postId);
+        }
+        function savePost(postId) {
+            // Implement the save functionality here
+            alert('Saved post ' + postId);
+        }
+    </script>
+}
