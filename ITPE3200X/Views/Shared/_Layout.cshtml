@@ -7,6 +7,7 @@
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css"/>
     <link rel="stylesheet" href="~/css/site.css"/>
     <link rel="stylesheet" href="~/ITPE3200X.site.css" asp-append-version="true"/>
+    <script src="~/js/site.js"></script>
 </head>
 <body>
 <header>
@@ -16,11 +17,12 @@
                 <img src="~/Icons-images/icon.png" alt="Kage Icon" style="height: 1.4em; vertical-align: middle; margin-right: 5px;"><class></class>
                 Kage
             </a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
+            <button class="navbar-toggler first-button collapsed" type="button" data-bs-toggle="collapse"
+                    data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
                     aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon" style="height: 1.8em; vertical-align: middle; margin-right: 5px; filter: invert(100%) sepia(0%) saturate(0%) hue-rotate(0deg) brightness(100%) contrast(100%);"></span>
+                <div class="animated-icon1"><span></span><span></span><span></span></div>
             </button>
-            <div class="navbar-collapse collapse d-md-flex justify-content-between">
+            <div class="navbar-collapse collapse d-md-flex justify-content-between flex-row-reverse">
                 <partial name="_NavLoginPartial"/>
             </div>
         </div>
