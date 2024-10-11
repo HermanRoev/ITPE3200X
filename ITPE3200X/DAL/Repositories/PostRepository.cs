@@ -60,9 +60,8 @@ namespace ITPE3200X.DAL.Repositories
         }
 
         // Comment methods
-        public async Task AddCommentAsync(string postId, Comment comment)
+        public async Task AddCommentAsync(Comment comment)
         {
-            comment.PostId = postId;
             await _context.Comments.AddAsync(comment);
             await _context.SaveChangesAsync();
         }
