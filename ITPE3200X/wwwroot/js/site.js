@@ -2,3 +2,8 @@
 // for details on configuring this project to bundle and minify static web assets.
 
 // Write your JavaScript code.
+
+document.querySelector('.first-button').addEventListener('click', function () {
+
+    document.querySelector('.animated-icon1').classList.toggle('open');
+});

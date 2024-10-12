@@ -8,8 +8,138 @@ html {
   }
 }
 
+body{
+  background: #212529 !important;
+  color: #f6f6f6 !important;
+}
+
 .btn:focus, .btn:active:focus, .btn-link.nav-link:focus, .form-control:focus, .form-check-input:focus {
   box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
+}
+
+  /* Buttons for login and register screens */
+.loginbtn-primary, .loginbtn-secondary {
+  width: 36% !important;
+  border: none !important;
+  transition: background-color 0.3s ease, box-shadow 0.3s ease !important; /* Smooth transition for hover effect */
+}
+
+.loginbtn-primary {
+  background-color: #7CBEEA !important;
+  box-shadow: 0 0.1em 0.8em 0 #7CBEEA !important;
+  color: #212529 !important;
+}
+
+.loginbtn-primary:hover {
+  background-color: #76b5e0 !important; /* Slightly diff shade for hover */
+  box-shadow: 0 0.2em 1.2em 0 #7CBEEA !important; /* Slightly larger shadow for hover */
+}
+
+.loginbtn-secondary {
+  background-color: #ebebeb !important;
+  color: #212529 !important;
+}
+
+.loginbtn-secondary:hover {
+  background-color: #fcfcfc !important; /* Lighten to white for hover */
+  box-shadow: 0 0.18em 0.9em 0 rgba(250, 250, 250, 0.7) !important; /* Subtle shadow for lifted effect */
+}
+
+.nav-item.active {
+  color: #7cbeea;
+  background-color: rgba(155, 155, 155, 0.16);
+}
+
+.nav-link.active {
+  color: #7cbeea !important;
+}  /* why the f does this or the one above not change the active menu text color... */
+
+.nav-link {
+  color: #ffffff !important;
+}
+
+.nav-item:hover {
+  background-color: rgba(155, 155, 155, 0.16);
+}
+
+/* Hamburger button animation */
+
+.animated-icon1 {
+  width: 30px;
+  height: 20px;
+  position: relative;
+  margin: 0px;
+  -webkit-transform: rotate(0deg);
+  -moz-transform: rotate(0deg);
+  -o-transform: rotate(0deg);
+  transform: rotate(0deg);
+  -webkit-transition: .5s ease-in-out;
+  -moz-transition: .5s ease-in-out;
+  -o-transition: .5s ease-in-out;
+  transition: .5s ease-in-out;
+  cursor: pointer;
+}
+
+.animated-icon1 span {
+  display: block;
+  position: absolute;
+  height: 3px;
+  width: 100%;
+  border-radius: 9px;
+  opacity: 1;
+  left: 0;
+  -webkit-transform: rotate(0deg);
+  -moz-transform: rotate(0deg);
+  -o-transform: rotate(0deg);
+  transform: rotate(0deg);
+  -webkit-transition: .25s ease-in-out;
+  -moz-transition: .25s ease-in-out;
+  -o-transition: .25s ease-in-out;
+  transition: .25s ease-in-out;
+}
+
+.animated-icon1 span {
+  background: #f5f5f5;
+}
+
+.animated-icon1 span:nth-child(1) {
+  top: 0px;
+}
+
+.animated-icon1 span:nth-child(2) {
+  top: 10px;
+}
+
+.animated-icon1 span:nth-child(3) {
+  top: 20px;
+}
+
+.animated-icon1.open span:nth-child(1) {
+  top: 11px;
+  -webkit-transform: rotate(135deg);
+  -moz-transform: rotate(135deg);
+  -o-transform: rotate(135deg);
+  transform: rotate(135deg);
+}
+
+.animated-icon1.open span:nth-child(2) {
+  opacity: 0;
+  left: 60px;
+}
+
+.animated-icon1.open span:nth-child(3) {
+  top: 11px;
+  -webkit-transform: rotate(-135deg);
+  -moz-transform: rotate(-135deg);
+  -o-transform: rotate(-135deg);
+  transform: rotate(-135deg);
+}
+ /* Force remove the outline on the hamburger button in bootstrap library */
+.navbar-toggler:focus,
+.navbar-toggler:active,
+.navbar-toggler-icon:focus {
+  outline: none;
+  box-shadow: none;
 }
 
 html {
