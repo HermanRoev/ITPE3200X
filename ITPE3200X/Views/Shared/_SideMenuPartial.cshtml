@@ -6,37 +6,40 @@
 <div>
     @if (SignInManager.IsSignedIn(User))
     {
-        <div id="side-menu" class="vh-100" style="background-color: rgba(124,190,234,0.08); padding: 1em 0 1em;">
-            <div class="text-center p-4 w-100">
-                <img src="~/lib/bootstrap/bootstrap-icon/person-circle.svg" alt="Profile picture" style="height: 6em; filter: invert(100%) sepia(0%) saturate(0%) hue-rotate(0deg) brightness(90%) contrast(100%);">
-                <p class="p-1 text-white m-0"> &#64;lud12345</p>
-                <h3 class="text-white pb-3">Lud</h3>
-            </div>
-            <ul class="nav flex-column text-left w-100" style="font-size: 1.4rem;">
-                <li class="nav-item mt-3"><a id="home" class="nav-link" asp-area="" asp-controller="Home" asp-action="Index" title="Home View">Home</a>
-                <li class="nav-item mt-3"><a id="profile" class="nav-link" asp-area="" asp-controller="Home" asp-action="Profile" title="Profile View">Profile</a></li>
-                <li class="nav-item mt-3"><a class="nav-link" href="#">Saved</a></li>
-                <li class="nav-item mt-3"><a class="nav-link" href="#">Search</a></li>
-                <li class="nav-item mt-3"><a id="settings" class="nav-link text-white" asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage">Settings</a></li>
-            </ul>
+    <div id="side-menu" class="vh-100" style="background-color: rgba(124,190,234,0.08); padding: 1em 0 1em;">
+        <div class="text-center p-4 w-100">
+            <img src="~/lib/bootstrap/bootstrap-icon/person-circle.svg" alt="Profile picture" style="height: 6em; filter: invert(100%) sepia(0%) saturate(0%) hue-rotate(0deg) brightness(90%) contrast(100%);">
+            <p class="p-1 text-white m-0"> &#64;lud12345</p>
+            <h3 class="text-white pb-3">Lud</h3>
         </div>
+        <ul class="nav flex-column text-left w-100" style="font-size: 1.4rem;">
+            <li class="nav-item mt-3"><a id="home" class="nav-link" asp-area="" asp-controller="Home" asp-action="Index" title="Home View">Home</a>
+            <li class="nav-item mt-3"><a id="profile" class="nav-link" asp-area="" asp-controller="Profile" asp-action="Index" title="Profile View">Profile</a></li>
+            <li class="nav-item mt-3"><a class="nav-link" href="#">Saved</a></li>
+            <li class="nav-item mt-3"><a class="nav-link" href="#">Search</a></li>
+            <li class="nav-item mt-3"><a id="settings" class="nav-link text-white" asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage">Settings</a></li>
+        </ul>
+    </div>
     }
     else
     {
-        <div id="side-menu" class="vh-100" style="background-color: rgba(124,190,234,0.08); padding: 1em 0 1em;">
-            <div class="text-center p-4 w-100">
-                <img src="~/lib/bootstrap/bootstrap-icon/person-circle.svg" alt="Profile picture" style="height: 6em; filter: invert(100%) sepia(0%) saturate(0%) hue-rotate(0deg) brightness(90%) contrast(100%);">
-                <p class="p-1 text-white m-0"> &#64;</p>
-                <h3 class="text-white pb-3"></h3>
-            </div>
-            <ul class="nav flex-column text-left w-100" style="font-size: 1.4rem;">
-                <li class="nav-item mt-3"><a id="home" class="nav-link" asp-area="" asp-controller="Home" asp-action="Index" title="Home View">Home</a>
-                <li class="nav-item mt-3"><a class="nav-link" href="#">Search</a></li>
-                <li class="nav-item mt-3"><a id="login" class="nav-link text-white" asp-area="Identity" asp-page="/Account/Login" title="Login">Login</a></li>
-            </ul>
+    <div id="side-menu" class="vh-100" style="background-color: rgba(124,190,234,0.08); padding: 1em 0 1em;">
+        <div class="text-center p-4 w-100">
+            <img src="~/lib/bootstrap/bootstrap-icon/person-circle.svg" alt="Profile picture" style="height: 6em; filter: invert(100%) sepia(0%) saturate(0%) hue-rotate(0deg) brightness(90%) contrast(100%);">
+            <p class="p-1 text-white m-0"> &#64;</p>
+            <h3 class="text-white pb-3"></h3>
         </div>
-    }       
+        <ul class="nav flex-column text-left w-100" style="font-size: 1.4rem;">
+            <li class="nav-item mt-3"><a id="home" class="nav-link" asp-area="" asp-controller="Home" asp-action="Index" title="Home View">Home</a>
+            <li class="nav-item mt-3"><a class="nav-link" href="#">Search</a></li>
+            <li class="nav-item mt-3"><a id="login" class="nav-link text-white" asp-area="Identity" asp-page="/Account/Login" title="Login">Login</a></li>
+        </ul>
     </div>
+    }
+</div>
+
+
+
 
 
 
