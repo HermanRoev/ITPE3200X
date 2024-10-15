@@ -5,13 +5,17 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <title>@ViewData["Title"] - Kage</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css"/>
-    <script src="~/js/site.js"></script>
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true"/>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.5.0/font/bootstrap-icons.min.css" integrity="..." crossorigin="anonymous">
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-alpha1/dist/js/bootstrap.bundle.min.js" integrity="..." crossorigin="anonymous"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    @await RenderSectionAsync("Scripts", required: false)
 </head>
 <body>
-<header>
-    <nav class="navbar navbar-expand-md navbar-toggleable-md navbar-light bg-dark py-3 mb-0" style="box-shadow: 0 6px 8px -4px lightblue;">
+<header class="sticky-top">
+    <nav class="navbar navbar-expand-md navbar-toggleable-md navbar-light bg-dark py-1 mb-0" style="box-shadow: 0 6px 8px -4px lightblue;">
         <div class="container-fluid">
             <a class="navbar-brand text-white fs-4 px-3" asp-area="" asp-controller="Home" asp-action="Index">
                 <img src="~/Icons-images/icon.png" alt="Kage Icon" style="height: 1.4em; vertical-align: middle; margin-right: 5px;"><class></class>
@@ -33,7 +37,7 @@
 <div class="container-fluid">
     <div class="row">
         <!-- Sidebar menu -->
-        <div id="side-menu-row" class="col-sm-3 d-none d-lg-block d-md-block p-0">
+        <div id="side-menu-row" class="col-sm-3 d-none d-lg-block d-md-block p-0 sticky-sidebar">
             <partial name="_SideMenuPartial"/>
         </div>
 
@@ -45,16 +49,15 @@
         </div>
     </div>
 </div>
-<!-- Footer -->
-<footer class="footer text-muted bg-dark">
-    <div class="container bg-dark text-white">
-        &copy; 2024 - Kage
-    </div>
-</footer>
-<script src="~/lib/jquery/dist/jquery.min.js"></script>
-<script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-alpha1/dist/js/bootstrap.bundle.min.js" integrity="..." crossorigin="anonymous"></script>
-<script src="~/js/site.js" asp-append-version="true"></script>
-@await RenderSectionAsync("Scripts", required: false)
+
+<style>
+    .sticky-sidebar {
+        position: sticky;
+        top: 60px; /* Set to header height if header exists */
+        height: calc(100vh - 60px);
+        overflow-y: hidden; 
+    }
+    
+</style>
 </body>
 </html>

@@ -1,5 +1,7 @@
 html {
   font-size: 14px;
+  position: relative;
+  min-height: 100%;
 }
 
 @media (min-width: 768px) {
@@ -152,15 +154,6 @@ body{
 .navbar-toggler-icon:focus {
   outline: none;
   box-shadow: none;
-}
-
-html {
-  position: relative;
-  min-height: 100%;
-}
-
-body {
-  margin-bottom: 60px;
 }
 
 /* Remove default margins and padding */
