@@ -17,6 +17,10 @@ body{
   box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
 }
 
+.settingbtn {
+  background-color: #7cbeea;
+}
+
   /* Buttons for login and register screens */
 .loginbtn-primary, .loginbtn-secondary {
   width: 36% !important;
@@ -50,8 +54,12 @@ body{
   background-color: rgba(155, 155, 155, 0.16);
 }
 
+.nav-pills .nav-link.active {
+  background-color: #7cbeea !important;
+}
+
 .nav-link.active {
-  color: #7cbeea !important;
+  color: #212529 !important;
 }  /* why the f does this or the one above not change the active menu text color... */
 
 .nav-link {
@@ -60,6 +68,10 @@ body{
 
 .nav-item:hover {
   background-color: rgba(155, 155, 155, 0.16);
+}
+
+.form-label {
+  color: #212529;
 }
 
 /* Hamburger button animation */
