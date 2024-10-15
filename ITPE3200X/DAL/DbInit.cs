@@ -24,9 +24,9 @@ namespace ITPE3200X.DAL
                 // Create users
                 var users = new List<ApplicationUser>
                 {
-                    new ApplicationUser { UserName = "user1", Email = "user1@example.com" },
-                    new ApplicationUser { UserName = "user2", Email = "user2@example.com" },
-                    new ApplicationUser { UserName = "user3", Email = "user3@example.com" }
+                    new ApplicationUser { UserName = "user1", Email = "user1@example.com", ProfilePictureUrl = "/images/test2.jpg" },
+                    new ApplicationUser { UserName = "user2", Email = "user2@example.com", ProfilePictureUrl = "/images/test2.jpg" },
+                    new ApplicationUser { UserName = "user3", Email = "user3@example.com", ProfilePictureUrl = "/images/test2.jpg" }
                 };
 
                 foreach (var user in users)
@@ -46,7 +46,7 @@ namespace ITPE3200X.DAL
                 // Create posts
                 var posts = new List<Post>
                 {
-                    new Post(userId: user1.Id, content: "This is the first test post.", title: "First post") { CreatedAt = DateTime.UtcNow.AddMinutes(-30) },
+                    new Post(userId: user1.Id, content: "This is the first test post. Here we need a lot longer text to test if the show more is working, there should be a show more button that can display more content when pressed", title: "First post") { CreatedAt = DateTime.UtcNow.AddMinutes(-30) },
                     new Post(userId: user2.Id, content: "This is the second test post.", title: "Second post") { CreatedAt = DateTime.UtcNow.AddMinutes(-20) },
                     new Post(userId: user3.Id, content: "This is the third test post.", title: "Third post") { CreatedAt = DateTime.UtcNow.AddMinutes(-10) }
                 };
@@ -61,11 +61,38 @@ namespace ITPE3200X.DAL
                 // Create post images
                 var postImages = new List<PostImage>
                 {
-                    new PostImage(postId: post1.PostId, imageUrl: "/images/image1.jpg") { CreatedAt = DateTime.UtcNow.AddMinutes(-29) },
-                    new PostImage(postId: post2.PostId, imageUrl: "/images/image2.jpg") { CreatedAt = DateTime.UtcNow.AddMinutes(-19) },
-                    new PostImage(postId: post3.PostId, imageUrl: "/images/image3.jpg") { CreatedAt = DateTime.UtcNow.AddMinutes(-9) }
+                    new PostImage(postId: post1.PostId, imageUrl: "/images/test.jpg") { CreatedAt = DateTime.UtcNow.AddMinutes(-29) },
+                    new PostImage(postId: post2.PostId, imageUrl: "/images/test.jpg") { CreatedAt = DateTime.UtcNow.AddMinutes(-19) },
+                    new PostImage(postId: post3.PostId, imageUrl: "/images/test.jpg") { CreatedAt = DateTime.UtcNow.AddMinutes(-9) },
+                    // Additional images for post3
+                    new PostImage(postId: post3.PostId, imageUrl: "/images/test3.jpg") { CreatedAt = DateTime.UtcNow.AddMinutes(-8) },
+                    new PostImage(postId: post3.PostId, imageUrl: "/images/test4.jpg") { CreatedAt = DateTime.UtcNow.AddMinutes(-7) },
+                    new PostImage(postId: post3.PostId, imageUrl: "/images/test5.jpg") { CreatedAt = DateTime.UtcNow.AddMinutes(-6) }
                 };
                 context.PostImages.AddRange(postImages);
+                context.SaveChanges();
+
+                // Create comments
+                var comments = new List<Comment>
+                {
+                    new Comment(postId: post1.PostId, userId: user2.Id, content: "Nice post!") { CreatedAt = DateTime.UtcNow.AddMinutes(-28) },
+                    new Comment(postId: post1.PostId, userId: user3.Id, content: "I agree! Holy shit this is the best image quality i have ever seen. This must have been shot on an iphone 16 pro! That is the only phone that can shoot images like this!") { CreatedAt = DateTime.UtcNow.AddMinutes(-27) },
+                    new Comment(postId: post2.PostId, userId: user1.Id, content: "Interesting thoughts.") { CreatedAt = DateTime.UtcNow.AddMinutes(-18) },
+                    new Comment(postId: post3.PostId, userId: user1.Id, content: "Great pictures!") { CreatedAt = DateTime.UtcNow.AddMinutes(-8) }
+                };
+                context.Comments.AddRange(comments);
+                context.SaveChanges();
+
+                // Create likes
+                var likes = new List<Like>
+                {
+                    new Like(postId: post1.PostId, userId: user2.Id) { CreatedAt = DateTime.UtcNow.AddMinutes(-28) },
+                    new Like(postId: post1.PostId, userId: user3.Id) { CreatedAt = DateTime.UtcNow.AddMinutes(-27) },
+                    new Like(postId: post2.PostId, userId: user1.Id) { CreatedAt = DateTime.UtcNow.AddMinutes(-18) },
+                    new Like(postId: post3.PostId, userId: user1.Id) { CreatedAt = DateTime.UtcNow.AddMinutes(-8) },
+                    new Like(postId: post3.PostId, userId: user2.Id) { CreatedAt = DateTime.UtcNow.AddMinutes(-7) }
+                };
+                context.Likes.AddRange(likes);
                 context.SaveChanges();
             }
         }

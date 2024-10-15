@@ -150,3 +150,81 @@ html {
 body {
   margin-bottom: 60px;
 }
+
+/* Remove default margins and padding */
+.post-container {
+  position: relative;
+}
+
+/* Overlay Elements */
+.overlay-elements {
+  position: absolute;
+  bottom: 10px;
+  left: 0;
+  right: 0;
+  display: flex;
+  justify-content: space-between;
+  padding: 0 15px;
+  color: #fff;
+}
+
+/* Profile Info */
+.profile-info {
+  display: flex;
+  align-items: center;
+  z-index: 2;
+}
+
+.profile-picture {
+  width: 40px;
+  height: 40px;
+  object-fit: cover;
+  margin-right: 10px;
+  border: 2px solid #fff;
+}
+
+.username {
+  font-weight: bold;
+  text-shadow: 1px 1px 2px rgba(0,0,0,0.7);
+}
+
+/* Post Actions */
+.post-actions {
+  display: flex;
+  align-items: start;
+  z-index: 2;
+}
+
+.post-actions .btn {
+  color: #fff;
+  background: transparent;
+  border: none;
+  padding: 0 5px;
+}
+
+.post-actions .btn i {
+  font-size: 1.5rem;
+  text-shadow: 1px 1px 2px rgba(0,0,0,0.7);
+}
+
+.post-actions p {
+  margin: 0;
+}
+
+/* Content and Comments */
+.post-content {
+  padding: 0 15px;
+}
+
+.post-content p {
+  margin: 0;
+}
+
+.comment {
+  border-bottom: 1px solid #ddd;
+  padding-bottom: 5px;
+}
+
+.comment:last-child {
+  border-bottom: none;
+}

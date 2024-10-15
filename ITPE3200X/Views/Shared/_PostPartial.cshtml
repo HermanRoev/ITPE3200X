@@ -1,0 +1,91 @@
+@model ITPE3200X.Models.Post
+
+<div class="row justify-content-center mb-3">
+    <div class="card col-md-6 mt-3" style="background-color: rgba(124,190,234,0.08)">
+        <!-- Post Container -->
+        <div class="post-container mt-3 mb-3">
+            <!-- Carousel -->
+            <div id="carouselPostImages-@Model.PostId" class="carousel slide">
+                <!-- Indicators -->
+                @if (Model.Images.Count > 1)
+                {
+                    <div class="carousel-indicators" style="position: absolute; top: 10px;">
+                        @for (int i = 0; i < Model.Images.Count; i++)
+                        {
+                            <button type="button" data-bs-target="#carouselPostImages-@Model.PostId" data-bs-slide-to="@i" class="@(i == 0 ? "active" : "")" aria-current="@(i == 0 ? "true" : "false")" aria-label="Slide @(i + 1)"></button>
+                        }
+                    </div>
+                }
+
+                <!-- Images -->
+                <div class="carousel-inner">
+                    @for (int i = 0; i < Model.Images.Count; i++)
+                    {
+                        var image = Model.Images.ElementAt(i);
+                        <div class="carousel-item @(i == 0 ? "active" : "")"> <!-- Need some way to set the post height to something constant -->
+                            <img src="@image.ImageUrl" class="d-block w-100" alt="Post Image" style="width: 100%; aspect-ratio: 3/4; object-fit: contain; background-color: black;">
+                        </div>
+                    }
+                </div>
+
+                <!-- Controls -->
+                @if (Model.Images.Count > 1)
+                {
+                    <button class="carousel-control-prev carousel-control-prev-icon" style="top: 50%;" aria-hidden="true" type="button" data-bs-target="#carouselPostImages-@Model.PostId" data-bs-slide="prev"></button>
+                    <button class="carousel-control-next carousel-control-next-icon" style="top: 50%;" aria-hidden="true" type="button" data-bs-target="#carouselPostImages-@Model.PostId" data-bs-slide="next"></button>
+                }
+            </div>
+
+            <!-- Overlay Elements -->
+            <div class="overlay-elements">
+                <!-- Profile Picture and Account Name -->
+                <div class="profile-info d-flex align-items-center">
+                    <img src="@(Model.User.ProfilePictureUrl ?? "/images/default-profile.png")" alt="Profile Picture" class="rounded-circle profile-picture">
+                    <span class="username">@Model.User.UserName</span>
+                </div>
+
+                <!-- Like and Save Icons -->
+                <div class="post-actions">
+                    <button type="button" class="btn btn-sm text-white" data-bs-toggle="collapse" data-bs-target="#commentsSection-@Model.PostId" aria-expanded="false" aria-controls="commentsSection-@Model.PostId">
+                        <i class="bi bi-chat"></i>
+                        <p>@Model.Comments.Count()</p>
+                    </button>
+                    <button type="button" class="btn btn-sm text-white" onclick="likePost('@Model.PostId')">
+                        <i class="bi bi-heart"></i>
+                        <p>@Model.Likes.Count()</p>
+                    </button>
+                    <button type="button" class="btn btn-sm text-white" onclick="savePost('@Model.PostId')">
+                        <i class="bi bi-bookmark"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Content and Comments -->
+        <div class="post-content mt-2 mb-3">
+            <!-- Content -->
+            <div>
+                @if (Model.Content.Length > 100)
+                {
+                    <p id="postContentShort-@Model.PostId">@Model.Content.Substring(0, 100)... <a style="color: #76b5e0; cursor: pointer;" onclick="showFullContent('@Model.PostId')">Read more</a></p>
+                    <p id="postContentFull-@Model.PostId" style="display: none;">@Model.Content <a style="color: #76b5e0; cursor: pointer;" onclick="showShortContent('@Model.PostId')">Show less</a></p>
+                }
+                else
+                {
+                    <p>@Model.Content</p>
+                }
+            </div>
+
+            <!-- Comments Section -->
+            <div class="collapse" id="commentsSection-@Model.PostId">
+                @foreach (var comment in Model.Comments)
+                {
+                    <div class="comment mt-2">
+                        <strong>@comment.User.UserName:</strong> @comment.Content
+                    </div>
+                }
+                <!-- Add Comment Form -->
+            </div>
+        </div>
+    </div>
+</div>
