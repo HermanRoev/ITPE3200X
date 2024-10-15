@@ -28,12 +28,12 @@ namespace ITPE3200X.DAL.Repositories
         public async Task<IEnumerable<Post>> GetAllPostsAsync()
         {
             return await _context.Posts
-                .Include(p => p.Images)
                 .Include(p => p.User)
+                .Include(p => p.Images)
                 .Include(p => p.Comments)
-                    .ThenInclude(c => c.User)
+                .ThenInclude(c => c.User)
                 .Include(p => p.Likes)
-                .AsNoTracking()
+                .OrderByDescending(p => p.CreatedAt)
                 .ToListAsync();
         }
 
