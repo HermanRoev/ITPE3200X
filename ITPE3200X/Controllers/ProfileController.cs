@@ -3,61 +3,63 @@ using Microsoft.EntityFrameworkCore;
 using ITPE3200X.Models;
 using System.Linq;
 using System.Threading.Tasks;
+using ITPE3200X.DAL.Repositories;
 using Microsoft.AspNetCore.Identity;
 
 public class ProfileController : Controller
 {
     private readonly UserManager<ApplicationUser> _userManager;
+    private readonly IUserRepository _userRepository;
 
-    public ProfileController(UserManager<ApplicationUser> userManager)
+    public ProfileController(UserManager<ApplicationUser> userManager, IUserRepository userRepository)
     {
         _userManager = userManager;
+        _userRepository = userRepository;
     }
 
     // GET: Profile
-    public async Task<IActionResult> Index(String userId)
+    public async Task<IActionResult> Profile()
     {
-        var user = await _userManager.Users
-            .Include(u => u.Followers)
-            .Include(u => u.Following)
-            .Include(u => u.Posts)
-            .FirstOrDefaultAsync(); // Fjerner autentisering for å hente en bruker direkte
-
-        return View("Profile", user);
+        var userId = _userManager.GetUserId(User);
+        var user = _userRepository.GetUserdataById(userId);
+        return View(user.Result);
     }
 
     // GET: EditProfile
     public async Task<IActionResult> Edit()
     {
-        var user = await _userManager.Users.FirstOrDefaultAsync(); // Henter første bruker
-        return View("Edit", user);
+        var userId = _userManager.GetUserId(User);
+        var user = _userRepository.GetUserdataById(userId);
+        return View(user.Result);
     }
-
-    // POST: EditProfile
+    
     [HttpPost]
-    public async Task<IActionResult> Edit(ApplicationUser updatedUser)
+    public async Task<IActionResult> Edit(ApplicationUser model)
     {
         if (!ModelState.IsValid)
         {
-            return View("Edit", updatedUser);
+            return View("Edit", model);
         }
 
-        var user = await _userManager.Users.FirstOrDefaultAsync();
-        if (user != null)
+        var user = await _userManager.GetUserAsync(User);
+        if (user == null)
         {
-            user.Bio = updatedUser.Bio;
-            user.ProfilePictureUrl = updatedUser.ProfilePictureUrl;
-
-            var result = await _userManager.UpdateAsync(user);
-            if (!result.Succeeded)
-            {
-                ModelState.AddModelError(string.Empty, "Kunne ikke oppdatere profil");
-                return View("Edit", updatedUser);
-            }
+            return RedirectToAction("Index");
         }
 
-        return RedirectToAction("Index");
+        user.ProfilePictureUrl = model.ProfilePictureUrl;
+        user.Bio = model.Bio;
+
+        var result = await _userManager.UpdateAsync(user);
+        if (!result.Succeeded)
+        {
+            ModelState.AddModelError("", "Kunne ikke oppdatere profil.");
+            return View(model);
+        }
+
+        return RedirectToAction("Profile");
     }
+
 }
 
 
