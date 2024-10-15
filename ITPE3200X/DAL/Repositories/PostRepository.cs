@@ -68,11 +68,16 @@ namespace ITPE3200X.DAL.Repositories
             await _context.SaveChangesAsync();
         }
 
-        public async Task DeleteCommentAsync(string commentId)
+        public async Task DeleteCommentAsync(string commentId, string userId)
         {
             var comment = await _context.Comments.FindAsync(commentId);
+            
             if (comment != null)
             {
+                if (comment.UserId != userId)
+                {
+                    throw new UnauthorizedAccessException("You are not authorized to delete this comment.");
+                }
                 _context.Comments.Remove(comment);
                 await _context.SaveChangesAsync();
             }

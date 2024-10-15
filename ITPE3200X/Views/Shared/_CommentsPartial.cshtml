@@ -1,15 +1,35 @@
+@using Microsoft.AspNetCore.Identity
 @model ITPE3200X.ViewModels.PostViewModel
 
+@inject SignInManager<ApplicationUser> SignInManager
+
 <div id="comments-section-@Model.PostId">
-    <div class="comments-list">
+    <ul class="list-group list-group-flush">
         @foreach (var comment in Model.Comments)
         {
-            <div class="comment mt-2">
-                <strong>@comment.User.UserName</strong> @comment.Content
-            </div>
+            <li class="list-group-item d-flex justify-content-between">
+                <span>
+                    <strong>@comment.UserName</strong> @comment.Content
+                </span>
+                <span class="d-flex gap-3">
+                    <small class="text-muted text-nowrap">@comment.TimeSincePosted</small>
+                    @if (@comment.IsCreatedByCurrentUser)
+                    {
+                        <!-- Delete Button -->
+                        <form asp-action="DeleteComment" asp-controller="Home" asp-route-postId="@Model.PostId" asp-route-commentId="@comment.CommentId" method="post" data-ajax="true" data-ajax-mode="replace" data-ajax-update="#comments-section-@Model.PostId">
+                            @Html.AntiForgeryToken()
+                            <button type="submit" class="btn btn-link p-0">
+                                <i class="bi bi-trash text-danger"></i>
+                            </button>
+                        </form>
+                    }
+                </span>
+            </li>
         }
-    </div>
+    </ul>
     <!-- Add Comment Form -->
+    @if (SignInManager.IsSignedIn(User))
+    {
     <form asp-action="AddComment" asp-controller="Home" asp-route-postId="@Model.PostId" method="post" data-ajax="true" data-ajax-mode="replace" data-ajax-update="#comments-section-@Model.PostId" class="comment-form">
         @Html.AntiForgeryToken()
         <div class="input-group mt-2">
@@ -17,4 +37,11 @@
             <button type="submit" class="btn btn-primary">Post</button>
         </div>
     </form>
+    }
+    else
+    {
+    <div class="alert alert-info mt-3" role="alert">
+        <a href="/Identity/Account/Login">Log in</a> to add a comment.
+    </div>
+    }
 </div>

@@ -2,7 +2,16 @@
 
 <div class="profile-page">
     <div class="profile-header">
-        <img src="@Model.ProfilePictureUrl ?? " alt="Profile Picture" class="profile-pic" />
+        @if (!string.IsNullOrEmpty(Model.ProfilePictureUrl))
+        {
+            <img src="@Model.ProfilePictureUrl" alt="Profile Picture" class="rounded-circle profile-picture" />
+        }
+        else
+        {
+            <div class="text-white d-block">
+                <i class="bi bi-person fs-1"></i>
+            </div>
+        }
         <h1>@Model.UserName </h1>
         <p>@Model.Bio </p>
     </div>

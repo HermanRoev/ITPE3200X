@@ -225,11 +225,8 @@ body{
   margin: 0;
 }
 
-.comment {
-  border-bottom: 1px solid #ddd;
-  padding-bottom: 5px;
-}
-
-.comment:last-child {
-  border-bottom: none;
+.list-group-item {
+  background-color: inherit;
+  color: #ffffff;
+  border-color: #ffffff;
 }

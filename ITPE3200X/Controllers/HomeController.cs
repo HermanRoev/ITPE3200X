@@ -32,12 +32,20 @@ public class HomeController : Controller
             Content = p.Content,
             Images = p.Images.ToList(),
             UserName = p.User.UserName,
-            ProfilePicture = p.User.ProfilePictureUrl ?? "/images/default-profile.png",
+            ProfilePicture = p.User.ProfilePictureUrl,
             IsLikedByCurrentUser = p.Likes.Any(l => l.UserId == currentUserId),
             IsSavedByCurrentUser = p.SavedPosts.Any(sp => sp.UserId == currentUserId),
             LikeCount = p.Likes.Count,
             CommentCount = p.Comments.Count,
-            Comments = p.Comments,
+            Comments = p.Comments.Select(c => new CommentViewModel
+            {
+                IsCreatedByCurrentUser = c.UserId == currentUserId,
+                CommentId = c.CommentId,
+                UserName = c.User.UserName,
+                Content = c.Content,
+                CreatedAt = c.CreatedAt,
+                TimeSincePosted = CalculateTimeSincePosted(c.CreatedAt)
+            }).ToList()
         }).ToList();
         
         return View(postViewModels);
@@ -60,7 +68,15 @@ public class HomeController : Controller
             IsSavedByCurrentUser = post.SavedPosts.Any(sp => sp.UserId == currentUserId),
             LikeCount = post.Likes.Count,
             CommentCount = post.Comments.Count,
-            Comments = post.Comments,
+            Comments = post.Comments.Select(c => new CommentViewModel
+            {
+                IsCreatedByCurrentUser = c.UserId == currentUserId,
+                CommentId = c.CommentId,
+                UserName = c.User.UserName,
+                Content = c.Content,
+                CreatedAt = c.CreatedAt,
+                TimeSincePosted = CalculateTimeSincePosted(c.CreatedAt)
+            }).ToList()
         };
     }
 
@@ -81,8 +97,34 @@ public class HomeController : Controller
             IsSavedByCurrentUser = p.SavedPosts.Any(sp => sp.UserId == currentUserId),
             LikeCount = p.Likes.Count,
             CommentCount = p.Comments.Count,
-            Comments = p.Comments,
+            Comments = p.Comments.Select(c => new CommentViewModel
+            {
+                IsCreatedByCurrentUser = c.UserId == currentUserId,
+                CommentId = c.CommentId,
+                UserName = c.User.UserName,
+                Content = c.Content,
+                CreatedAt = c.CreatedAt,
+                TimeSincePosted = CalculateTimeSincePosted(c.CreatedAt)
+            }).ToList()
         }).ToList();
+    }
+    
+    private string CalculateTimeSincePosted(DateTime createdAt)
+    {
+        var timeSpan = DateTime.UtcNow - createdAt;
+
+        if (timeSpan.TotalMinutes < 60)
+        {
+            return $"{(int)timeSpan.TotalMinutes} minutes ago";
+        }
+        else if (timeSpan.TotalHours < 24)
+        {
+            return $"{(int)timeSpan.TotalHours} hours ago";
+        }
+        else
+        {
+            return $"{(int)timeSpan.TotalDays} days ago";
+        }
     }
     
     [HttpPost]
@@ -184,6 +226,20 @@ public class HomeController : Controller
         var comment = new Comment(postId, userId, content);
         _postRepository.AddCommentAsync(comment);
 
+        // Retrieve updated comments
+        var postViewModelUpdated = GetPostViewModelById(postId).Result;
+
+        return PartialView("_CommentsPartial", postViewModelUpdated);
+    }
+    
+    [HttpPost]
+    [ValidateAntiForgeryToken]
+    public ActionResult DeleteComment(string postId, string commentId)
+    {
+        var userId = _userManager.GetUserId(User);
+        
+        _postRepository.DeleteCommentAsync(commentId, userId);
+        
         // Retrieve updated comments
         var postViewModelUpdated = GetPostViewModelById(postId).Result;
 

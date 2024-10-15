@@ -21,16 +21,16 @@ public class ProfileController : Controller
     public async Task<IActionResult> Profile()
     {
         var userId = _userManager.GetUserId(User);
-        var user = _userRepository.GetUserdataById(userId);
-        return View(user.Result);
+        var user = _userRepository.GetUserdataById(userId).Result;
+        return View(user);
     }
 
     // GET: EditProfile
     public async Task<IActionResult> Edit()
     {
         var userId = _userManager.GetUserId(User);
-        var user = _userRepository.GetUserdataById(userId);
-        return View(user.Result);
+        var user = _userRepository.GetUserdataById(userId).Result;
+        return View(user);
     }
     
     [HttpPost]
