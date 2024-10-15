@@ -11,6 +11,33 @@ namespace ITPE3200X.DAL.Repositories
         {
             _context = context;
         }
+        
+        //Tina Special Lol prank haha tihi
+       public async Task<ApplicationUser> GetUserdataById(String userId)
+       {
+           return await _context.Users
+                       .Include(u => u.Posts)
+                       .Include(u => u.Followers)
+                       .Include(u => u.Following)
+                       .FirstOrDefaultAsync(u => u.Id == userId);
+       }
+        
+       public async Task<bool> UpdateUserProfileAsync(string userId, string profilePictureUrl, string bio)
+       {
+           var user = await _context.Users.FindAsync(userId);
+           if (user == null)
+           {
+               return false;
+           }
+
+           user.ProfilePictureUrl = profilePictureUrl;
+           user.Bio = bio;
+
+           _context.Users.Update(user);
+           await _context.SaveChangesAsync();
+
+           return true;
+       }
 
         // Follower methods
         public async Task<IEnumerable<ApplicationUser>> GetFollowersAsync(string userId)
