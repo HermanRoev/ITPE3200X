@@ -1,4 +1,4 @@
-@model ITPE3200X.Models.Post
+@model ITPE3200X.ViewModels.PostViewModel
 
 <div class="row justify-content-center mb-3">
     <div class="card col-md-6 mt-3" style="background-color: rgba(124,190,234,0.08)">
@@ -40,24 +40,12 @@
             <div class="overlay-elements">
                 <!-- Profile Picture and Account Name -->
                 <div class="profile-info d-flex align-items-center">
-                    <img src="@(Model.User.ProfilePictureUrl ?? "/images/default-profile.png")" alt="Profile Picture" class="rounded-circle profile-picture">
-                    <span class="username">@Model.User.UserName</span>
+                    <img src="@(Model.ProfilePicture ?? "/images/default-profile.png")" alt="Profile Picture" class="rounded-circle profile-picture">
+                    <span class="username">@Model.UserName</span>
                 </div>
 
                 <!-- Like and Save Icons -->
-                <div class="post-actions">
-                    <button type="button" class="btn btn-sm text-white" data-bs-toggle="collapse" data-bs-target="#commentsSection-@Model.PostId" aria-expanded="false" aria-controls="commentsSection-@Model.PostId">
-                        <i class="bi bi-chat"></i>
-                        <p>@Model.Comments.Count()</p>
-                    </button>
-                    <button type="button" class="btn btn-sm text-white" onclick="likePost('@Model.PostId')">
-                        <i class="bi bi-heart"></i>
-                        <p>@Model.Likes.Count()</p>
-                    </button>
-                    <button type="button" class="btn btn-sm text-white" onclick="savePost('@Model.PostId')">
-                        <i class="bi bi-bookmark"></i>
-                    </button>
-                </div>
+                <partial name="_LikeSavePartial" model="Model" />
             </div>
         </div>
 
@@ -65,10 +53,16 @@
         <div class="post-content mt-2 mb-3">
             <!-- Content -->
             <div>
-                @if (Model.Content.Length > 100)
+                @if (!string.IsNullOrEmpty(Model.Content) && Model.Content.Length > 100)
                 {
-                    <p id="postContentShort-@Model.PostId">@Model.Content.Substring(0, 100)... <a style="color: #76b5e0; cursor: pointer;" onclick="showFullContent('@Model.PostId')">Read more</a></p>
-                    <p id="postContentFull-@Model.PostId" style="display: none;">@Model.Content <a style="color: #76b5e0; cursor: pointer;" onclick="showShortContent('@Model.PostId')">Show less</a></p>
+                    <p id="postContentShort-@Model.PostId">
+                        @Model.Content.Substring(0, 100)... 
+                        <a style="color: #76b5e0; cursor: pointer;" onclick="showFullContent('@Model.PostId')">Read more</a>
+                    </p>
+                    <p id="postContentFull-@Model.PostId" style="display: none;">
+                        @Model.Content 
+                        <a style="color: #76b5e0; cursor: pointer;" onclick="showShortContent('@Model.PostId')">Show less</a>
+                    </p>
                 }
                 else
                 {
@@ -78,13 +72,7 @@
 
             <!-- Comments Section -->
             <div class="collapse" id="commentsSection-@Model.PostId">
-                @foreach (var comment in Model.Comments)
-                {
-                    <div class="comment mt-2">
-                        <strong>@comment.User.UserName:</strong> @comment.Content
-                    </div>
-                }
-                <!-- Add Comment Form -->
+                <partial name="_CommentsPartial" model="Model" />
             </div>
         </div>
     </div>

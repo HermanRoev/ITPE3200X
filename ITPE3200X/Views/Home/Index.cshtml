@@ -1,4 +1,4 @@
-﻿@model IEnumerable<ITPE3200X.Models.Post>
+﻿@model List<ITPE3200X.ViewModels.PostViewModel>
 
 @{
     ViewData["Title"] = "Home Page";
@@ -7,6 +7,6 @@
 <div class="container">
     @foreach (var post in Model)
     {
-        @await Html.PartialAsync("_PostPartial", post)
+        <partial name="_PostPartial" model="post" />
     }
 </div>

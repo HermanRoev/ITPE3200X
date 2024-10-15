@@ -33,6 +33,8 @@ namespace ITPE3200X.DAL.Repositories
                 .Include(p => p.Comments)
                 .ThenInclude(c => c.User)
                 .Include(p => p.Likes)
+                .ThenInclude(l => l.User)
+                .Include(p => p.SavedPosts)
                 .OrderByDescending(p => p.CreatedAt)
                 .ToListAsync();
         }
@@ -95,10 +97,22 @@ namespace ITPE3200X.DAL.Repositories
             }
         }
 
-        public async Task<bool> IsPostLikedByUserAsync(string postId, string userId)
+        public async Task AddSavedPost(String postId, string userId)
         {
-            return await _context.Likes
-                .AnyAsync(l => l.PostId == postId && l.UserId == userId);
+            var savedPost = new SavedPost(postId, userId);
+            await _context.SavedPosts.AddAsync(savedPost);
+            await _context.SaveChangesAsync();
+        }
+        
+        public async Task RemoveSavedPost(String postId, string userId)
+        {
+            var savedPost = await _context.SavedPosts
+                .FirstOrDefaultAsync(sp => sp.PostId == postId && sp.UserId == userId);
+            if (savedPost != null)
+            {
+                _context.SavedPosts.Remove(savedPost);
+                await _context.SaveChangesAsync();
+            }
         }
     }
 }

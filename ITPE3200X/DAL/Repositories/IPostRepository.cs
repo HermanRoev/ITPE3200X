@@ -18,6 +18,8 @@ namespace ITPE3200X.DAL.Repositories
         // Like methods
         Task AddLikeAsync(string postId, string userId);
         Task RemoveLikeAsync(string postId, string userId);
-        Task<bool> IsPostLikedByUserAsync(string postId, string userId);
+        // Save methods
+        Task AddSavedPost(String postId, string userId);
+        Task RemoveSavedPost(String postId, string userId);
     }
 }
