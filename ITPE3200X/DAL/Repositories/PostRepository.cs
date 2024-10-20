@@ -51,9 +51,14 @@ namespace ITPE3200X.DAL.Repositories
             await _context.SaveChangesAsync();
         }
 
-        public async Task DeletePostAsync(string postId)
+        public async Task DeletePostAsync(string postId, string userId)
         {
             var post = await _context.Posts.FindAsync(postId);
+            if (post.UserId != userId)
+            {
+                throw new UnauthorizedAccessException("You are not authorized to delete this post.");
+            }
+            
             if (post != null)
             {
                 _context.Posts.Remove(post);

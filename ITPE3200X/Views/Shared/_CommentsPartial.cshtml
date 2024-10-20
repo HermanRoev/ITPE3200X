@@ -32,7 +32,7 @@
     {
     <form asp-action="AddComment" asp-controller="Home" asp-route-postId="@Model.PostId" method="post" data-ajax="true" data-ajax-mode="replace" data-ajax-update="#comments-section-@Model.PostId" class="comment-form">
         @Html.AntiForgeryToken()
-        <div class="input-group mt-2">
+        <div class="input-group mt-3">
             <input type="text" name="Content" class="form-control bg-dark text-white border-dark" placeholder="Add a comment..." required />
             <button type="submit" class="btn loginbtn-primary">Post</button>
         </div>

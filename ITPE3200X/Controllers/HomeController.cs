@@ -35,6 +35,7 @@ public class HomeController : Controller
             ProfilePicture = p.User.ProfilePictureUrl,
             IsLikedByCurrentUser = p.Likes.Any(l => l.UserId == currentUserId),
             IsSavedByCurrentUser = p.SavedPosts.Any(sp => sp.UserId == currentUserId),
+            IsOwnedByCurrentUser = p.UserId == currentUserId,
             LikeCount = p.Likes.Count,
             CommentCount = p.Comments.Count,
             Comments = p.Comments.Select(c => new CommentViewModel
@@ -66,6 +67,7 @@ public class HomeController : Controller
             ProfilePicture = post.User.ProfilePictureUrl ?? "/images/default-profile.png",
             IsLikedByCurrentUser = post.Likes.Any(l => l.UserId == currentUserId),
             IsSavedByCurrentUser = post.SavedPosts.Any(sp => sp.UserId == currentUserId),
+            IsOwnedByCurrentUser = post.UserId == currentUserId,
             LikeCount = post.Likes.Count,
             CommentCount = post.Comments.Count,
             Comments = post.Comments.Select(c => new CommentViewModel
@@ -95,6 +97,7 @@ public class HomeController : Controller
             ProfilePicture = p.User.ProfilePictureUrl ?? "/images/default-profile.png",
             IsLikedByCurrentUser = p.Likes.Any(l => l.UserId == currentUserId),
             IsSavedByCurrentUser = p.SavedPosts.Any(sp => sp.UserId == currentUserId),
+            IsOwnedByCurrentUser = p.UserId == currentUserId,
             LikeCount = p.Likes.Count,
             CommentCount = p.Comments.Count,
             Comments = p.Comments.Select(c => new CommentViewModel
@@ -115,15 +118,15 @@ public class HomeController : Controller
 
         if (timeSpan.TotalMinutes < 60)
         {
-            return $"{(int)timeSpan.TotalMinutes} minutes ago";
+            return $"{(int)timeSpan.TotalMinutes} m ago";
         }
         else if (timeSpan.TotalHours < 24)
         {
-            return $"{(int)timeSpan.TotalHours} hours ago";
+            return $"{(int)timeSpan.TotalHours} h ago";
         }
         else
         {
-            return $"{(int)timeSpan.TotalDays} days ago";
+            return $"{(int)timeSpan.TotalDays} d ago";
         }
     }
     
@@ -244,6 +247,17 @@ public class HomeController : Controller
         var postViewModelUpdated = GetPostViewModelById(postId).Result;
 
         return PartialView("_CommentsPartial", postViewModelUpdated);
+    }
+    
+    [HttpPost]
+    [ValidateAntiForgeryToken]
+    public ActionResult DeletePost(string postId)
+    {
+        var userId = _userManager.GetUserId(User);
+        
+        _postRepository.DeletePostAsync(postId, userId);
+        
+        return RedirectToAction("Index");
     }
 
     [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]

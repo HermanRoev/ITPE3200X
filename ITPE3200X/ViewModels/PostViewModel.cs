@@ -11,6 +11,7 @@ public class PostViewModel
         public ICollection<PostImage> Images { get; set; }
         public bool IsLikedByCurrentUser { get; set; }
         public bool IsSavedByCurrentUser { get; set; }
+        public bool IsOwnedByCurrentUser { get; set; }
         public int LikeCount { get; set; }
         public int CommentCount { get; set; }
         public List<CommentViewModel> Comments { get; set; }

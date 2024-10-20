@@ -9,7 +9,7 @@ namespace ITPE3200X.DAL.Repositories
         Task<IEnumerable<Post>> GetAllPostsAsync();
         Task AddPostAsync(Post post);
         Task UpdatePostAsync(Post post);
-        Task DeletePostAsync(string postId);
+        Task DeletePostAsync(string postId, string userId);
 
         // Comment methods
         Task AddCommentAsync(Comment comment);
