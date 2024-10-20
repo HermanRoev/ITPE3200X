@@ -85,13 +85,22 @@ namespace ITPE3200X.DAL.Repositories
         // SavedPost methods
         public async Task<IEnumerable<Post>> GetSavedPostsByUserIdAsync(string userId)
         {
-            return await _context.SavedPosts
+            var savedPosts = await _context.SavedPosts
                 .Where(sp => sp.UserId == userId)
-                .Select(sp => sp.Post)
-                .Include(p => p.Images)
-                .Include(p => p.User)
+                .OrderByDescending(sp => sp.CreatedAt)
+                .Include(sp => sp.Post)
+                .ThenInclude(p => p.User)
+                .Include(sp => sp.Post.Images)
+                .Include(sp => sp.Post.Comments)
+                .ThenInclude(c => c.User)
+                .Include(sp => sp.Post.Likes)
+                .ThenInclude(l => l.User)
                 .AsNoTracking()
                 .ToListAsync();
+
+            var posts = savedPosts.Select(sp => sp.Post);
+
+            return posts;
         }
 
         public async Task AddSavedPostAsync(string postId, string userId)

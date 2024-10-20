@@ -1,0 +1,12 @@
+@model List<ITPE3200X.ViewModels.PostViewModel>
+
+@{
+    ViewData["Title"] = "Saved Posts";
+}
+
+<div class="container">
+    @foreach (var post in Model)
+    {
+        <partial name="_PostPartial" model="post" />
+    }
+</div>
