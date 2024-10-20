@@ -33,15 +33,15 @@
     <form asp-action="AddComment" asp-controller="Home" asp-route-postId="@Model.PostId" method="post" data-ajax="true" data-ajax-mode="replace" data-ajax-update="#comments-section-@Model.PostId" class="comment-form">
         @Html.AntiForgeryToken()
         <div class="input-group mt-2">
-            <input type="text" name="Content" class="form-control" placeholder="Add a comment..." required />
-            <button type="submit" class="btn btn-primary">Post</button>
+            <input type="text" name="Content" class="form-control bg-dark text-white border-dark" placeholder="Add a comment..." required />
+            <button type="submit" class="btn loginbtn-primary">Post</button>
         </div>
     </form>
     }
     else
     {
-    <div class="alert alert-info mt-3" role="alert">
-        <a href="/Identity/Account/Login">Log in</a> to add a comment.
+    <div class="alert alert-info mt-3 bg-dark text-white border-0" role="alert">
+        <a href="/Identity/Account/Login" style="color: #7cbeea !important;">Log in</a> to add a comment.
     </div>
     }
 </div>
