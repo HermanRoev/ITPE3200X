@@ -11,12 +11,14 @@ public class HomeController : Controller
 {
     private readonly ILogger<HomeController> _logger;
     private readonly IPostRepository _postRepository;
+    private readonly IUserRepository _userRepository;
     private readonly UserManager<ApplicationUser> _userManager;
 
-    public HomeController(ILogger<HomeController> logger, IPostRepository postRepository, UserManager<ApplicationUser> userManager)
+    public HomeController(ILogger<HomeController> logger, IPostRepository postRepository, IUserRepository userRepository, UserManager<ApplicationUser> userManager)
     {
         _logger = logger;
         _postRepository = postRepository;
+        _userRepository = userRepository;
         _userManager = userManager;
     }
 
@@ -38,15 +40,19 @@ public class HomeController : Controller
             IsOwnedByCurrentUser = p.UserId == currentUserId,
             LikeCount = p.Likes.Count,
             CommentCount = p.Comments.Count,
-            Comments = p.Comments.Select(c => new CommentViewModel
-            {
-                IsCreatedByCurrentUser = c.UserId == currentUserId,
-                CommentId = c.CommentId,
-                UserName = c.User.UserName,
-                Content = c.Content,
-                CreatedAt = c.CreatedAt,
-                TimeSincePosted = CalculateTimeSincePosted(c.CreatedAt)
-            }).ToList()
+            Comments = p.Comments
+                .OrderBy(c => c.CreatedAt) // Order comments by CreatedAt (ascending)
+                // .OrderByDescending(c => c.CreatedAt) // Use this line instead for descending order
+                .Select(c => new CommentViewModel
+                {
+                    IsCreatedByCurrentUser = c.UserId == currentUserId,
+                    CommentId = c.CommentId,
+                    UserName = c.User.UserName,
+                    Content = c.Content,
+                    CreatedAt = c.CreatedAt,
+                    TimeSincePosted = CalculateTimeSincePosted(c.CreatedAt)
+                })
+                .ToList()
         }).ToList();
         
         return View(postViewModels);
@@ -70,15 +76,19 @@ public class HomeController : Controller
             IsOwnedByCurrentUser = post.UserId == currentUserId,
             LikeCount = post.Likes.Count,
             CommentCount = post.Comments.Count,
-            Comments = post.Comments.Select(c => new CommentViewModel
-            {
-                IsCreatedByCurrentUser = c.UserId == currentUserId,
-                CommentId = c.CommentId,
-                UserName = c.User.UserName,
-                Content = c.Content,
-                CreatedAt = c.CreatedAt,
-                TimeSincePosted = CalculateTimeSincePosted(c.CreatedAt)
-            }).ToList()
+            Comments = post.Comments
+                .OrderBy(c => c.CreatedAt) // Order comments by CreatedAt (ascending)
+                // .OrderByDescending(c => c.CreatedAt) // Use this line instead for descending order
+                .Select(c => new CommentViewModel
+                {
+                    IsCreatedByCurrentUser = c.UserId == currentUserId,
+                    CommentId = c.CommentId,
+                    UserName = c.User.UserName,
+                    Content = c.Content,
+                    CreatedAt = c.CreatedAt,
+                    TimeSincePosted = CalculateTimeSincePosted(c.CreatedAt)
+                })
+                .ToList()
         };
     }
 
@@ -100,15 +110,19 @@ public class HomeController : Controller
             IsOwnedByCurrentUser = p.UserId == currentUserId,
             LikeCount = p.Likes.Count,
             CommentCount = p.Comments.Count,
-            Comments = p.Comments.Select(c => new CommentViewModel
-            {
-                IsCreatedByCurrentUser = c.UserId == currentUserId,
-                CommentId = c.CommentId,
-                UserName = c.User.UserName,
-                Content = c.Content,
-                CreatedAt = c.CreatedAt,
-                TimeSincePosted = CalculateTimeSincePosted(c.CreatedAt)
-            }).ToList()
+            Comments = p.Comments
+                .OrderBy(c => c.CreatedAt) // Order comments by CreatedAt (ascending)
+                // .OrderByDescending(c => c.CreatedAt) // Use this line instead for descending order
+                .Select(c => new CommentViewModel
+                {
+                    IsCreatedByCurrentUser = c.UserId == currentUserId,
+                    CommentId = c.CommentId,
+                    UserName = c.User.UserName,
+                    Content = c.Content,
+                    CreatedAt = c.CreatedAt,
+                    TimeSincePosted = CalculateTimeSincePosted(c.CreatedAt)
+                })
+                .ToList()
         }).ToList();
     }
     
@@ -258,6 +272,42 @@ public class HomeController : Controller
         _postRepository.DeletePostAsync(postId, userId);
         
         return RedirectToAction("Index");
+    }
+    
+    public IActionResult SavedPosts()
+    {
+        var userId = _userManager.GetUserId(User);
+        
+        var savedPosts = _userRepository.GetSavedPostsByUserIdAsync(userId).Result;
+        
+        var postViewModels = savedPosts.Select(p => new PostViewModel
+        {
+            PostId = p.PostId,
+            Content = p.Content,
+            Images = p.Images.ToList(),
+            UserName = p.User.UserName,
+            ProfilePicture = p.User.ProfilePictureUrl,
+            IsLikedByCurrentUser = p.Likes.Any(l => l.UserId == userId),
+            IsSavedByCurrentUser = p.SavedPosts.Any(sp => sp.UserId == userId),
+            IsOwnedByCurrentUser = p.UserId == userId,
+            LikeCount = p.Likes.Count,
+            CommentCount = p.Comments.Count,
+            Comments = p.Comments
+                .OrderBy(c => c.CreatedAt) // Order comments by CreatedAt (ascending)
+                // .OrderByDescending(c => c.CreatedAt) // Use this line instead for descending order
+                .Select(c => new CommentViewModel
+                {
+                    IsCreatedByCurrentUser = c.UserId == userId,
+                    CommentId = c.CommentId,
+                    UserName = c.User.UserName,
+                    Content = c.Content,
+                    CreatedAt = c.CreatedAt,
+                    TimeSincePosted = CalculateTimeSincePosted(c.CreatedAt)
+                })
+                .ToList()
+        }).ToList();
+        
+        return View(postViewModels);
     }
 
     [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
