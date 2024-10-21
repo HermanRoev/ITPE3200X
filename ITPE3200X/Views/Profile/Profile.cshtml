@@ -28,18 +28,20 @@
 
     <div class="profile-edit-page">
         <a class="btn loginbtn-primary" asp-controller="Profile" asp-action="Edit">Edit Profile</a>
-        <a href="@Url.Action("CreatePost", "Profile")" class="btn btn-secondary">Create Post</a>
+        <a class="btn btn-secondary" asp-controller="Profile" asp-action="CreatePost">Create Post</a>
     </div>
 
     <div class="profile-posts">
         <h3>Your Posts</h3>
         @if (Model.Posts != null && Model.Posts.Any())
         {
-        <div class="posts-grid">
-            @foreach (var post in Model.Posts)
-            {
-                <partial name="_PostPartial" model="post" />
-            }
+        <div class="container">
+            <div class="row row-cols-3">
+                @foreach (var post in Model.Posts)
+                {
+                    <img src="@post.Images.ElementAt(0).ImageUrl" alt="Post Image">
+                }
+            </div>
         </div>
         }
         else

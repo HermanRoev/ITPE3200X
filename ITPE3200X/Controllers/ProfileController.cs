@@ -117,7 +117,23 @@ public class ProfileController : Controller
 
         return RedirectToAction("Profile");
     }
+
+    public IActionResult CreatePost()
+    {
+        return View();
+    }
     
+    [HttpPost]
+    public async Task<IActionResult> CreatePost(PostViewModel model)
+    {
+        var userId = _userManager.GetUserId(User);
+        var user = _userRepository.GetUserdataById(userId).Result;
+        var post = new Post(userId, model.Content);
+
+        await _postRepository.AddPostAsync(post);
+        
+        return RedirectToAction("Profile");
+    }
 }
 
 
