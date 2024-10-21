@@ -21,5 +21,6 @@ namespace ITPE3200X.DAL.Repositories
         // Save methods
         Task AddSavedPost(String postId, string userId);
         Task RemoveSavedPost(String postId, string userId);
+        Task<IEnumerable<Post>> GetPostsByUserAsync(string userId);
     }
 }

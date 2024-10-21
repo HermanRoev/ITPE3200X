@@ -124,5 +124,20 @@ namespace ITPE3200X.DAL.Repositories
                 await _context.SaveChangesAsync();
             }
         }
+
+        public async Task<IEnumerable<Post>> GetPostsByUserAsync(string userId)
+        {
+            return await _context.Posts
+                .Where(p => p.UserId == userId)
+                .Include(p => p.User)
+                .Include(p => p.Images)
+                .Include(p => p.Comments)
+                .ThenInclude(c => c.User)
+                .Include(p => p.Likes)
+                .ThenInclude(l => l.User)
+                .Include(p => p.SavedPosts)
+                .OrderByDescending(p => p.CreatedAt)
+                .ToListAsync();
+        }
     }
 }

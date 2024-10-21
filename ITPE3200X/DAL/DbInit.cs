@@ -24,7 +24,7 @@ namespace ITPE3200X.DAL
                 // Create users
                 var users = new List<ApplicationUser>
                 {
-                    new ApplicationUser { UserName = "user1", Email = "user1@example.com", ProfilePictureUrl = "/images/test2.jpg" },
+                    new ApplicationUser { UserName = "user1@example.com", Email = "user1@example.com", ProfilePictureUrl = "/images/test2.jpg" },
                     new ApplicationUser { UserName = "user2", Email = "user2@example.com", ProfilePictureUrl = "/images/test2.jpg" },
                     new ApplicationUser { UserName = "user3", Email = "user3@example.com", ProfilePictureUrl = "/images/test2.jpg" }
                 };
@@ -39,7 +39,7 @@ namespace ITPE3200X.DAL
                 }
 
                 // Retrieve created users
-                var user1 = userManager.FindByNameAsync("user1").Result;
+                var user1 = userManager.FindByNameAsync("user1@example.com").Result;
                 var user2 = userManager.FindByNameAsync("user2").Result;
                 var user3 = userManager.FindByNameAsync("user3").Result;
 

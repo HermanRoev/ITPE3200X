@@ -16,7 +16,6 @@ namespace ITPE3200X.DAL.Repositories
        public async Task<ApplicationUser> GetUserdataById(String userId)
        {
            return await _context.Users
-                       .Include(u => u.Posts)
                        .Include(u => u.Followers)
                        .Include(u => u.Following)
                        .FirstOrDefaultAsync(u => u.Id == userId);
