@@ -22,7 +22,7 @@
 
             <!-- Profile Info -->
             <div class="col-md-8 col-lg-6 text-center text-md-start">
-                <h1 class="display-4 fw-bold username-text" style="font-size: clamp(1.5em, 4vw, 3em); white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
+                <h1 class="display-6 fw-bold username-text" style="font-size: clamp(1.5em, 4vw, 3em); white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
                     @Model.User.UserName
                 </h1>                
                 <p class="lead" style="font-size: 1.3em; color: #aaa;">@Model.User.Bio</p>
@@ -35,10 +35,8 @@
 
                 <!-- Buttons -->
                 <div class="d-flex justify-content-center justify-content-md-start">
-                    <a class="btn loginbtn-primary btn-lg me-3 w-50" asp-controller="Profile" asp-action="Edit"
-                       style="padding: 0.8em 2em;">Edit Profile</a>
-                    <a class="btn btn-secondary btn-lg w-50" asp-controller="Profile" asp-action="CreatePost"
-                       style="padding: 0.8em 2em;">Create Post</a>
+                    <a class="btn loginbtn-primary btn-lg me-3 w-50" asp-controller="Profile" asp-action="Edit">Edit Profile</a>
+                    <a class="btn btn-secondary btn-lg w-50" asp-controller="Profile" asp-action="CreatePost">Create Post</a>
                 </div>
             </div>
         </div>
