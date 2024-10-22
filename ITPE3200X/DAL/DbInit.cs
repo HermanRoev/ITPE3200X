@@ -24,7 +24,7 @@ namespace ITPE3200X.DAL
                 // Create users
                 var users = new List<ApplicationUser>
                 {
-                    new ApplicationUser { UserName = "user1", Email = "user1@example.com", ProfilePictureUrl = "/images/test2.jpg" },
+                    new ApplicationUser { UserName = "user1@example.com", Email = "user1@example.com", ProfilePictureUrl = "/images/test2.jpg" },
                     new ApplicationUser { UserName = "user2", Email = "user2@example.com", ProfilePictureUrl = "/images/test2.jpg" },
                     new ApplicationUser { UserName = "user3", Email = "user3@example.com", ProfilePictureUrl = "/images/test2.jpg" }
                 };
@@ -39,16 +39,16 @@ namespace ITPE3200X.DAL
                 }
 
                 // Retrieve created users
-                var user1 = userManager.FindByNameAsync("user1").Result;
+                var user1 = userManager.FindByNameAsync("user1@example.com").Result;
                 var user2 = userManager.FindByNameAsync("user2").Result;
                 var user3 = userManager.FindByNameAsync("user3").Result;
 
                 // Create posts
                 var posts = new List<Post>
                 {
-                    new Post(userId: user1.Id, content: "This is the first test post. Here we need a lot longer text to test if the show more is working, there should be a show more button that can display more content when pressed", title: "First post") { CreatedAt = DateTime.UtcNow.AddMinutes(-30) },
-                    new Post(userId: user2.Id, content: "This is the second test post.", title: "Second post") { CreatedAt = DateTime.UtcNow.AddMinutes(-20) },
-                    new Post(userId: user3.Id, content: "This is the third test post.", title: "Third post") { CreatedAt = DateTime.UtcNow.AddMinutes(-10) }
+                    new Post(userId: user1.Id, content: "This is the first test post. Here we need a lot longer text to test if the show more is working, there should be a show more button that can display more content when pressed") { CreatedAt = DateTime.UtcNow.AddMinutes(-30) },
+                    new Post(userId: user2.Id, content: "This is the second test post.") { CreatedAt = DateTime.UtcNow.AddMinutes(-20) },
+                    new Post(userId: user3.Id, content: "This is the third test post.") { CreatedAt = DateTime.UtcNow.AddMinutes(-10) }
                 };
                 context.Posts.AddRange(posts);
                 context.SaveChanges();

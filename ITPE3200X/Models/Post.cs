@@ -19,9 +19,6 @@ namespace ITPE3200X.Models
 
         public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
 
-        [StringLength(200, ErrorMessage = "Title cannot exceed 200 characters.")]
-        public string Title { get; set; }
-
         // Virtual navigation properties
         public virtual ApplicationUser User { get; set; } = null!;
         public virtual ICollection<Comment> Comments { get; set; } = new HashSet<Comment>();
@@ -30,11 +27,10 @@ namespace ITPE3200X.Models
         public virtual ICollection<PostImage> Images { get; set; } = new HashSet<PostImage>();
 
         // Constructor to enforce required properties
-        public Post(string userId, string content, string title)
+        public Post(string userId, string content)
         {
             UserId = userId ?? throw new ArgumentNullException(nameof(userId));
             Content = content ?? throw new ArgumentNullException(nameof(content));
-            Title = title ?? throw new ArgumentNullException(nameof(title));
         }
         
         // Private parameterless constructor for EF Core

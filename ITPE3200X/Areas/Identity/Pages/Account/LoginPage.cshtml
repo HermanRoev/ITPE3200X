@@ -25,9 +25,9 @@ ViewData["Title"] = "Log in";
                 <div asp-validation-summary="ModelOnly" class="text-danger"></div> <!-- Validation Summary -->
                 <h4 class="mb-3">Use a local account to log in.</h4>
                 <div class="form-floating mb-3">
-                    <input asp-for="Input.Email" class="form-control" autocomplete="email" aria-required="true" placeholder="name@example.com">
-                    <label asp-for="Input.Email">Email</label>
-                    <span asp-validation-for="Input.Email" class="text-danger"></span>
+                    <input asp-for="Input.Username" class="form-control" autocomplete="username" aria-required="true" placeholder="username">
+                    <label asp-for="Input.Username">Username</label>
+                    <span asp-validation-for="Input.Username" class="text-danger"></span>
                 </div>
                 <div class="form-floating mb-3">
                     <input asp-for="Input.Password" class="form-control" autocomplete="current-password" aria-required="true" placeholder="password">

@@ -1,0 +1,25 @@
+@{
+    ViewData["Title"] = "Create Post";
+}
+
+<div class="create-post-page">
+    <h2>Create a Post</h2>
+    <form asp-action="CreatePost" asp-controller="Profile" method="post" enctype="multipart/form-data">
+        @Html.AntiForgeryToken()
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+        <div class="form-group">
+            <label for="content">Content</label>
+            <textarea class="form-control" id="content" name="Content"></textarea>
+            @Html.ValidationMessage("Content", "", new { @class = "text-danger" })
+        </div>
+
+        <div class="form-group">
+            <label for="imageFiles">Upload Images</label>
+            <input type="file" class="form-control" id="imageFiles" name="ImageFiles" accept="image/*" multiple />
+            @Html.ValidationMessage("ImageFiles", "", new { @class = "text-danger" })
+        </div>
+
+        <button type="submit" class="btn btn-primary">Create Post</button>
+    </form>
+</div>
