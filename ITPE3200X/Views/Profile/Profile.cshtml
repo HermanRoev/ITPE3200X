@@ -8,15 +8,15 @@
             <div class="col-md-4 col-lg-3 text-center text-md-start mb-4 mb-md-0 d-flex justify-content-center">
                 @if (!string.IsNullOrEmpty(Model.User.ProfilePictureUrl))
                 {
-                <img src="@Model.User.ProfilePictureUrl" alt="Profile Picture" class="profile-picture"
-                     style="width: 200px; height: 200px; object-fit: cover; border-radius: 1.2em; border: none; aspect-ratio: 1/1; margin-right: 2em;" />
+                    <img src="@Model.User.ProfilePictureUrl" alt="Profile Picture" class="profile-picture"
+                         style="width: 200px; height: 200px; object-fit: cover; border-radius: 1.2em; border: none; aspect-ratio: 1/1; margin-right: 2em;" />
                 }
                 else
                 {
-                <div class="bg-secondary d-flex justify-content-center align-items-center"
-                     style="width: 200px; height: 200px; border-radius: 1.2em; aspect-ratio: 1/1; margin-right: 2em;">
-                    <i class="bi bi-person fs-1 text-white"></i>
-                </div>
+                    <div class="bg-secondary d-flex justify-content-center align-items-center"
+                         style="width: 200px; height: 200px; border-radius: 1.2em; aspect-ratio: 1/1; margin-right: 2em;">
+                        <i class="bi bi-person fs-1 text-white"></i>
+                    </div>
                 }
             </div>
 
@@ -24,7 +24,7 @@
             <div class="col-md-8 col-lg-6 text-center text-md-start">
                 <h1 class="display-6 fw-bold username-text" style="font-size: clamp(1.5em, 4vw, 3em); white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
                     @Model.User.UserName
-                </h1>                
+                </h1>
                 <p class="lead" style="font-size: 1.3em; color: #aaa;">@Model.User.Bio</p>
 
                 <div class="d-flex justify-content-center justify-content-md-between mb-3 post-info-container">
@@ -33,69 +33,71 @@
                     <span class="post-info" style="font-size: clamp(1em, 2vw, 1.4em); color: #bbb; margin: 0 1em;">@Model.User.Following?.Count Following</span>
                 </div>
 
-                <!-- Buttons -->
+                <!-- Buttons Section -->
                 <div class="d-flex justify-content-center justify-content-md-start">
-                    <a class="btn loginbtn-primary btn-lg me-3 w-50" asp-controller="Profile" asp-action="Edit">Edit Profile</a>
-                    <a class="btn btn-secondary btn-lg w-50" asp-controller="Profile" asp-action="CreatePost">Create Post</a>
-                </div>
-            </div>
-        </div>
-    </div>
-    }
-    else
-    {
-        if (Model.IsFollowing)
-        {
-        <div class="profile-follow">
-            <form asp-controller="Profile" asp-action="Unfollow" method="post">
-                <input type="hidden" name="username" value="@Model.User.UserName" />
-                <button type="submit" class="btn loginbtn-primary">Unfollow</button>
-            </form>
-        </div>
-        }
-        else
-        {
-        <div class="profile-follow">
-            <form asp-controller="Profile" asp-action="Follow" method="post">
-                <input type="hidden" name="username" value="@Model.User.UserName" />
-                <button type="submit" class="btn loginbtn-primary">Follow</button>
-            </form>
-        </div>
-        }
-    }
-
-    <div class="profile-posts">
-        <h3>User Posts</h3>
-        @if (Model.Posts != null && Model.Posts.Any())
-        {
-            <div class="container">
-                <div class="row row-cols-1 row-cols-md-3 g-3">
-                    @foreach (var post in Model.Posts)
+                    @if (Model.IsCurrentUserProfile)
                     {
-                        <div class="col">
-                            <div class="card h-100 border-0">
-                                <!-- Link image to modal -->
-                                <a href="#" data-bs-toggle="modal" data-bs-target="#postModal-@post.PostId">
-                                    <img src="@post.Images.FirstOrDefault()?.ImageUrl" alt="Post Image" class="card-img-top" style="width: 100%; aspect-ratio: 3/4; object-fit: contain; background-color: black;"/>
-                                </a>
-                            </div>
-                        </div>
-
-                        <!-- Modal for the post -->
-                        <div class="modal fade" id="postModal-@post.PostId" tabindex="-1" aria-labelledby="postModalLabel-@post.PostId" aria-hidden="true">
-                            <div class="modal-dialog modal-xl modal-dialog-centered">
-                                <div class="modal-content">
-                                    <partial name="_PostPartial" model="post"/>
-                                </div>
-                            </div>
-                        </div>
+                        <!-- Edit Profile and Create Post Buttons for the current user -->
+                        <a class="btn loginbtn-primary btn-lg me-3 w-50" asp-controller="Profile" asp-action="Edit">Edit Profile</a>
+                        <a class="btn btn-secondary btn-lg w-50" asp-controller="Profile" asp-action="CreatePost">Create Post</a>
+                    }
+                    else
+                    {
+                        <!-- Follow/Unfollow Button for other users -->
+                        <!-- Follow/Unfollow Button for other users -->
+                        @if (Model.IsFollowing)
+                        {
+                            <form asp-controller="Profile" asp-action="Unfollow" method="post" class="w-100">
+                                <input type="hidden" name="username" value="@Model.User.UserName" />
+                                <button type="submit" class="btn loginbtn-secondary btn-lg w-100">Unfollow</button>
+                            </form>
+                        }
+                        else
+                        {
+                            <form asp-controller="Profile" asp-action="Follow" method="post" class="w-100">
+                                <input type="hidden" name="username" value="@Model.User.UserName" />
+                                <button type="submit" class="btn loginbtn-primary btn-lg w-100">Follow</button>
+                            </form>
+                        }
                     }
                 </div>
             </div>
-        }
-        else
-        {
-            <p>No posts to show</p>
-        }
+        </div>
+
+        <!-- User Posts Section -->
+        <div class="profile-posts">
+            <h3>User Posts</h3>
+            @if (Model.Posts != null && Model.Posts.Any())
+            {
+                <div class="container">
+                    <div class="row row-cols-1 row-cols-md-3 g-3">
+                        @foreach (var post in Model.Posts)
+                        {
+                            <div class="col">
+                                <div class="card h-100 border-0">
+                                    <!-- Link image to modal -->
+                                    <a href="#" data-bs-toggle="modal" data-bs-target="#postModal-@post.PostId">
+                                        <img src="@post.Images.FirstOrDefault()?.ImageUrl" alt="Post Image" class="card-img-top" style="width: 100%; aspect-ratio: 3/4; object-fit: contain; background-color: black;" />
+                                    </a>
+                                </div>
+                            </div>
+
+                            <!-- Modal for the post -->
+                            <div class="modal fade" id="postModal-@post.PostId" tabindex="-1" aria-labelledby="postModalLabel-@post.PostId" aria-hidden="true">
+                                <div class="modal-dialog modal-xl modal-dialog-centered">
+                                    <div class="modal-content">
+                                        <partial name="_PostPartial" model="post"/>
+                                    </div>
+                                </div>
+                            </div>
+                        }
+                    </div>
+                </div>
+            }
+            else
+            {
+                <p>No posts to show</p>
+            }
+        </div>
     </div>
 </div>
