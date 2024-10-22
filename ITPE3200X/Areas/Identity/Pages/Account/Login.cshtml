@@ -14,8 +14,8 @@ ViewData["Title"] = "Log in/register";
 </head>
 <body class="vw-100 overflow-hidden">
 <a asp-page="/Index" class="btn-close btn-close-white" aria-label="Close" style="position: absolute; top: 2rem; left: 2rem; font-size: 1.8rem;"></a>
-<div class="container mt-5">
-    <div class="row justify-content-center">
+<div class="container">
+    <div class="row vh-100 justify-content-center align-items-center" style="padding-bottom: 5em"> <!-- Have to add padding to counter margin from main because of nav. Works with align-items for a responsive page. Other solutions are not responsive -->
         <div class="col-md-8 text-center">
             <img src="~/Icons-images/kage_welcome_vector.png" alt="Vector Image" class="img-fluid my-2" style="height: 26rem">
             <h2 class="mb-3" style="color: #76b5e0;">Share Your World, Discover Others</h2>
@@ -36,6 +36,10 @@ ViewData["Title"] = "Log in/register";
         display: none !important;
     }
 
+    .loginbtn-primary, .loginbtn-secondary {
+        width: 36% !important;
+    }
+    
     .row {
         justify-content: center !important;
     }

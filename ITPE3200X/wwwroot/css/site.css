@@ -24,13 +24,8 @@ i:active, form:active {
   border: none !important;
 }
 
-.settingbtn {
-  background-color: #7cbeea;
-}
-
-  /* Buttons for login and register screens */
+  /* Buttons styling */
 .loginbtn-primary, .loginbtn-secondary {
-  width: 36% !important;
   border: none !important;
   transition: background-color 0.3s ease, box-shadow 0.3s ease !important; /* Smooth transition for hover effect */
 }
@@ -44,6 +39,14 @@ i:active, form:active {
 .loginbtn-primary:hover {
   background-color: #76b5e0 !important; /* Slightly diff shade for hover */
   box-shadow: 0 0.2em 1.2em 0 #7CBEEA !important; /* Slightly larger shadow for hover */
+}
+
+.btn-danger {
+  box-shadow: 0 0.1em 0.8em 0 #DC3444 !important;
+}
+
+.btn-danger:hover {
+  box-shadow: 0 0.1em 0.8em 0 #de3c4c !important;
 }
 
 .loginbtn-secondary {

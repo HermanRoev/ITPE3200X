@@ -15,15 +15,14 @@ ViewData["Title"] = "Log in";
 </head>
 <body class="vw-100 overflow-hidden">
 <a asp-page="/Index" class="btn-close btn-close-white" aria-label="Close" style="position: absolute; top: 2rem; left: 2rem; font-size: 1.8rem;"></a>
-<div class="container vh-100" style="margin-top: 8em;">
-    <div class="row justify-content-center">
-        <div class="col-md-8 pt-4 text-center">
+<div class="container">
+    <div class="row vh-100 justify-content-center align-items-center" style="padding-bottom: 5em">
+        <div class="col-md-8 text-center">
             <h2 class="mb-3" style="color: #7cbeea">Login Here</h2>
             <p class="lead mb-4">Welcome back you’ve been missed!</p>
 
             <form id="account" method="post" class="card bg-transparent text-dark p-4 border-0">
                 <div asp-validation-summary="ModelOnly" class="text-danger"></div> <!-- Validation Summary -->
-                <h4 class="mb-3">Use a local account to log in.</h4>
                 <div class="form-floating mb-3">
                     <input asp-for="Input.Username" class="form-control" autocomplete="username" aria-required="true" placeholder="username">
                     <label asp-for="Input.Username">Username</label>
