@@ -14,12 +14,14 @@ public class ProfileController : Controller
     private readonly UserManager<ApplicationUser> _userManager;
     private readonly IUserRepository _userRepository;
     private readonly IPostRepository _postRepository;
+    private readonly IWebHostEnvironment _webHostEnvironment;
 
-    public ProfileController(UserManager<ApplicationUser> userManager, IUserRepository userRepository, IPostRepository postRepository)
+    public ProfileController(UserManager<ApplicationUser> userManager, IUserRepository userRepository, IPostRepository postRepository, IWebHostEnvironment webHostEnvironment)
     {
         _userManager = userManager;
         _userRepository = userRepository;
         _postRepository = postRepository;
+        _webHostEnvironment = webHostEnvironment;
     }
 
     // GET: Profile
@@ -124,21 +126,82 @@ public class ProfileController : Controller
     }
     
     [HttpPost]
-    public async Task<IActionResult> CreatePost(PostViewModel model)
+    [ValidateAntiForgeryToken]
+    public async Task<IActionResult> CreatePost(string Content, List<IFormFile> ImageFiles)
     {
-        var userId = _userManager.GetUserId(User);
-        var user = _userRepository.GetUserdataById(userId).Result;
-        var post = new Post(userId, model.Content);
+        if (string.IsNullOrWhiteSpace(Content))
+        {
+            ModelState.AddModelError("Content", "Content is required.");
+        }
 
+        if (!ModelState.IsValid)
+        {
+            return View();
+        }
+
+        var userId = _userManager.GetUserId(User);
+
+        var post = new Post(userId, Content);
+
+        // Handle image files
+        if (ImageFiles.Count > 0)
+        {
+            foreach (var imageFile in ImageFiles)
+            {
+                if (imageFile.Length > 0)
+                {
+                    // Validate the image file (optional but recommended)
+                    if (!IsImageFile(imageFile))
+                    {
+                        ModelState.AddModelError("ImageFiles", "One or more files are not valid images.");
+                        return View();
+                    }
+
+                    // Generate a unique file name
+                    var fileName = $"{Guid.NewGuid()}_{Path.GetFileName(imageFile.FileName)}";
+                    var uploads = Path.Combine(_webHostEnvironment.WebRootPath, "uploads");
+                    var filePath = Path.Combine(uploads, fileName);
+
+                    // Ensure the uploads directory exists
+                    if (!Directory.Exists(uploads))
+                    {
+                        Directory.CreateDirectory(uploads);
+                    }
+
+                    // Save the image to the server
+                    using (var fileStream = new FileStream(filePath, FileMode.Create))
+                    {
+                        await imageFile.CopyToAsync(fileStream);
+                    }
+
+                    // Create PostImage entity and add to the post
+                    var imageEntity = new PostImage(post.PostId, $"/uploads/{fileName}");
+                    post.Images.Add(imageEntity);
+                }
+            }
+        }
+        else
+        {
+            ModelState.AddModelError("ImageFiles", "At least one image is required.");
+            return View();
+        }
+
+        // Save the post to the database
         await _postRepository.AddPostAsync(post);
-        
+
         return RedirectToAction("Profile");
     }
+
+    private bool IsImageFile(IFormFile file)
+    {
+        var permittedExtensions = new[] { ".jpg", ".jpeg", ".png", ".gif" };
+        var extension = Path.GetExtension(file.FileName).ToLowerInvariant();
+
+        if (string.IsNullOrEmpty(extension) || !permittedExtensions.Contains(extension))
+        {
+            return false;
+        }
+
+        return true;
+    }
 }
-
-
-
-
-
-
-
