@@ -4,6 +4,9 @@
 @inject SignInManager<ApplicationUser> SignInManager
 @inject UserManager<ApplicationUser> UserManager
 
+@{
+    var user = await UserManager.GetUserAsync(User);
+}
 
 <!-- Making different nav bar if the user is logged in or not -->
 <ul class="navbar-nav">
@@ -16,14 +19,14 @@
         </a>
     </li>
     <li class="nav-item">
-        <a id="profileview" class="nav-link text-white d-sm-none d-xs-none d-md-block d-lg-block" asp-area="" asp-controller="Profile" asp-action="Profile" title="Profile View">
+        <a id="profileview" class="nav-link text-white d-sm-none d-xs-none d-md-block d-lg-block" asp-area="" asp-controller="Profile" asp-action="Profile" asp-route-username="@user.UserName" title="Profile View">
             <i class="bi bi-person fs-3"></i>
         </a>
     </li>
     /* This section is hidden on larger screen and visable on smaller screens when the side menu is hidden, works as replacement for side menu */
     <ul class="navbar-nav flex-grow-1 text-left d-lg-none d-md-none" style="font-size: 1.4rem;">
         <li class="nav-item mt-3"><a id="navhome" class="nav-link" asp-area="" asp-controller="Home" asp-action="Index" title="Home View">Home</a>
-        <li class="nav-item mt-3"><a id="navprofile" class="nav-link" asp-area="" asp-controller="Profile" asp-action="Index" title="Profile View">Profile</a></li>
+        <li class="nav-item mt-3"><a id="navprofile" class="nav-link" asp-area="" asp-controller="Profile" asp-action="Profile" asp-route-username="@user.UserName" title="Profile View">Profile</a></li>
         <li class="nav-item mt-3"><a class="nav-link" href="#">Saved</a></li>
         <li class="nav-item mt-3"><a id="navsettings" class="nav-link text-white" asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage">Settings</a></li>
     </ul>

@@ -245,3 +245,7 @@ i:active, form:active {
   right: 10px;
   z-index: 2;
 }
+
+.modal-content {
+  background-color: #212529 !important; 
+}
