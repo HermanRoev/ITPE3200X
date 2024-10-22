@@ -22,6 +22,7 @@
 
             <!-- Profile Info -->
             <div class="col-md-8 col-lg-6 text-center text-md-start">
+                <!-- Username gets hidden if its too long by hidden overflow -->
                 <h1 class="display-6 fw-bold username-text" style="font-size: clamp(1.2em, 3.5vw, 2.5em); white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
                     @Model.User.UserName
                 </h1>
@@ -48,14 +49,14 @@
                         @if (Model.IsFollowing)
                         {
                             <form asp-controller="Profile" asp-action="Unfollow" method="post" class="w-100">
-                                <input type="hidden" name="username" value="@Model.User.UserName" />
+                                <input type="hidden" name="username" value="@Model.User.UserName"/>
                                 <button type="submit" class="btn loginbtn-secondary btn-lg w-100">Unfollow</button>
                             </form>
                         }
                         else
                         {
                             <form asp-controller="Profile" asp-action="Follow" method="post" class="w-100">
-                                <input type="hidden" name="username" value="@Model.User.UserName" />
+                                <input type="hidden" name="username" value="@Model.User.UserName"/>
                                 <button type="submit" class="btn loginbtn-primary btn-lg w-100">Follow</button>
                             </form>
                         }
