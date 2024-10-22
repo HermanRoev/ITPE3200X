@@ -108,9 +108,9 @@ public class ProfileController : Controller
         var user = await _userManager.GetUserAsync(User);
         if (user == null)
         {
-            return RedirectToAction("Profile");
+            return View("Edit", model);
         }
-
+        
         user.ProfilePictureUrl = model.ProfilePictureUrl;
         user.Bio = model.Bio;
 
@@ -121,7 +121,7 @@ public class ProfileController : Controller
             return View(model);
         }
 
-        return RedirectToAction("Profile");
+        return RedirectToAction("Profile", new { user.UserName});
     }
 
     public IActionResult CreatePost()
