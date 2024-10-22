@@ -13,12 +13,12 @@
     {
     <div id="side-menu" style="background-color: rgba(124,190,234,0.08); padding: 1em 0 1em; height: calc(100vh - 60px);">
         <div class="text-center p-3 w-100">
-            <img src="@user.ProfilePictureUrl ?? /images/test.jpg" alt="Profile Picture"/>
+            <img src="@user.ProfilePictureUrl" alt="Profile Picture" style="height: 100px;"/>
             <h3 class="text-white p-3">@user.UserName</h3>
         </div>
         <ul class="nav flex-column text-left w-100" style="font-size: 1.4rem;">
             <li class="nav-item mt-3"><a id="home" class="nav-link" asp-area="" asp-controller="Home" asp-action="Index" title="Home View">Home</a>
-            <li class="nav-item mt-3"><a id="profile" class="nav-link" asp-area="" asp-controller="Profile" asp-action="Profile" title="Profile View">Profile</a></li>
+            <li class="nav-item mt-3"><a id="profile" class="nav-link" asp-area="" asp-controller="Profile" asp-action="Profile" asp-route-username="@user.UserName" title="Profile View">Profile</a></li>
             <li class="nav-item mt-3"><a id="saved" class="nav-link" asp-area="" asp-controller="Home" asp-action="SavedPosts" title="Saved Posts View">Saved</a></li>
             <li class="nav-item mt-3"><a id="settings" class="nav-link text-white" asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage">Settings</a></li>
         </ul>

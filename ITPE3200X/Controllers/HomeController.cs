@@ -13,13 +13,21 @@ public class HomeController : Controller
     private readonly IPostRepository _postRepository;
     private readonly IUserRepository _userRepository;
     private readonly UserManager<ApplicationUser> _userManager;
+    private readonly IWebHostEnvironment _webHostEnvironment;
 
-    public HomeController(ILogger<HomeController> logger, IPostRepository postRepository, IUserRepository userRepository, UserManager<ApplicationUser> userManager)
+    public HomeController(
+        ILogger<HomeController> logger,
+        IPostRepository postRepository,
+        IUserRepository userRepository,
+        UserManager<ApplicationUser> userManager,
+        IWebHostEnvironment webHostEnvironment
+        )
     {
         _logger = logger;
         _postRepository = postRepository;
         _userRepository = userRepository;
         _userManager = userManager;
+        _webHostEnvironment = webHostEnvironment;
     }
 
     public async Task<IActionResult> Index()
@@ -265,13 +273,48 @@ public class HomeController : Controller
     
     [HttpPost]
     [ValidateAntiForgeryToken]
-    public ActionResult DeletePost(string postId)
+    public async Task<IActionResult> DeletePost(string postId)
     {
         var userId = _userManager.GetUserId(User);
-        
-        _postRepository.DeletePostAsync(postId, userId);
-        
+
+        // Retrieve the post with images
+        var post = await _postRepository.GetPostByIdAsync(postId);
+
+        if (post == null || post.UserId != userId)
+        {
+            return NotFound();
+        }
+
+        // Delete image files from the file system
+        foreach (var image in post.Images)
+        {
+            DeleteImageFile(image.ImageUrl);
+        }
+
+        // Delete the post (and associated images) from the database
+        await _postRepository.DeletePostAsync(postId, userId);
+
         return RedirectToAction("Index");
+    }
+
+    private void DeleteImageFile(string imageUrl)
+    {
+        try
+        {
+            // Convert the image URL to a file path
+            var wwwRootPath = _webHostEnvironment.WebRootPath;
+            var filePath = Path.Combine(wwwRootPath, imageUrl.TrimStart('/').Replace('/', Path.DirectorySeparatorChar));
+
+            if (System.IO.File.Exists(filePath))
+            {
+                System.IO.File.Delete(filePath);
+            }
+        }
+        catch (Exception ex)
+        {
+            // Log the exception
+            _logger.LogError(ex, $"Error deleting image file: {imageUrl}");
+        }
     }
     
     public IActionResult SavedPosts()

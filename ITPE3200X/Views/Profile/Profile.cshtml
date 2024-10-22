@@ -41,23 +41,61 @@
             </div>
         </div>
     </div>
-</div>
-
-<div class="profile-posts">
-    <h3>Your Posts</h3>
-    @if (Model.Posts != null && Model.Posts.Any())
-    {
-    <div class="container">
-        <div class="row row-cols-3">
-            @foreach (var post in Model.Posts)
-            {
-            <img src="@post.Images.ElementAt(0).ImageUrl" alt="Post Image">
-            }
-        </div>
-    </div>
     }
     else
     {
-    <p>No posts to show</p>
+        if (Model.IsFollowing)
+        {
+        <div class="profile-follow">
+            <form asp-controller="Profile" asp-action="Unfollow" method="post">
+                <input type="hidden" name="username" value="@Model.User.UserName" />
+                <button type="submit" class="btn loginbtn-primary">Unfollow</button>
+            </form>
+        </div>
+        }
+        else
+        {
+        <div class="profile-follow">
+            <form asp-controller="Profile" asp-action="Follow" method="post">
+                <input type="hidden" name="username" value="@Model.User.UserName" />
+                <button type="submit" class="btn loginbtn-primary">Follow</button>
+            </form>
+        </div>
+        }
     }
+
+    <div class="profile-posts">
+        <h3>User Posts</h3>
+        @if (Model.Posts != null && Model.Posts.Any())
+        {
+            <div class="container">
+                <div class="row row-cols-1 row-cols-md-3 g-3">
+                    @foreach (var post in Model.Posts)
+                    {
+                        <div class="col">
+                            <div class="card h-100 border-0">
+                                <!-- Link image to modal -->
+                                <a href="#" data-bs-toggle="modal" data-bs-target="#postModal-@post.PostId">
+                                    <img src="@post.Images.FirstOrDefault()?.ImageUrl" alt="Post Image" class="card-img-top" style="width: 100%; aspect-ratio: 3/4; object-fit: contain; background-color: black;"/>
+                                </a>
+                            </div>
+                        </div>
+
+                        <!-- Modal for the post -->
+                        <div class="modal fade" id="postModal-@post.PostId" tabindex="-1" aria-labelledby="postModalLabel-@post.PostId" aria-hidden="true">
+                            <div class="modal-dialog modal-xl modal-dialog-centered">
+                                <div class="modal-content">
+                                    <partial name="_PostPartial" model="post"/>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                </div>
+            </div>
+        }
+        else
+        {
+            <p>No posts to show</p>
+        }
+    </div>
 </div>

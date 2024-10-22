@@ -25,9 +25,11 @@ public class ProfileController : Controller
     }
 
     // GET: Profile
-    public async Task<IActionResult> Profile()
+    public async Task<IActionResult> Profile(string username)
     {
-        var userId = _userManager.GetUserId(User);
+        var currentUserId = _userManager.GetUserId(User);
+        var userByName = _userManager.Users.FirstOrDefault(u => u.UserName == username);
+        var userId = userByName?.Id;
         var user = _userRepository.GetUserdataById(userId).Result;
         
         var posts = _postRepository.GetPostsByUserAsync(userId).Result;
@@ -62,6 +64,8 @@ public class ProfileController : Controller
         {
             User = user,
             Posts = postViewModels,
+            IsCurrentUserProfile = userId == currentUserId,
+            IsFollowing = await _userRepository.IsFollowingAsync(currentUserId, userId)
         };
         
         return View(profile);
@@ -104,9 +108,9 @@ public class ProfileController : Controller
         var user = await _userManager.GetUserAsync(User);
         if (user == null)
         {
-            return RedirectToAction("Profile");
+            return View("Edit", model);
         }
-
+        
         user.ProfilePictureUrl = model.ProfilePictureUrl;
         user.Bio = model.Bio;
 
@@ -117,7 +121,7 @@ public class ProfileController : Controller
             return View(model);
         }
 
-        return RedirectToAction("Profile");
+        return RedirectToAction("Profile", new { user.UserName});
     }
 
     public IActionResult CreatePost()
@@ -140,6 +144,8 @@ public class ProfileController : Controller
         }
 
         var userId = _userManager.GetUserId(User);
+        
+        var username = _userManager.GetUserName(User);
 
         var post = new Post(userId, Content);
 
@@ -189,7 +195,7 @@ public class ProfileController : Controller
         // Save the post to the database
         await _postRepository.AddPostAsync(post);
 
-        return RedirectToAction("Profile");
+        return RedirectToAction("Profile", new { username });
     }
 
     private bool IsImageFile(IFormFile file)
@@ -203,5 +209,23 @@ public class ProfileController : Controller
         }
 
         return true;
+    }
+    
+    public async Task<IActionResult> Follow(string username)
+    {
+        var user = _userManager.Users.FirstOrDefault(u => u.UserName == username);
+        var userId = user?.Id;
+        var currentUserId = _userManager.GetUserId(User);
+        await _userRepository.AddFollowerAsync(currentUserId, userId);
+        return RedirectToAction("Profile", new { username });
+    }
+    
+    public async Task<IActionResult> Unfollow(string username)
+    {
+        var user = _userManager.Users.FirstOrDefault(u => u.UserName == username);
+        var userId = user?.Id;
+        var currentUserId = _userManager.GetUserId(User);
+        await _userRepository.RemoveFollowerAsync(currentUserId, userId);
+        return RedirectToAction("Profile", new { username });
     }
 }
