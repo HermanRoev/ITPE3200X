@@ -245,3 +245,19 @@ i:active, form:active {
   right: 10px;
   z-index: 2;
 }
+
+/* Media query to scale the profile image down on smaller screens */
+@media (max-width: 1000px) {
+  .profile-picture, .bg-secondary {
+    width: 150px !important;
+    height: 150px !important;
+    margin-right: 1em !important;
+  }
+}
+@media (max-width: 768px) {
+  .profile-picture, .bg-secondary {
+    width: 120px !important;
+    height: 120px !important;
+    margin-right: 1em !important;
+  }
+}

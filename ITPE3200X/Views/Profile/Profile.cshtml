@@ -1,52 +1,65 @@
 @model ITPE3200X.ViewModels.ProfileViewModel;
 
-<div class="profile-page">
-    <div class="profile-header">
-        @if (!string.IsNullOrEmpty(Model.User.ProfilePictureUrl))
-        {
-        <img src="@Model.User.ProfilePictureUrl" alt="Profile Picture" class="rounded-circle profile-picture" />
-        }
-        else
-        {
-        <div class="text-white d-block">
-            <i class="bi bi-person fs-1"></i>
-        </div>
-        }
-        <h1>@Model.User.UserName </h1>
-        <p>@Model.User.Bio </p>
-    </div>
-
-    <div class="profile-stats">
-        <span>@Model.Posts?.Count Posts</span>
-        <span>@Model.User.Followers?.Count Followers</span>
-        <span>@Model.User.Following?.Count Following</span>
-    </div>
-
-    <div class="profile-details">
-        <p>Email: @Model.User.Email </p>
-    </div>
-
-    <div class="profile-edit-page">
-        <a class="btn loginbtn-primary" asp-controller="Profile" asp-action="Edit">Edit Profile</a>
-        <a class="btn btn-secondary" asp-controller="Profile" asp-action="CreatePost">Create Post</a>
-    </div>
-
-    <div class="profile-posts">
-        <h3>Your Posts</h3>
-        @if (Model.Posts != null && Model.Posts.Any())
-        {
-        <div class="container">
-            <div class="row row-cols-3">
-                @foreach (var post in Model.Posts)
+<div class="profile-page bg-dark text-light py-5" style="background-color: #222; color: #fff;">
+    <div class="container">
+        <!-- Profile Section -->
+        <div class="row align-items-center justify-content-center mb-5">
+            <!-- Profile Image -->
+            <div class="col-md-4 col-lg-3 text-center text-md-start mb-4 mb-md-0 d-flex justify-content-center">
+                @if (!string.IsNullOrEmpty(Model.User.ProfilePictureUrl))
                 {
-                    <img src="@post.Images.ElementAt(0).ImageUrl" alt="Post Image">
+                <img src="@Model.User.ProfilePictureUrl" alt="Profile Picture" class="profile-picture"
+                     style="width: 200px; height: 200px; object-fit: cover; border-radius: 1.2em; border: none; aspect-ratio: 1/1; margin-right: 2em;" />
+                }
+                else
+                {
+                <div class="bg-secondary d-flex justify-content-center align-items-center"
+                     style="width: 200px; height: 200px; border-radius: 1.2em; aspect-ratio: 1/1; margin-right: 2em;">
+                    <i class="bi bi-person fs-1 text-white"></i>
+                </div>
                 }
             </div>
+
+            <!-- Profile Info -->
+            <div class="col-md-8 col-lg-6 text-center text-md-start">
+                <h1 class="display-4 fw-bold username-text" style="font-size: clamp(1.5em, 4vw, 3em); white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
+                    @Model.User.UserName
+                </h1>                
+                <p class="lead" style="font-size: 1.3em; color: #aaa;">@Model.User.Bio</p>
+
+                <div class="d-flex justify-content-center justify-content-md-between mb-3 post-info-container">
+                    <span class="post-info" style="font-size: clamp(1em, 2vw, 1.4em); color: #bbb; margin: 0 1em;">@Model.Posts?.Count Posts</span>
+                    <span class="post-info" style="font-size: clamp(1em, 2vw, 1.4em); color: #bbb; margin: 0 1em;">@Model.User.Followers?.Count Followers</span>
+                    <span class="post-info" style="font-size: clamp(1em, 2vw, 1.4em); color: #bbb; margin: 0 1em;">@Model.User.Following?.Count Following</span>
+                </div>
+
+                <!-- Buttons -->
+                <div class="d-flex justify-content-center justify-content-md-start">
+                    <a class="btn loginbtn-primary btn-lg me-3 w-50" asp-controller="Profile" asp-action="Edit"
+                       style="padding: 0.8em 2em;">Edit Profile</a>
+                    <a class="btn btn-secondary btn-lg w-50" asp-controller="Profile" asp-action="CreatePost"
+                       style="padding: 0.8em 2em;">Create Post</a>
+                </div>
+            </div>
         </div>
-        }
-        else
-        {
-        <p>No posts to show</p>
-        }
     </div>
+</div>
+
+<div class="profile-posts">
+    <h3>Your Posts</h3>
+    @if (Model.Posts != null && Model.Posts.Any())
+    {
+    <div class="container">
+        <div class="row row-cols-3">
+            @foreach (var post in Model.Posts)
+            {
+            <img src="@post.Images.ElementAt(0).ImageUrl" alt="Post Image">
+            }
+        </div>
+    </div>
+    }
+    else
+    {
+    <p>No posts to show</p>
+    }
 </div>
