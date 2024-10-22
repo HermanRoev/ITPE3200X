@@ -5,8 +5,6 @@ namespace ITPE3200X.DAL.Repositories
     public interface IUserRepository
     {
         Task<ApplicationUser> GetUserdataById(string id);
-
-        Task<bool> UpdateUserProfileAsync(string userId, string profilePictureUrl, string bio);
         // Follower methods
         Task<IEnumerable<ApplicationUser>> GetFollowersAsync(string userId);
         Task<IEnumerable<ApplicationUser>> GetFollowingAsync(string userId);
