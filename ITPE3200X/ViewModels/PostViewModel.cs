@@ -13,6 +13,7 @@ public class PostViewModel
         public bool IsLikedByCurrentUser { get; set; }
         public bool IsSavedByCurrentUser { get; set; }
         public bool IsOwnedByCurrentUser { get; set; }
+        public bool HomeFeed { get; set; }
         public int LikeCount { get; set; }
         public int CommentCount { get; set; }
         public List<CommentViewModel> Comments { get; set; }

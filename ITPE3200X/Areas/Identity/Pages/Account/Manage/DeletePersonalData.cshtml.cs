@@ -106,6 +106,12 @@ namespace ITPE3200X.Areas.Identity.Pages.Account.Manage
                     DeleteImageFile(image.ImageUrl);
                 }
             }
+            
+            // Delete the user's profile picture
+            if (!string.IsNullOrEmpty(user.ProfilePictureUrl))
+            {
+                DeleteImageFile(user.ProfilePictureUrl);
+            }
 
             // Delete the user
             var result = await _userManager.DeleteAsync(user);
