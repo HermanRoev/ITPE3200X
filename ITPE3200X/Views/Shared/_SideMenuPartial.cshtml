@@ -15,8 +15,8 @@
         <div class="text-center p-3 w-100">
             @if (!string.IsNullOrEmpty(user.ProfilePictureUrl))
             {
-                <img src="@user.ProfilePictureUrl" alt="Profile Picture" style="height: 100px;"/>
-                <h3 class="text-white p-3">@user.UserName</h3>
+                <img src="@user.ProfilePictureUrl" alt="Profile Picture" style="height: 100px; border-radius: 1em"/>
+                <h3 class="text-white p-3" style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">@user.UserName</h3>
             }
             else
             {
