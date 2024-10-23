@@ -253,12 +253,40 @@ i:active, form:active {
     height: 150px !important;
     margin-right: 1em !important;
   }
+
+  /* Adjusting profile posts section for medium screens */
+  .profile-page .profile-posts {
+    padding: 0 30px;
+    max-width: 95%;
+  }
 }
+
 @media (max-width: 768px) {
   .profile-picture, .bg-secondary {
     width: 120px !important;
     height: 120px !important;
     margin-right: 1em !important;
+  }
+
+  /* Adjusting profile posts section for small screens */
+  .profile-page .profile-posts {
+    padding: 0 20px;
+    max-width: 90%;
+  }
+}
+
+/* Adjusting profile posts section for larger screens */
+@media (min-width: 992px) {
+  .profile-page .profile-posts {
+    padding: 0 75px;
+    max-width: 100%;
+  }
+}
+
+/* More specific media query to hide icon section on smaller screens */
+@media screen and (max-width: 767px) {
+  .icon-section {
+    display: none !important;
   }
 }
 
