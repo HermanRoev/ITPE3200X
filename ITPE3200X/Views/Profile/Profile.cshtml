@@ -1,4 +1,4 @@
-@model ITPE3200X.ViewModels.ProfileViewModel;
+@model ITPE3200X.ViewModels.ProfileViewModel
 
 <div class="profile-page bg-dark text-light py-5" style="background-color: #222; color: #fff;">
     <div class="container">
@@ -22,15 +22,23 @@
 
             <!-- Profile Info -->
             <div class="col-md-8 col-lg-6 text-center text-md-start">
-                <h1 class="display-6 fw-bold username-text" style="font-size: clamp(1.5em, 4vw, 3em); white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
+                <!-- Username gets hidden if its too long by hidden overflow -->
+                <h1 class="display-6 fw-bold username-text"
+                    style="font-size: clamp(1.2em, 3.5vw, 2.5em); white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
                     @Model.User.UserName
                 </h1>
                 <p class="lead" style="font-size: 1.3em; color: #aaa;">@Model.User.Bio</p>
 
                 <div class="d-flex justify-content-center justify-content-md-between mb-3 post-info-container">
-                    <span class="post-info" style="font-size: clamp(1em, 2vw, 1.4em); color: #bbb; margin: 0 1em;">@Model.Posts?.Count Posts</span>
-                    <span class="post-info" style="font-size: clamp(1em, 2vw, 1.4em); color: #bbb; margin: 0 1em;">@Model.User.Followers?.Count Followers</span>
-                    <span class="post-info" style="font-size: clamp(1em, 2vw, 1.4em); color: #bbb; margin: 0 1em;">@Model.User.Following?.Count Following</span>
+                    <span class="post-info" style="font-size: clamp(1em, 2vw, 1.4em); color: #bbb; margin: 0 1em;">
+                        @Model.Posts?.Count Posts
+                    </span>
+                    <span class="post-info" style="font-size: clamp(1em, 2vw, 1.4em); color: #bbb; margin: 0 1em;">
+                        @Model.User.Followers?.Count Followers
+                    </span>
+                    <span class="post-info" style="font-size: clamp(1em, 2vw, 1.4em); color: #bbb; margin: 0 1em;">
+                        @Model.User.Following?.Count Following
+                    </span>
                 </div>
 
                 <!-- Buttons Section -->
@@ -38,25 +46,30 @@
                     @if (Model.IsCurrentUserProfile)
                     {
                         <!-- Edit Profile and Create Post Buttons for the current user -->
-                        <a class="btn loginbtn-primary btn-lg me-3 w-50" asp-controller="Profile" asp-action="Edit">Edit Profile</a>
-                        <a class="btn btn-secondary btn-lg w-50" asp-controller="Profile" asp-action="CreatePost">Create Post</a>
+                        <a class="btn loginbtn-primary btn-lg me-3 w-50"
+                           asp-controller="Profile" asp-action="Edit"
+                           style="width: 50%;">Edit Profile</a>
+                        <a class="btn btn-secondary btn-lg w-50"
+                           asp-controller="Profile" asp-action="CreatePost"
+                           style="width: 50%;">Create Post</a>
                     }
                     else
                     {
-                        <!-- Follow/Unfollow Button for other users -->
                         <!-- Follow/Unfollow Button for other users -->
                         @if (Model.IsFollowing)
                         {
                             <form asp-controller="Profile" asp-action="Unfollow" method="post" class="w-100">
                                 <input type="hidden" name="username" value="@Model.User.UserName" />
-                                <button type="submit" class="btn loginbtn-secondary btn-lg w-100">Unfollow</button>
+                                <button type="submit" class="btn loginbtn-secondary btn-lg w-100"
+                                        style="width: 100%;">Unfollow</button>
                             </form>
                         }
                         else
                         {
                             <form asp-controller="Profile" asp-action="Follow" method="post" class="w-100">
                                 <input type="hidden" name="username" value="@Model.User.UserName" />
-                                <button type="submit" class="btn loginbtn-primary btn-lg w-100">Follow</button>
+                                <button type="submit" class="btn loginbtn-primary btn-lg w-100"
+                                        style="width: 100%;">Follow</button>
                             </form>
                         }
                     }
@@ -64,40 +77,99 @@
             </div>
         </div>
 
-        <!-- User Posts Section -->
-        <div class="profile-posts">
-            <h3>User Posts</h3>
-            @if (Model.Posts != null && Model.Posts.Any())
-            {
-                <div class="container">
-                    <div class="row row-cols-1 row-cols-md-3 g-3">
-                        @foreach (var post in Model.Posts)
-                        {
-                            <div class="col">
-                                <div class="card h-100 border-0">
-                                    <!-- Link image to modal -->
-                                    <a href="#" data-bs-toggle="modal" data-bs-target="#postModal-@post.PostId">
-                                        <img src="@post.Images.FirstOrDefault()?.ImageUrl" alt="Post Image" class="card-img-top" style="width: 100%; aspect-ratio: 3/4; object-fit: contain; background-color: black;" />
-                                    </a>
-                                </div>
-                            </div>
+        <!-- Icons Section (added between buttons and grid) -->
+        <div class="d-flex justify-content-evenly icon-section">
+            <!-- Grid 3x2 Icon -->
+            <div class="me-5">
+                <i id="grid-3x3" class="bi bi-grid-3x3-gap grid-icon grid-icon-3x3 active-icon"></i>
+            </div>
 
-                            <!-- Modal for the post -->
-                            <div class="modal fade" id="postModal-@post.PostId" tabindex="-1" aria-labelledby="postModalLabel-@post.PostId" aria-hidden="true">
-                                <div class="modal-dialog modal-xl modal-dialog-centered">
-                                    <div class="modal-content">
-                                        <partial name="_PostPartial" model="post"/>
-                                    </div>
-                                </div>
-                            </div>
-                        }
-                    </div>
-                </div>
-            }
-            else
-            {
-                <p>No posts to show</p>
-            }
+            <!-- Grid Icon -->
+            <div class="ms-5">
+                <i id="grid-2x2" class="bi bi-grid grid-icon grid-icon-fill"></i>
+            </div>
         </div>
     </div>
+
+    <!-- User Posts Section -->
+    <div id="post-grid" class="profile-posts mt-3 container-fluid px-0 px-md-3">
+        @if (Model.Posts != null && Model.Posts.Any())
+        {
+            <div id="grid-layout" class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3 justify-content-center">
+                @foreach (var post in Model.Posts)
+                {
+                    <div class="col">
+                        <div class="card h-100 border-0">
+                            <!-- Link image to modal -->
+                            <a href="#" data-bs-toggle="modal" data-bs-target="#postModal-@post.PostId">
+                                <img src="@post.Images.FirstOrDefault()?.ImageUrl"
+                                     alt="Post Image"
+                                     class="card-img-top"
+                                     style="width: 100%; aspect-ratio: 3/4; object-fit: contain; background-color: black;" />
+                            </a>
+                        </div>
+                    </div>
+
+                    <!-- Modal for the post -->
+                    <div class="modal fade" id="postModal-@post.PostId" tabindex="-1" aria-labelledby="postModalLabel-@post.PostId" aria-hidden="true">
+                        <div class="modal-dialog modal-xl modal-dialog-centered">
+                            <div class="modal-content">
+                                <partial name="_PostPartial" model="post"/>
+                            </div>
+                        </div>
+                    </div>
+                }
+            </div>
+        }
+        else
+        {
+            <p>No posts to show</p>
+        }
+    </div>
 </div>
+
+<!-- Style section for hover effects and media query -->
+<style>
+    .grid-icon {
+        font-size: 2em;
+        color: #bbb;
+        cursor: pointer;
+        transition: color 0.2s ease, border-bottom 0.2s ease;
+        border-bottom: 2px solid transparent;
+    }
+
+    .grid-icon.active-icon {
+        color: #7cbeea;
+        border-bottom: 2px solid #7cbeea;
+    }
+
+    .grid-icon:hover {
+        color: #7cbeea;
+        border-bottom: 2px solid #7cbeea;
+    }
+</style>
+
+<!-- JavaScript for toggling grid views -->
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const grid3x3 = document.getElementById('grid-3x3');
+        const grid2x2 = document.getElementById('grid-2x2');
+        const gridLayout = document.getElementById('grid-layout');
+
+        grid3x3.addEventListener('click', function () {
+            gridLayout.classList.remove('row-cols-sm-2');
+            gridLayout.classList.remove('row-cols-md-3');
+            gridLayout.classList.add('row-cols-1', 'row-cols-sm-2', 'row-cols-md-3'); // Ensure responsiveness
+            grid3x3.classList.add('active-icon');
+            grid2x2.classList.remove('active-icon');
+        });
+
+        grid2x2.addEventListener('click', function () {
+            gridLayout.classList.remove('row-cols-md-3');
+            gridLayout.classList.remove('row-cols-sm-2');
+            gridLayout.classList.add('row-cols-1', 'row-cols-sm-2'); // Switch to 2 columns on medium and above
+            grid2x2.classList.add('active-icon');
+            grid3x3.classList.remove('active-icon');
+        });
+    });
+</script>
