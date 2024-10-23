@@ -43,8 +43,9 @@ var app = builder.Build();
 DBInit.Seed(app); // Uncomment to seed the database
 
 // Configure the HTTP request pipeline.
-if (!app.Environment.IsDevelopment())
+if (app.Environment.IsDevelopment())
 {
+    DBInit.Seed(app); // Uncomment to seed the database
     app.UseDeveloperExceptionPage();
 }
 

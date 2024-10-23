@@ -46,6 +46,7 @@ public class HomeController : Controller
             IsLikedByCurrentUser = p.Likes.Any(l => l.UserId == currentUserId),
             IsSavedByCurrentUser = p.SavedPosts.Any(sp => sp.UserId == currentUserId),
             IsOwnedByCurrentUser = p.UserId == currentUserId,
+            HomeFeed = true,
             LikeCount = p.Likes.Count,
             CommentCount = p.Comments.Count,
             Comments = p.Comments
@@ -98,40 +99,6 @@ public class HomeController : Controller
                 })
                 .ToList()
         };
-    }
-
-    public async Task<List<PostViewModel>> GetPostViewModel()
-    {
-        var posts = await _postRepository.GetAllPostsAsync();
-        
-        var currentUserId = _userManager.GetUserId(User);
-        
-        return posts.Select(p => new PostViewModel
-        {
-            PostId = p.PostId,
-            Content = p.Content,
-            Images = p.Images.ToList(),
-            UserName = p.User.UserName,
-            ProfilePicture = p.User.ProfilePictureUrl ?? "/images/default-profile.png",
-            IsLikedByCurrentUser = p.Likes.Any(l => l.UserId == currentUserId),
-            IsSavedByCurrentUser = p.SavedPosts.Any(sp => sp.UserId == currentUserId),
-            IsOwnedByCurrentUser = p.UserId == currentUserId,
-            LikeCount = p.Likes.Count,
-            CommentCount = p.Comments.Count,
-            Comments = p.Comments
-                .OrderBy(c => c.CreatedAt) // Order comments by CreatedAt (ascending)
-                // .OrderByDescending(c => c.CreatedAt) // Use this line instead for descending order
-                .Select(c => new CommentViewModel
-                {
-                    IsCreatedByCurrentUser = c.UserId == currentUserId,
-                    CommentId = c.CommentId,
-                    UserName = c.User.UserName,
-                    Content = c.Content,
-                    CreatedAt = c.CreatedAt,
-                    TimeSincePosted = CalculateTimeSincePosted(c.CreatedAt)
-                })
-                .ToList()
-        }).ToList();
     }
     
     private string CalculateTimeSincePosted(DateTime createdAt)
@@ -273,7 +240,7 @@ public class HomeController : Controller
     
     [HttpPost]
     [ValidateAntiForgeryToken]
-    public async Task<IActionResult> DeletePost(string postId)
+    public async Task<IActionResult> DeletePost(string postId, bool homefeed)
     {
         var userId = _userManager.GetUserId(User);
 
@@ -294,7 +261,11 @@ public class HomeController : Controller
         // Delete the post (and associated images) from the database
         await _postRepository.DeletePostAsync(postId, userId);
 
-        return RedirectToAction("Index");
+        if (homefeed)
+        {
+            return RedirectToAction("Index");
+        }
+        return RedirectToAction("Profile", "Profile");
     }
 
     private void DeleteImageFile(string imageUrl)
@@ -333,6 +304,7 @@ public class HomeController : Controller
             IsLikedByCurrentUser = p.Likes.Any(l => l.UserId == userId),
             IsSavedByCurrentUser = p.SavedPosts.Any(sp => sp.UserId == userId),
             IsOwnedByCurrentUser = p.UserId == userId,
+            HomeFeed = false,
             LikeCount = p.Likes.Count,
             CommentCount = p.Comments.Count,
             Comments = p.Comments

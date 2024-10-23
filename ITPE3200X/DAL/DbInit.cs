@@ -11,7 +11,7 @@ namespace ITPE3200X.DAL
             using var serviceScope = app.ApplicationServices.CreateScope();
             var context = serviceScope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
 
-            // Optionally delete and recreate the database for testing
+            // Optionally delete and recreate the database for testing (Comment out for testing)
             context.Database.EnsureDeleted();
             context.Database.EnsureCreated();
 
