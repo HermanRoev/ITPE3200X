@@ -83,6 +83,7 @@
 
     <ItemGroup>
       <Folder Include="wwwroot\uploads\" />
+      <Folder Include="wwwroot\uploads\profile_pictures\" />
     </ItemGroup>
 
 </Project>

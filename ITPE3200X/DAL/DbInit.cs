@@ -12,7 +12,7 @@ namespace ITPE3200X.DAL
             var context = serviceScope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
 
             // Optionally delete and recreate the database for testing (Comment out for testing)
-            context.Database.EnsureDeleted();
+            //context.Database.EnsureDeleted();
             context.Database.EnsureCreated();
 
             // Retrieve UserManager to create users
