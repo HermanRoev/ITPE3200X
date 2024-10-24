@@ -67,7 +67,7 @@ public class HomeController : Controller
         return View(postViewModels);
     }
 
-    public async Task<PostViewModel> GetPostViewModelById(String postId)
+    public async Task<PostViewModel> GetPostViewModelById(String postId, bool homefeed)
     {
         var post = await _postRepository.GetPostByIdAsync(postId);
         
@@ -83,6 +83,7 @@ public class HomeController : Controller
             IsLikedByCurrentUser = post.Likes.Any(l => l.UserId == currentUserId),
             IsSavedByCurrentUser = post.SavedPosts.Any(sp => sp.UserId == currentUserId),
             IsOwnedByCurrentUser = post.UserId == currentUserId,
+            HomeFeed = homefeed,
             LikeCount = post.Likes.Count,
             CommentCount = post.Comments.Count,
             Comments = post.Comments
@@ -121,7 +122,7 @@ public class HomeController : Controller
     
     [HttpPost]
     [ValidateAntiForgeryToken]
-    public ActionResult ToggleLike(string postId, bool isLike)
+    public ActionResult ToggleLike(string postId, bool isLike, bool homefeed)
     {
         var userId = _userManager.GetUserId(User);
         if (string.IsNullOrWhiteSpace(userId))
@@ -150,14 +151,14 @@ public class HomeController : Controller
         }
 
         // Prepare the updated model
-        var model = GetPostViewModelById(postId).Result;
+        var model = GetPostViewModelById(postId, homefeed).Result;
 
-        return PartialView("_LikeSavePartial", model);
+        return PartialView("_PostPartial", model);
     }
 
     [HttpPost]
     [ValidateAntiForgeryToken]
-    public ActionResult ToggleSave(string postId, bool isSave)
+    public ActionResult ToggleSave(string postId, bool isSave, bool homefeed)
     {
         var userId = _userManager.GetUserId(User);
         if (string.IsNullOrWhiteSpace(userId))
@@ -186,14 +187,14 @@ public class HomeController : Controller
         }
 
         // Prepare the updated model
-        var model = GetPostViewModelById(postId).Result;
+        var model = GetPostViewModelById(postId, homefeed).Result;
 
-        return PartialView("_LikeSavePartial", model);
+        return PartialView("_PostPartial", model);
     }
     
     [HttpPost]
     [ValidateAntiForgeryToken]
-    public ActionResult AddComment(string postId, string content)
+    public ActionResult AddComment(string postId, string content, bool homefeed)
     {
         var userId = _userManager.GetUserId(User);
         if (string.IsNullOrWhiteSpace(userId))
@@ -210,8 +211,8 @@ public class HomeController : Controller
         if (!ModelState.IsValid)
         {
             // Return the current comments partial with validation errors
-            var postViewModel = GetPostViewModelById(postId).Result;
-            return PartialView("_CommentsPartial", postViewModel);
+            var postViewModel = GetPostViewModelById(postId, homefeed).Result;
+            return PartialView("_PostPartial", postViewModel);
         }
 
         // Add the comment
@@ -219,23 +220,23 @@ public class HomeController : Controller
         _postRepository.AddCommentAsync(comment);
 
         // Retrieve updated comments
-        var postViewModelUpdated = GetPostViewModelById(postId).Result;
+        var postViewModelUpdated = GetPostViewModelById(postId, homefeed).Result;
 
-        return PartialView("_CommentsPartial", postViewModelUpdated);
+        return PartialView("_PostPartial", postViewModelUpdated);
     }
     
     [HttpPost]
     [ValidateAntiForgeryToken]
-    public ActionResult DeleteComment(string postId, string commentId)
+    public ActionResult DeleteComment(string postId, string commentId, bool homefeed)
     {
         var userId = _userManager.GetUserId(User);
         
         _postRepository.DeleteCommentAsync(commentId, userId);
         
         // Retrieve updated comments
-        var postViewModelUpdated = GetPostViewModelById(postId).Result;
+        var postViewModelUpdated = GetPostViewModelById(postId, homefeed).Result;
 
-        return PartialView("_CommentsPartial", postViewModelUpdated);
+        return PartialView("_PostPartial", postViewModelUpdated);
     }
     
     [HttpPost]

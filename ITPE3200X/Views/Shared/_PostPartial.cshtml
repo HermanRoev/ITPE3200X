@@ -1,4 +1,8 @@
+@using Microsoft.AspNetCore.Identity
+@using Microsoft.AspNetCore.Mvc.TagHelpers
 @model ITPE3200X.ViewModels.PostViewModel
+
+@inject SignInManager<ApplicationUser> SignInManager
 
 <div class="row justify-content-center mb-3">
     <div class="card col-md-6 mt-3" style="background-color: rgba(124,190,234,0.08)">
@@ -78,7 +82,49 @@
                 </div>
 
                 <!-- Like and Save Icons -->
-                <partial name="_LikeSavePartial" model="Model" />
+                <div class="post-actions">
+                    <!-- Comment Button -->
+                    <button type="button" class="btn btn-sm text-white" data-bs-toggle="collapse" data-bs-target="#commentsSection-@Model.PostId" aria-expanded="false" aria-controls="commentsSection-@Model.PostId">
+                        <i class="bi bi-chat"></i>
+                        <p>@Model.CommentCount</p>
+                    </button>
+
+                    <!-- Like Button -->
+                    <form asp-action="ToggleLike" asp-controller="Home" asp-route-postId="@Model.PostId" method="post" data-ajax="true" data-ajax-mode="replace" data-ajax-update="#post-@Model.PostId" class="d-inline">
+                        @Html.AntiForgeryToken()
+                        @if (Model.IsLikedByCurrentUser)
+                        {
+                            <button type="submit" name="isLike" value="false" class="btn btn-sm text-white">
+                                <i class="bi bi-heart-fill text-danger"></i>
+                                <p>@Model.LikeCount</p>
+                            </button>
+                        }
+                        else
+                        {
+                            <button type="submit" name="isLike" value="true" class="btn btn-sm text-white">
+                                <i class="bi bi-heart"></i>
+                                <p>@Model.LikeCount</p>
+                            </button>
+                        }
+                    </form>
+
+                    <!-- Save Button -->
+                    <form asp-action="ToggleSave" asp-controller="Home" asp-route-postId="@Model.PostId" method="post" data-ajax="true" data-ajax-mode="replace" data-ajax-update="#post-@Model.PostId" class="d-inline">
+                        @Html.AntiForgeryToken()
+                        @if (Model.IsSavedByCurrentUser)
+                        {
+                            <button type="submit" name="isSave" value="false" class="btn btn-sm text-white">
+                                <i class="bi bi-bookmark-fill"></i>
+                            </button>
+                        }
+                        else
+                        {
+                            <button type="submit" name="isSave" value="true" class="btn btn-sm text-white">
+                                <i class="bi bi-bookmark"></i>
+                            </button>
+                        }
+                    </form>
+                </div>
             </div>
         </div>
 
@@ -105,7 +151,48 @@
 
             <!-- Comments Section -->
             <div class="collapse" id="commentsSection-@Model.PostId">
-                <partial name="_CommentsPartial" model="Model" />
+                <div id="comments-section-@Model.PostId">
+                    <ul class="list-group list-group-flush">
+                        @foreach (var comment in Model.Comments)
+                        {
+                            <li class="list-group-item d-flex justify-content-between">
+                                <span>
+                                    <strong>@comment.UserName</strong> @comment.Content
+                                </span>
+                                <span class="d-flex gap-3">
+                                    <small class="text-muted text-nowrap">@comment.TimeSincePosted</small>
+                                    @if (@comment.IsCreatedByCurrentUser)
+                                    {
+                                        <!-- Delete Button -->
+                                        <form asp-action="DeleteComment" asp-controller="Home" asp-route-postId="@Model.PostId" asp-route-commentId="@comment.CommentId" method="post" data-ajax="true" data-ajax-mode="replace" data-ajax-update="#post-@Model.PostId">
+                                            @Html.AntiForgeryToken()
+                                            <button type="submit" class="btn btn-link p-0">
+                                                <i class="bi bi-trash text-danger"></i>
+                                            </button>
+                                        </form>
+                                    }
+                                </span>
+                            </li>
+                        }
+                    </ul>
+                    <!-- Add Comment Form -->
+                    @if (SignInManager.IsSignedIn(User))
+                    {
+                    <form asp-action="AddComment" asp-controller="Home" asp-route-postId="@Model.PostId" method="post" data-ajax="true" data-ajax-mode="replace" data-ajax-update="#post-@Model.PostId" class="comment-form">
+                        @Html.AntiForgeryToken()
+                        <div class="input-group mt-3">
+                            <input type="text" name="Content" class="form-control bg-dark text-white border-dark" placeholder="Add a comment..." required />
+                            <button type="submit" class="btn loginbtn-primary">Post</button>
+                        </div>
+                    </form>
+                    }
+                    else
+                    {
+                    <div class="alert alert-info mt-3 bg-dark text-white border-0" role="alert">
+                        <a href="/Identity/Account/Login" style="color: #7cbeea !important;">Log in</a> to add a comment.
+                    </div>
+                    }
+                </div>
             </div>
         </div>
     </div>
