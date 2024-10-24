@@ -114,7 +114,9 @@
                     <div class="modal fade" id="postModal-@post.PostId" tabindex="-1" aria-labelledby="postModalLabel-@post.PostId" aria-hidden="true">
                         <div class="modal-dialog modal-xl modal-dialog-centered">
                             <div class="modal-content">
-                                <partial name="_PostPartial" model="post"/>
+                                <div id="post-@post.PostId">
+                                    <partial name="_PostPartial" model="post" />
+                                </div>
                             </div>
                         </div>
                     </div>
