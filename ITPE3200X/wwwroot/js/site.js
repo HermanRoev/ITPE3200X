@@ -16,11 +16,3 @@ function showShortContent(postId) {
     document.getElementById('postContentShort-' + postId).style.display = 'block';
     document.getElementById('postContentFull-' + postId).style.display = 'none';
 }
-function likePost(postId) {
-    // Implement the like functionality here
-    alert('Liked post ' + postId);
-}
-function savePost(postId) {
-    // Implement the save functionality here
-    alert('Saved post ' + postId);
-}
