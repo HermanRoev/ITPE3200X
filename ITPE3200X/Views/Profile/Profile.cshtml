@@ -1,5 +1,9 @@
 @model ITPE3200X.ViewModels.ProfileViewModel
 
+@{
+    ViewData["Title"] = "Profile Page";
+}
+
 <div class="profile-page bg-dark text-light py-5" style="background-color: #222; color: #fff;">
     <div class="container">
         <!-- Profile Section -->
@@ -105,7 +109,7 @@
                                 <img src="@post.Images.FirstOrDefault()?.ImageUrl"
                                      alt="Post Image"
                                      class="card-img-top"
-                                     style="width: 100%; aspect-ratio: 3/4; object-fit: contain; background-color: black;" />
+                                     style="width: 100%; aspect-ratio: 3/4; object-fit: cover; background-color: black;" />
                             </a>
                         </div>
                     </div>
