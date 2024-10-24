@@ -1,14 +1,12 @@
-﻿@model List<ITPE3200X.ViewModels.PostViewModel>
+﻿@model ITPE3200X.ViewModels.HomeViewModel
 
 @{
     ViewData["Title"] = "Home Page";
 }
 
 <div class="container">
-    @foreach (var post in Model)
-    {
-        <div id="post-@post.PostId">
-            <partial name="_PostPartial" model="post" />
-        </div>
-    }
+    <div id="home-page-content">
+        <!-- Render the HomePage view -->
+        <partial name="~/Views/Home/HomePage.cshtml" model="Model" />
+    </div>
 </div>

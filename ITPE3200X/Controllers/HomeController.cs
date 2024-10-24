@@ -21,7 +21,7 @@ public class HomeController : Controller
         IUserRepository userRepository,
         UserManager<ApplicationUser> userManager,
         IWebHostEnvironment webHostEnvironment
-        )
+    )
     {
         _logger = logger;
         _postRepository = postRepository;
@@ -30,12 +30,13 @@ public class HomeController : Controller
         _webHostEnvironment = webHostEnvironment;
     }
 
-    public async Task<IActionResult> Index()
+    // Main HomePage Action using HomeViewModel
+    public async Task<IActionResult> HomePage()
     {
         var posts = await _postRepository.GetAllPostsAsync();
-        
         var currentUserId = _userManager.GetUserId(User);
-        
+
+        // Create a list of PostViewModels based on the posts
         var postViewModels = posts.Select(p => new PostViewModel
         {
             PostId = p.PostId,
@@ -50,8 +51,7 @@ public class HomeController : Controller
             LikeCount = p.Likes.Count,
             CommentCount = p.Comments.Count,
             Comments = p.Comments
-                .OrderBy(c => c.CreatedAt) // Order comments by CreatedAt (ascending)
-                // .OrderByDescending(c => c.CreatedAt) // Use this line instead for descending order
+                .OrderBy(c => c.CreatedAt)
                 .Select(c => new CommentViewModel
                 {
                     IsCreatedByCurrentUser = c.UserId == currentUserId,
@@ -63,45 +63,17 @@ public class HomeController : Controller
                 })
                 .ToList()
         }).ToList();
-        
-        return View(postViewModels);
-    }
 
-    public async Task<PostViewModel> GetPostViewModelById(String postId, bool homefeed)
-    {
-        var post = await _postRepository.GetPostByIdAsync(postId);
-        
-        var currentUserId = _userManager.GetUserId(User);
-
-        return new PostViewModel
+        // Create the HomeViewModel with the list of posts
+        var homeViewModel = new HomeViewModel
         {
-            PostId = post.PostId,
-            Content = post.Content,
-            Images = post.Images.ToList(),
-            UserName = post.User.UserName,
-            ProfilePicture = post.User.ProfilePictureUrl ?? "/images/default-profile.png",
-            IsLikedByCurrentUser = post.Likes.Any(l => l.UserId == currentUserId),
-            IsSavedByCurrentUser = post.SavedPosts.Any(sp => sp.UserId == currentUserId),
-            IsOwnedByCurrentUser = post.UserId == currentUserId,
-            HomeFeed = homefeed,
-            LikeCount = post.Likes.Count,
-            CommentCount = post.Comments.Count,
-            Comments = post.Comments
-                .OrderBy(c => c.CreatedAt) // Order comments by CreatedAt (ascending)
-                // .OrderByDescending(c => c.CreatedAt) // Use this line instead for descending order
-                .Select(c => new CommentViewModel
-                {
-                    IsCreatedByCurrentUser = c.UserId == currentUserId,
-                    CommentId = c.CommentId,
-                    UserName = c.User.UserName,
-                    Content = c.Content,
-                    CreatedAt = c.CreatedAt,
-                    TimeSincePosted = CalculateTimeSincePosted(c.CreatedAt)
-                })
-                .ToList()
+            User = await _userManager.GetUserAsync(User), // Retrieve the current user if needed
+            Posts = postViewModels, // Assign the list of PostViewModels
         };
+
+        return View(homeViewModel); // Return the HomePage view with HomeViewModel
     }
-    
+
     private string CalculateTimeSincePosted(DateTime createdAt)
     {
         var timeSpan = DateTime.UtcNow - createdAt;
@@ -119,10 +91,11 @@ public class HomeController : Controller
             return $"{(int)timeSpan.TotalDays} d ago";
         }
     }
-    
+
+    // Updated ToggleLike Method using HomePage functionality
     [HttpPost]
     [ValidateAntiForgeryToken]
-    public ActionResult ToggleLike(string postId, bool isLike, bool homefeed)
+    public async Task<IActionResult> ToggleLike(string postId, bool isLike)
     {
         var userId = _userManager.GetUserId(User);
         if (string.IsNullOrWhiteSpace(userId))
@@ -131,7 +104,7 @@ public class HomeController : Controller
         }
 
         // Retrieve the post
-        var post = _postRepository.GetPostByIdAsync(postId).Result;
+        var post = await _postRepository.GetPostByIdAsync(postId);
         if (post == null)
         {
             return NotFound();
@@ -142,23 +115,22 @@ public class HomeController : Controller
             // Add like
             if (!post.Likes.Any(l => l.UserId == userId))
             {
-                _postRepository.AddLikeAsync(postId, userId);
+                await _postRepository.AddLikeAsync(postId, userId);
             }
         }
         else
         {
-                _postRepository.RemoveLikeAsync(postId, userId);
+            // Remove like
+            await _postRepository.RemoveLikeAsync(postId, userId);
         }
 
-        // Prepare the updated model
-        var model = GetPostViewModelById(postId, homefeed).Result;
-
-        return PartialView("_PostPartial", model);
+        return RedirectToAction(nameof(HomePage)); // Refresh HomePage after the like action
     }
 
+    // Updated ToggleSave Method using HomePage functionality
     [HttpPost]
     [ValidateAntiForgeryToken]
-    public ActionResult ToggleSave(string postId, bool isSave, bool homefeed)
+    public async Task<IActionResult> ToggleSave(string postId, bool isSave)
     {
         var userId = _userManager.GetUserId(User);
         if (string.IsNullOrWhiteSpace(userId))
@@ -167,7 +139,7 @@ public class HomeController : Controller
         }
 
         // Retrieve the post
-        var post = _postRepository.GetPostByIdAsync(postId).Result;
+        var post = await _postRepository.GetPostByIdAsync(postId);
         if (post == null)
         {
             return NotFound();
@@ -178,23 +150,22 @@ public class HomeController : Controller
             // Add save
             if (!post.SavedPosts.Any(sp => sp.UserId == userId))
             {
-                _postRepository.AddSavedPost(postId, userId);
+                await _postRepository.AddSavedPost(postId, userId);
             }
         }
         else
         {
-                _postRepository.RemoveSavedPost(postId, userId);
+            // Remove save
+            await _postRepository.RemoveSavedPost(postId, userId);
         }
 
-        // Prepare the updated model
-        var model = GetPostViewModelById(postId, homefeed).Result;
-
-        return PartialView("_PostPartial", model);
+        return RedirectToAction(nameof(HomePage)); // Refresh HomePage after the save action
     }
-    
+
+    // Updated AddComment Method using HomePage functionality
     [HttpPost]
     [ValidateAntiForgeryToken]
-    public ActionResult AddComment(string postId, string content, bool homefeed)
+    public async Task<IActionResult> AddComment(string postId, string content)
     {
         var userId = _userManager.GetUserId(User);
         if (string.IsNullOrWhiteSpace(userId))
@@ -206,42 +177,32 @@ public class HomeController : Controller
         if (string.IsNullOrWhiteSpace(content))
         {
             ModelState.AddModelError("Content", "Comment cannot be empty.");
-        }
-
-        if (!ModelState.IsValid)
-        {
-            // Return the current comments partial with validation errors
-            var postViewModel = GetPostViewModelById(postId, homefeed).Result;
-            return PartialView("_PostPartial", postViewModel);
+            return RedirectToAction(nameof(HomePage)); // Refresh page if validation fails
         }
 
         // Add the comment
         var comment = new Comment(postId, userId, content);
-        _postRepository.AddCommentAsync(comment);
+        await _postRepository.AddCommentAsync(comment);
 
-        // Retrieve updated comments
-        var postViewModelUpdated = GetPostViewModelById(postId, homefeed).Result;
-
-        return PartialView("_PostPartial", postViewModelUpdated);
+        return RedirectToAction(nameof(HomePage)); // Refresh HomePage after adding the comment
     }
-    
+
+    // Updated DeleteComment Method using HomePage functionality
     [HttpPost]
     [ValidateAntiForgeryToken]
-    public ActionResult DeleteComment(string postId, string commentId, bool homefeed)
+    public async Task<IActionResult> DeleteComment(string postId, string commentId)
     {
         var userId = _userManager.GetUserId(User);
-        
-        _postRepository.DeleteCommentAsync(commentId, userId);
-        
-        // Retrieve updated comments
-        var postViewModelUpdated = GetPostViewModelById(postId, homefeed).Result;
 
-        return PartialView("_PostPartial", postViewModelUpdated);
+        await _postRepository.DeleteCommentAsync(commentId, userId);
+
+        return RedirectToAction(nameof(HomePage)); // Refresh HomePage after deleting the comment
     }
-    
+
+    // Updated DeletePost Method using HomePage functionality
     [HttpPost]
     [ValidateAntiForgeryToken]
-    public async Task<IActionResult> DeletePost(string postId, bool homefeed)
+    public async Task<IActionResult> DeletePost(string postId)
     {
         var userId = _userManager.GetUserId(User);
 
@@ -262,11 +223,7 @@ public class HomeController : Controller
         // Delete the post (and associated images) from the database
         await _postRepository.DeletePostAsync(postId, userId);
 
-        if (homefeed)
-        {
-            return RedirectToAction("Index");
-        }
-        return RedirectToAction("Profile", "Profile");
+        return RedirectToAction(nameof(HomePage)); // Refresh HomePage after deleting the post
     }
 
     private void DeleteImageFile(string imageUrl)
@@ -288,13 +245,14 @@ public class HomeController : Controller
             _logger.LogError(ex, $"Error deleting image file: {imageUrl}");
         }
     }
-    
+
+    // Method for Saved Posts (remains unchanged)
     public IActionResult SavedPosts()
     {
         var userId = _userManager.GetUserId(User);
-        
+
         var savedPosts = _userRepository.GetSavedPostsByUserIdAsync(userId).Result;
-        
+
         var postViewModels = savedPosts.Select(p => new PostViewModel
         {
             PostId = p.PostId,
@@ -309,8 +267,7 @@ public class HomeController : Controller
             LikeCount = p.Likes.Count,
             CommentCount = p.Comments.Count,
             Comments = p.Comments
-                .OrderBy(c => c.CreatedAt) // Order comments by CreatedAt (ascending)
-                // .OrderByDescending(c => c.CreatedAt) // Use this line instead for descending order
+                .OrderBy(c => c.CreatedAt)
                 .Select(c => new CommentViewModel
                 {
                     IsCreatedByCurrentUser = c.UserId == userId,
@@ -322,14 +279,7 @@ public class HomeController : Controller
                 })
                 .ToList()
         }).ToList();
-        
+
         return View(postViewModels);
     }
-
-    [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
-    public IActionResult Error()
-    {
-        return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
-    }
-
 }

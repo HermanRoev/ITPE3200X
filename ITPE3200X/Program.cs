@@ -53,7 +53,9 @@ app.UseStaticFiles();
 app.UseSession();
 app.UseAuthentication();
 app.UseAuthorization();
-app.MapDefaultControllerRoute();
+app.MapControllerRoute(
+    name: "default",
+    pattern: "{controller=Home}/{action=HomePage}/{id?}"
+);
 app.MapRazorPages();
-
 app.Run();
