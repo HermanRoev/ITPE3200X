@@ -84,78 +84,6 @@ i:active, form:active {
   color: #212529;
 }
 
-/* Hamburger button animation */
-
-.animated-icon1 {
-  width: 30px;
-  height: 20px;
-  position: relative;
-  margin: 0px;
-  -webkit-transform: rotate(0deg);
-  -moz-transform: rotate(0deg);
-  -o-transform: rotate(0deg);
-  transform: rotate(0deg);
-  -webkit-transition: .5s ease-in-out;
-  -moz-transition: .5s ease-in-out;
-  -o-transition: .5s ease-in-out;
-  transition: .5s ease-in-out;
-  cursor: pointer;
-}
-
-.animated-icon1 span {
-  display: block;
-  position: absolute;
-  height: 3px;
-  width: 100%;
-  border-radius: 9px;
-  opacity: 1;
-  left: 0;
-  -webkit-transform: rotate(0deg);
-  -moz-transform: rotate(0deg);
-  -o-transform: rotate(0deg);
-  transform: rotate(0deg);
-  -webkit-transition: .25s ease-in-out;
-  -moz-transition: .25s ease-in-out;
-  -o-transition: .25s ease-in-out;
-  transition: .25s ease-in-out;
-}
-
-.animated-icon1 span {
-  background: #f5f5f5;
-}
-
-.animated-icon1 span:nth-child(1) {
-  top: 0px;
-}
-
-.animated-icon1 span:nth-child(2) {
-  top: 10px;
-}
-
-.animated-icon1 span:nth-child(3) {
-  top: 20px;
-}
-
-.animated-icon1.open span:nth-child(1) {
-  top: 11px;
-  -webkit-transform: rotate(135deg);
-  -moz-transform: rotate(135deg);
-  -o-transform: rotate(135deg);
-  transform: rotate(135deg);
-}
-
-.animated-icon1.open span:nth-child(2) {
-  opacity: 0;
-  left: 60px;
-}
-
-.animated-icon1.open span:nth-child(3) {
-  top: 11px;
-  -webkit-transform: rotate(-135deg);
-  -moz-transform: rotate(-135deg);
-  -o-transform: rotate(-135deg);
-  transform: rotate(-135deg);
-}
  /* Force remove the outline on the hamburger button in bootstrap library */
 .navbar-toggler:focus,
 .navbar-toggler:active,
@@ -183,12 +111,11 @@ i:active, form:active {
 
 /* Profile Info */
 .profile-info {
-  display: flex;
   align-items: center;
   z-index: 2;
 }
 
-.profile-picture {
+.profile-picture-post {
   width: 40px;
   height: 40px;
   object-fit: cover;
@@ -206,6 +133,9 @@ i:active, form:active {
   display: flex;
   align-items: start;
   z-index: 2;
+  position: absolute;
+  right: 0;
+  bottom: 1px;
 }
 
 .post-actions .btn {
@@ -261,7 +191,7 @@ i:active, form:active {
   }
 }
 
-@media (max-width: 768px) {
+@media (max-width: 767px) {
   .profile-picture, .bg-secondary {
     width: 120px !important;
     height: 120px !important;
@@ -292,4 +222,46 @@ i:active, form:active {
 
 .modal-content {
   background-color: #212529 !important; 
+}
+
+/* Adjusting profile-info for larger screens (desktops and large tablets) */
+@media (min-width: 1000px) {
+  .profile-info {
+    max-width: 100% !important;
+  }
+}
+
+/* Adjusting profile-info for medium screens (small laptops and tablets) */
+@media (min-width: 767px) and (max-width: 1000px) {
+  .profile-info {
+    max-width: 70% !important;
+  }
+}
+
+/* Adjusting profile-info for smaller screens (mobile devices) */
+@media (max-width: 767px) {
+  .profile-info {
+    max-width: 50% !important;
+  }
+}
+
+.username-post {
+  white-space: nowrap !important;
+  overflow: hidden !important;
+  text-overflow: ellipsis !important;
+  display: inline-block !important;
+  max-width: 80% !important; /* Adjust based on your layout */
+}
+
+.profile-info {
+  display: flex !important;
+  align-items: center !important;
+}
+
+.profile-picture-post {
+  width: 40px !important;
+  height: 40px !important;
+  object-fit: cover !important;
+  margin-right: 10px !important;
+  border: 2px solid #fff !important;
 }
