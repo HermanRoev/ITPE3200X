@@ -192,6 +192,127 @@ public class HomeController : Controller
         return PartialView("_PostPartial", model);
     }
     
+    [HttpGet]
+    public async Task<IActionResult> EditPost(string postId)
+    {
+        var userId = _userManager.GetUserId(User);
+        if (string.IsNullOrEmpty(userId))
+        {
+            return Unauthorized();
+        }
+
+        var post = await _postRepository.GetPostByIdAsync(postId);
+
+        if (post == null || post.UserId != userId)
+        {
+            return NotFound();
+        }
+
+        var model = new EditPostViewModel
+        {
+            PostId = post.PostId,
+            Content = post.Content,
+            Images = post.Images.ToList()
+        };
+
+        return View(model);
+    }
+    
+    [HttpPost]
+    [ValidateAntiForgeryToken]
+    public async Task<IActionResult> EditPost(string postId, string content, List<IFormFile>? imageFiles)
+    {
+        var userId = _userManager.GetUserId(User);
+        if (string.IsNullOrEmpty(userId))
+        {
+            return Unauthorized();
+        }
+
+        if (!ModelState.IsValid)
+        {
+            Console.WriteLine("Model state is not valid");
+            return RedirectToAction("EditPost", new { postId });
+        }
+
+        var postToUpdate = await _postRepository.GetPostByIdAsync(postId);
+
+        if (postToUpdate.UserId != userId)
+        {
+            return NotFound();
+        }
+
+        // Update the content
+        postToUpdate.Content = content;
+
+        // Prepare a list to hold images to delete
+        List<PostImage> imagesToDelete = new List<PostImage>();
+        List<PostImage> imagesToAdd = new List<PostImage>();
+        
+        // Handle image replacement if there are new images
+        if (imageFiles != null && imageFiles.Any())
+        {
+            // Delete existing images
+            foreach (var image in postToUpdate.Images.ToList())
+            {
+                DeleteImageFile(image.ImageUrl);
+                imagesToDelete.Add(image);
+            }
+
+            // Add new images
+            foreach (var imageFile in imageFiles)
+            {
+                if (imageFile.Length > 0)
+                {
+                    // Validate the image file
+                    if (!IsImageFile(imageFile))
+                    {
+                        ModelState.AddModelError("ImageFiles", "One or more files are not valid images.");
+                        return View();
+                    }
+
+                    // Generate a unique file name
+                    var fileName = $"{Guid.NewGuid()}_{Path.GetFileName(imageFile.FileName)}";
+                    var uploads = Path.Combine(_webHostEnvironment.WebRootPath, "uploads");
+                    var filePath = Path.Combine(uploads, fileName);
+
+                    // Ensure the uploads directory exists
+                    if (!Directory.Exists(uploads))
+                    {
+                        Directory.CreateDirectory(uploads);
+                    }
+
+                    // Save the image to the server
+                    using (var fileStream = new FileStream(filePath, FileMode.Create))
+                    {
+                        await imageFile.CopyToAsync(fileStream);
+                    }
+
+                    // Create PostImage entity and add to the post
+                    var imageEntity = new PostImage(postToUpdate.PostId, $"/uploads/{fileName}");
+                    imagesToAdd.Add(imageEntity);
+                }
+            }
+        }
+
+        // Save changes to the database
+        await _postRepository.UpdatePostAsync(postToUpdate, imagesToDelete, imagesToAdd);
+
+        return RedirectToAction("Profile", "Profile", new { username = _userManager.GetUserName(User) });
+    }
+    
+    private bool IsImageFile(IFormFile file)
+    {
+        var permittedExtensions = new[] { ".jpg", ".jpeg", ".png" };
+        var extension = Path.GetExtension(file.FileName).ToLowerInvariant();
+
+        if (string.IsNullOrEmpty(extension) || !permittedExtensions.Contains(extension))
+        {
+            return false;
+        }
+
+        return true;
+    }
+        
     [HttpPost]
     [ValidateAntiForgeryToken]
     public ActionResult AddComment(string postId, string content, bool homefeed)
@@ -237,6 +358,38 @@ public class HomeController : Controller
         var postViewModelUpdated = GetPostViewModelById(postId, homefeed).Result;
 
         return PartialView("_PostPartial", postViewModelUpdated);
+    }
+    
+    [HttpPost]
+    [ValidateAntiForgeryToken]
+    public async Task<IActionResult> EditComment(string postId, string commentId, string content, bool homefeed)
+    {
+        var userId = _userManager.GetUserId(User);
+
+        if (string.IsNullOrWhiteSpace(content))
+        {
+            ModelState.AddModelError("Content", "Content is required.");
+        }
+
+        if (!ModelState.IsValid)
+        {
+            // Handle invalid model state, possibly return an error response
+            return BadRequest(ModelState);
+        }
+
+        try
+        {
+            await _postRepository.EditCommentAsync(commentId, userId, content);
+
+            // Retrieve updated post view model
+            var postViewModelUpdated = GetPostViewModelById(postId, homefeed).Result;
+
+            return PartialView("_PostPartial", postViewModelUpdated);
+        }
+        catch (UnauthorizedAccessException)
+        {
+            return Unauthorized();
+        }
     }
     
     [HttpPost]

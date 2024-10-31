@@ -5,10 +5,11 @@
 }
 
 <div class="container">
+    <h1 class="text-center">Saved Posts</h1>
     @foreach (var post in Model)
     {
         <div id="post-@post.PostId">
-            <partial name="_PostPartial" model="post" />
+            <partial name="_PostPartial" model="post"/>
         </div>
     }
 </div>

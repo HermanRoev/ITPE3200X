@@ -45,8 +45,23 @@ namespace ITPE3200X.DAL.Repositories
             await _context.SaveChangesAsync();
         }
 
-        public async Task UpdatePostAsync(Post post)
+        public async Task UpdatePostAsync(Post post, List<PostImage> imagesToDelete, List<PostImage> imagesToAdd)
         {
+            if (imagesToDelete != null)
+            {
+                foreach (var image in imagesToDelete)
+                {
+                    _context.PostImages.Remove(image);
+                }
+            }
+            if (imagesToAdd != null)
+            {
+                foreach (var image in imagesToAdd)
+                {
+                    await _context.PostImages.AddAsync(image);
+                }
+            }
+            
             _context.Posts.Update(post);
             await _context.SaveChangesAsync();
         }
@@ -84,6 +99,22 @@ namespace ITPE3200X.DAL.Repositories
                     throw new UnauthorizedAccessException("You are not authorized to delete this comment.");
                 }
                 _context.Comments.Remove(comment);
+                await _context.SaveChangesAsync();
+            }
+        }
+        
+        public async Task EditCommentAsync(string commentId, string userId, string content)
+        {
+            var comment = await _context.Comments.FindAsync(commentId);
+
+            if (comment != null)
+            {
+                if (comment.UserId != userId)
+                {
+                    throw new UnauthorizedAccessException("You are not authorized to edit this comment.");
+                }
+
+                comment.Content = content;
                 await _context.SaveChangesAsync();
             }
         }

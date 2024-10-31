@@ -223,9 +223,7 @@ namespace ITPE3200X.Controllers
             }
 
             var userId = _userManager.GetUserId(User);
-
-            var username = _userManager.GetUserName(User);
-
+            
             var post = new Post(userId, content);
 
             // Handle image files
@@ -274,7 +272,7 @@ namespace ITPE3200X.Controllers
             // Save the post to the database
             await _postRepository.AddPostAsync(post);
 
-            return RedirectToAction("Profile", new { username });
+            return RedirectToAction("Profile", new { username = _userManager.GetUserName(User) });
         }
 
         private bool IsImageFile(IFormFile file)
