@@ -1,13 +1,28 @@
-namespace ITPE3200X.Tests.Controllers;
+using System.Drawing;
+using ITPE3200X.Controllers;
+using ITPE3200X.DAL.Repositories;
+using ITPE3200X.Models;
+using Microsoft.AspNetCore.Identity;
+using Moq;
 
-    public class HomeControllerTests
+namespace ITPE3200X.Tests.Controllers;
+public class HomeControllerTests
+{
+    private readonly Mock<IPostRepository> _mockPostRepository;
+    private readonly Mock<UserManager<ApplicationUser>> _mockUserManager;
+    private readonly HomeController _controller;
+    
+    public HomeControllerTests()
     {
-        // Add tests here
+        _mockPostRepository = new Mock<IPostRepository>();
+        _mockUserManager = MockUserManager<ApplicationUser>();
         
-        //arrange 
+        _controller = new HomeController(_mockPostRepository.Object, _mockUserManager.Object);
+    }
+    
+    [Fact]
+    public async Task TestIndex_ReturnsViewWithPostViewModels()
+    {
         
-        //act
-        
-        //assert
     }
 
