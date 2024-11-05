@@ -1,14 +1,8 @@
-using System;
 using System.ComponentModel.DataAnnotations;
-using System.Threading.Tasks;
 using ITPE3200X.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using Microsoft.Extensions.Logging;
-using System.Linq;
-using Microsoft.AspNetCore.Hosting;
-using System.IO;
 using ITPE3200X.DAL.Repositories;
 
 namespace ITPE3200X.Areas.Identity.Pages.Account.Manage

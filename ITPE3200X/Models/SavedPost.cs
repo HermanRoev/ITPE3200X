@@ -1,4 +1,3 @@
-using System;
 using System.ComponentModel.DataAnnotations;
 
 namespace ITPE3200X.Models
@@ -25,8 +24,5 @@ namespace ITPE3200X.Models
             PostId = postId ?? throw new ArgumentNullException(nameof(postId));
             UserId = userId ?? throw new ArgumentNullException(nameof(userId));
         }
-
-        // Private parameterless constructor for EF Core
-        protected SavedPost() { }
     }
 }

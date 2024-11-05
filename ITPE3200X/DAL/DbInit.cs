@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Identity;
 
 namespace ITPE3200X.DAL
 {
-    public static class DBInit
+    public static class DbInit
     {
         public static void Seed(IApplicationBuilder app)
         {
@@ -12,7 +12,7 @@ namespace ITPE3200X.DAL
             var context = serviceScope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
 
             // Optionally delete and recreate the database for testing (Comment out for testing)
-            //context.Database.EnsureDeleted();
+            context.Database.EnsureDeleted();
             context.Database.EnsureCreated();
 
             // Retrieve UserManager to create users
@@ -46,9 +46,9 @@ namespace ITPE3200X.DAL
                 // Create posts
                 var posts = new List<Post>
                 {
-                    new Post(userId: user1.Id, content: "This is the first test post. Here we need a lot longer text to test if the show more is working, there should be a show more button that can display more content when pressed") { CreatedAt = DateTime.UtcNow.AddMinutes(-30) },
-                    new Post(userId: user2.Id, content: "This is the second test post.") { CreatedAt = DateTime.UtcNow.AddMinutes(-20) },
-                    new Post(userId: user3.Id, content: "This is the third test post.") { CreatedAt = DateTime.UtcNow.AddMinutes(-10) }
+                    new Post(userId: user1!.Id, content: "This is the first test post. Here we need a lot longer text to test if the show more is working, there should be a show more button that can display more content when pressed") { CreatedAt = DateTime.UtcNow.AddMinutes(-30) },
+                    new Post(userId: user2!.Id, content: "This is the second test post.") { CreatedAt = DateTime.UtcNow.AddMinutes(-20) },
+                    new Post(userId: user3!.Id, content: "This is the third test post.") { CreatedAt = DateTime.UtcNow.AddMinutes(-10) }
                 };
                 context.Posts.AddRange(posts);
                 context.SaveChanges();
@@ -76,7 +76,7 @@ namespace ITPE3200X.DAL
                 var comments = new List<Comment>
                 {
                     new Comment(postId: post1.PostId, userId: user2.Id, content: "Nice post!") { CreatedAt = DateTime.UtcNow.AddMinutes(-28) },
-                    new Comment(postId: post1.PostId, userId: user3.Id, content: "I agree! Holy shit this is the best image quality i have ever seen. This must have been shot on an iphone 16 pro! That is the only phone that can shoot images like this!") { CreatedAt = DateTime.UtcNow.AddMinutes(-27) },
+                    new Comment(postId: post1.PostId, userId: user3.Id, content: "I agree! Holy crap this is the best image quality i have ever seen. This must have been shot on an iphone 16 pro! That is the only phone that can shoot images like this!") { CreatedAt = DateTime.UtcNow.AddMinutes(-27) },
                     new Comment(postId: post2.PostId, userId: user1.Id, content: "Interesting thoughts.") { CreatedAt = DateTime.UtcNow.AddMinutes(-18) },
                     new Comment(postId: post3.PostId, userId: user1.Id, content: "Great pictures!") { CreatedAt = DateTime.UtcNow.AddMinutes(-8) }
                 };

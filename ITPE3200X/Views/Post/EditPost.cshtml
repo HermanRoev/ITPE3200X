@@ -8,7 +8,7 @@ ViewData["Title"] = "Edit Post";
     <div class="row vh-100 align-items-center" style="padding-bottom: 12em">
         <div class="col-md-8 text-md-start text-center">
             <h2 class="px-4" style="color: #7cbeea;">Edit your Post</h2>
-            <form asp-action="EditPost" asp-controller="Home" method="post" asp-route-postId="@Model.PostId" enctype="multipart/form-data" class="card bg-transparent text-dark p-4 border-0">
+            <form asp-action="EditPost" asp-controller="Post" method="post" asp-route-postId="@Model.PostId" enctype="multipart/form-data" class="card bg-transparent text-dark p-4 border-0">
                 @Html.AntiForgeryToken()
                 @Html.ValidationSummary(true, "", new { @class = "text-danger" })
 

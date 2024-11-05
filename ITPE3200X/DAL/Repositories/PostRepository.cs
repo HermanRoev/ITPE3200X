@@ -15,14 +15,21 @@ namespace ITPE3200X.DAL.Repositories
         // Post methods
         public async Task<Post> GetPostByIdAsync(string postId)
         {
-            return await _context.Posts
+            var post = await _context.Posts
                 .Include(p => p.Images)
                 .Include(p => p.User)
                 .Include(p => p.Comments)
-                    .ThenInclude(c => c.User)
+                .ThenInclude(c => c.User)
                 .Include(p => p.Likes)
                 .AsNoTracking()
                 .FirstOrDefaultAsync(p => p.PostId == postId);
+
+            if (post == null)
+            {
+                throw new KeyNotFoundException($"Post with ID '{postId}' not found.");
+            }
+
+            return post;
         }
 
         public async Task<IEnumerable<Post>> GetAllPostsAsync()
@@ -47,14 +54,14 @@ namespace ITPE3200X.DAL.Repositories
 
         public async Task UpdatePostAsync(Post post, List<PostImage> imagesToDelete, List<PostImage> imagesToAdd)
         {
-            if (imagesToDelete != null)
+            if (imagesToDelete.Count > 0)
             {
                 foreach (var image in imagesToDelete)
                 {
                     _context.PostImages.Remove(image);
                 }
             }
-            if (imagesToAdd != null)
+            if (imagesToAdd.Count > 0)
             {
                 foreach (var image in imagesToAdd)
                 {
@@ -69,16 +76,12 @@ namespace ITPE3200X.DAL.Repositories
         public async Task DeletePostAsync(string postId, string userId)
         {
             var post = await _context.Posts.FindAsync(postId);
-            if (post.UserId != userId)
+            if (post!.UserId != userId)
             {
                 throw new UnauthorizedAccessException("You are not authorized to delete this post.");
             }
-            
-            if (post != null)
-            {
-                _context.Posts.Remove(post);
-                await _context.SaveChangesAsync();
-            }
+            _context.Posts.Remove(post);
+            await _context.SaveChangesAsync();
         }
 
         // Comment methods

@@ -26,14 +26,14 @@ ViewData["Title"] = "Edit Profile";
 
                 <!-- Upload New Profile Picture -->
                 <div class="mb-3">
-                    <label for="imageFile" class="form-label">Upload New Profile Picture</label>
+                    <label for="imageFile" class="form-label text-white">Upload New Profile Picture</label>
                     <input type="file" class="form-control" id="imageFile" name="ImageFile" accept="image/*" />
                     <span asp-validation-for="ImageFile" class="text-danger"></span>
                 </div>
 
                 <div class="form-floating mb-3">
                     <textarea class="form-control" id="bio" name="Bio" placeholder="Bio">@Model.Bio</textarea>
-                    <label for="bio">Bio</label>
+                    <label for="bio">Create your Bio</label>
                     <span asp-validation-for="Bio" class="text-danger"></span>
                 </div>
 
