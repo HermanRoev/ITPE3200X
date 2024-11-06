@@ -47,15 +47,15 @@ namespace ITPE3200X.Controllers
             
             var user = _userManager.Users.FirstOrDefault(u => u.UserName == username);
             
-            var posts = _postRepository.GetPostsByUserAsync(user.Id).Result;
+            var posts = _postRepository.GetPostsByUserAsync(user!.Id).Result;
             
             var postViewModels = posts.Select(p => new PostViewModel
             {
                 PostId = p.PostId,
                 Content = p.Content,
                 Images = p.Images.ToList(),
-                UserName = p.User.UserName,
-                ProfilePicture = p.User.ProfilePictureUrl,
+                UserName = p.User.UserName!,
+                ProfilePicture = p.User.ProfilePictureUrl!,
                 IsLikedByCurrentUser = p.Likes.Any(l => l.UserId == currentUserId),
                 IsSavedByCurrentUser = p.SavedPosts.Any(sp => sp.UserId == currentUserId),
                 IsOwnedByCurrentUser = p.UserId == currentUserId,
@@ -69,7 +69,7 @@ namespace ITPE3200X.Controllers
                     {
                         IsCreatedByCurrentUser = c.UserId == currentUserId,
                         CommentId = c.CommentId,
-                        UserName = c.User.UserName,
+                        UserName = c.User.UserName!,
                         Content = c.Content,
                         CreatedAt = c.CreatedAt,
                         TimeSincePosted = CalculateTimeSincePosted(c.CreatedAt)
@@ -82,7 +82,7 @@ namespace ITPE3200X.Controllers
                 User = user,
                 Posts = postViewModels,
                 IsCurrentUserProfile = user.Id == currentUserId,
-                IsFollowing = await _userRepository.IsFollowingAsync(currentUserId, user.Id)
+                IsFollowing = await _userRepository.IsFollowingAsync(currentUserId!, user.Id)
             };
 
             return View(profile);
@@ -107,13 +107,13 @@ namespace ITPE3200X.Controllers
         }
 
         // GET: EditProfile
-        public async Task<IActionResult> Edit()
+        public IActionResult Edit()
         {
             var user = _userManager.GetUserAsync(User).Result;
 
             var model = new EditProfileViewModel
             {
-                Bio = user.Bio,
+                Bio = user!.Bio,
                 ProfilePictureUrl = user.ProfilePictureUrl
             };
 
@@ -160,7 +160,7 @@ namespace ITPE3200X.Controllers
                 }
 
                 // Delete the old profile picture if it exists and is not the default
-                if (!string.IsNullOrEmpty(user.ProfilePictureUrl))
+                if (!string.IsNullOrEmpty(user!.ProfilePictureUrl))
                 {
                     DeleteImageFile(user.ProfilePictureUrl);
                 }
@@ -170,7 +170,7 @@ namespace ITPE3200X.Controllers
             }
 
             // Update other user properties
-            user.Bio = model.Bio;
+            user!.Bio = model.Bio;
 
             var result = await _userManager.UpdateAsync(user);
             if (!result.Succeeded)
@@ -202,81 +202,6 @@ namespace ITPE3200X.Controllers
             }
         }
 
-        public IActionResult CreatePost()
-        {
-            return View();
-        }
-
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> CreatePost(string content, List<IFormFile> imageFiles)
-        {
-            if (string.IsNullOrWhiteSpace(content))
-            {
-                ModelState.AddModelError("Content", "Content is required.");
-            }
-
-            if (!ModelState.IsValid)
-            {
-                ModelState.AddModelError("", "Invalid model.");
-                return View();
-            }
-
-            var userId = _userManager.GetUserId(User);
-
-            var username = _userManager.GetUserName(User);
-
-            var post = new Post(userId, content);
-
-            // Handle image files
-            if (imageFiles.Count > 0)
-            {
-                foreach (var imageFile in imageFiles)
-                {
-                    if (imageFile.Length > 0)
-                    {
-                        // Validate the image file (optional but recommended)
-                        if (!IsImageFile(imageFile))
-                        {
-                            ModelState.AddModelError("ImageFiles", "One or more files are not valid images.");
-                            return View();
-                        }
-
-                        // Generate a unique file name
-                        var fileName = $"{Guid.NewGuid()}_{Path.GetFileName(imageFile.FileName)}";
-                        var uploads = Path.Combine(_webHostEnvironment.WebRootPath, "uploads");
-                        var filePath = Path.Combine(uploads, fileName);
-
-                        // Ensure the uploads directory exists
-                        if (!Directory.Exists(uploads))
-                        {
-                            Directory.CreateDirectory(uploads);
-                        }
-
-                        // Save the image to the server
-                        using (var fileStream = new FileStream(filePath, FileMode.Create))
-                        {
-                            await imageFile.CopyToAsync(fileStream);
-                        }
-
-                        // Create PostImage entity and add to the post
-                        var imageEntity = new PostImage(post.PostId, $"/uploads/{fileName}");
-                        post.Images.Add(imageEntity);
-                    }
-                }
-            }
-            else
-            {
-                ModelState.AddModelError("ImageFiles", "At least one image is required.");
-                return View();
-            }
-
-            // Save the post to the database
-            await _postRepository.AddPostAsync(post);
-
-            return RedirectToAction("Profile", new { username });
-        }
-
         private bool IsImageFile(IFormFile file)
         {
             var permittedExtensions = new[] { ".jpg", ".jpeg", ".png" };
@@ -295,7 +220,7 @@ namespace ITPE3200X.Controllers
             var user = _userManager.Users.FirstOrDefault(u => u.UserName == username);
             var userId = user?.Id;
             var currentUserId = _userManager.GetUserId(User);
-            await _userRepository.AddFollowerAsync(currentUserId, userId);
+            await _userRepository.AddFollowerAsync(currentUserId!, userId!);
             return RedirectToAction("Profile", new { username });
         }
 
@@ -304,7 +229,7 @@ namespace ITPE3200X.Controllers
             var user = _userManager.Users.FirstOrDefault(u => u.UserName == username);
             var userId = user?.Id;
             var currentUserId = _userManager.GetUserId(User);
-            await _userRepository.RemoveFollowerAsync(currentUserId, userId);
+            await _userRepository.RemoveFollowerAsync(currentUserId!, userId!);
             return RedirectToAction("Profile", new { username });
         }
     }

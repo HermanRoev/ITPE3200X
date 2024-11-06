@@ -18,12 +18,12 @@
                     </button>
                     <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="postOptionsMenu-@Model.PostId">
                         <li>
-                            <a class="dropdown-item d-flex align-items-center" asp-controller="Home" asp-action="" asp-route-postId="@Model.PostId">
+                            <a class="dropdown-item d-flex align-items-center" asp-controller="Post" asp-action="EditPost" asp-route-postId="@Model.PostId">
                                 <i class="bi bi-pencil me-2"></i> Edit
                             </a>
                         </li>
                         <li>
-                            <form asp-action="DeletePost" asp-controller="Home" asp-route-postId="@Model.PostId" asp-route-homefeed="@Model.HomeFeed" method="post" onsubmit="return confirm('Are you sure you want to delete this post?');">
+                            <form asp-action="DeletePost" asp-controller="Post" asp-route-postId="@Model.PostId" asp-route-homefeed="@Model.HomeFeed" method="post" onsubmit="return confirm('Are you sure you want to delete this post?');">
                                 <button type="submit" class="dropdown-item d-flex align-items-center">
                                     <i class="bi bi-trash me-2 text-danger"></i> Delete
                                 </button>
@@ -34,7 +34,7 @@
             }
             <div id="carouselPostImages-@Model.PostId" class="carousel slide">
                 <!-- Indicators -->
-                @if (Model.Images.Count > 1)
+                @if (Model.Images!.Count > 1)
                 {
                     <div class="carousel-indicators" style="position: absolute; top: 10px;">
                         @for (int i = 0; i < Model.Images.Count; i++)
@@ -90,7 +90,7 @@
                     </button>
 
                     <!-- Like Button -->
-                    <form asp-action="ToggleLike" asp-controller="Home" asp-route-postId="@Model.PostId" method="post" data-ajax="true" data-ajax-mode="replace" data-ajax-update="#post-@Model.PostId" class="d-inline">
+                    <form asp-action="ToggleLike" asp-controller="Post" asp-route-postId="@Model.PostId" method="post" data-ajax="true" data-ajax-mode="replace" data-ajax-update="#post-@Model.PostId" class="d-inline">
                         @Html.AntiForgeryToken()
                         @if (Model.IsLikedByCurrentUser)
                         {
@@ -109,7 +109,7 @@
                     </form>
 
                     <!-- Save Button -->
-                    <form asp-action="ToggleSave" asp-controller="Home" asp-route-postId="@Model.PostId" method="post" data-ajax="true" data-ajax-mode="replace" data-ajax-update="#post-@Model.PostId" class="d-inline">
+                    <form asp-action="ToggleSave" asp-controller="Post" asp-route-postId="@Model.PostId" method="post" data-ajax="true" data-ajax-mode="replace" data-ajax-update="#post-@Model.PostId" class="d-inline">
                         @Html.AntiForgeryToken()
                         @if (Model.IsSavedByCurrentUser)
                         {
@@ -153,32 +153,87 @@
             <div class="collapse" id="commentsSection-@Model.PostId">
                 <div id="comments-section-@Model.PostId">
                     <ul class="list-group list-group-flush">
-                        @foreach (var comment in Model.Comments)
+                        @foreach (var comment in Model.Comments!)
                         {
-                            <li class="list-group-item d-flex justify-content-between">
-                                <span>
-                                    <strong>@comment.UserName</strong> @comment.Content
-                                </span>
-                                <span class="d-flex gap-3">
-                                    <small class="text-muted text-nowrap">@comment.TimeSincePosted</small>
-                                    @if (@comment.IsCreatedByCurrentUser)
-                                    {
-                                        <!-- Delete Button -->
-                                        <form asp-action="DeleteComment" asp-controller="Home" asp-route-postId="@Model.PostId" asp-route-commentId="@comment.CommentId" method="post" data-ajax="true" data-ajax-mode="replace" data-ajax-update="#post-@Model.PostId">
-                                            @Html.AntiForgeryToken()
-                                            <button type="submit" class="btn btn-link p-0">
-                                                <i class="bi bi-trash text-danger"></i>
+                            <li class="list-group-item pb-3">
+                                <!-- First Line: Username, Time, and Action Buttons -->
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <h6 class="mb-0">@comment.UserName</h6>
+                                    <div class="d-flex align-items-center gap-2">
+                                        <small class="text-muted text-nowrap">@comment.TimeSincePosted</small>
+                                        @if (@comment.IsCreatedByCurrentUser)
+                                        {
+                                            <!-- Edit Button -->
+                                            <button type="button" class="btn btn-icon" data-bs-toggle="modal" data-bs-target="#editCommentModal-@comment.CommentId">
+                                                <i class="bi bi-pencil text-primary"></i>
                                             </button>
-                                        </form>
-                                    }
-                                </span>
+
+                                            <!-- Delete Button -->
+                                            <form asp-action="DeleteComment"
+                                                  asp-controller="Post"
+                                                  asp-route-postId="@Model.PostId"
+                                                  asp-route-commentId="@comment.CommentId"
+                                                  method="post"
+                                                  data-ajax="true"
+                                                  data-ajax-mode="replace"
+                                                  data-ajax-update="#post-@Model.PostId"
+                                                  class="d-inline-block">
+                                                @Html.AntiForgeryToken()
+                                                <button type="submit" class="btn btn-icon">
+                                                    <i class="bi bi-trash text-danger"></i>
+                                                </button>
+                                            </form>
+                                        }
+                                    </div>
+                                </div>
+
+                                <!-- Second Line: Comment Content -->
+                                <p class="mt-1 mb-0">
+                                    @comment.Content
+                                </p>
+
+                                <!-- Edit Comment Modal -->
+                                <div class="modal fade" id="editCommentModal-@comment.CommentId" tabindex="-1" aria-labelledby="editCommentModalLabel-@comment.CommentId" aria-hidden="true">
+                                    <div class="modal-dialog">
+                                        <div class="modal-content bg-dark text-white">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title" id="editCommentModalLabel-@comment.CommentId">Edit Comment</h5>
+                                            </div>
+                                            <form asp-action="EditComment"
+                                                  asp-controller="Post"
+                                                  asp-route-postId="@Model.PostId"
+                                                  asp-route-commentId="@comment.CommentId"
+                                                  asp-route-homefeed="@Model.HomeFeed"
+                                                  method="post"
+                                                  data-ajax="true"
+                                                  data-ajax-mode="replace"
+                                                  data-ajax-update="#post-@Model.PostId">
+                                                @Html.AntiForgeryToken()
+                                                <div class="modal-body">
+                                                    <div class="mb-3">
+                                                        <label for="commentContent-@comment.CommentId" class="form-label">Content</label>
+                                                        <textarea class="form-control bg-dark text-white"
+                                                                  id="commentContent-@comment.CommentId"
+                                                                  name="Content"
+                                                                  rows="3"
+                                                                  required>@comment.Content</textarea>
+                                                    </div>
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                                    <button type="submit" class="btn loginbtn-primary" data-bs-dismiss="modal">Save changes</button>
+                                                </div>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
                             </li>
                         }
                     </ul>
                     <!-- Add Comment Form -->
                     @if (SignInManager.IsSignedIn(User))
                     {
-                    <form asp-action="AddComment" asp-controller="Home" asp-route-postId="@Model.PostId" method="post" data-ajax="true" data-ajax-mode="replace" data-ajax-update="#post-@Model.PostId" class="comment-form">
+                    <form asp-action="AddComment" asp-controller="Post" asp-route-postId="@Model.PostId" method="post" data-ajax="true" data-ajax-mode="replace" data-ajax-update="#post-@Model.PostId" class="comment-form">
                         @Html.AntiForgeryToken()
                         <div class="input-group mt-3">
                             <input type="text" name="Content" class="form-control bg-dark text-white border-dark" placeholder="Add a comment..." required />

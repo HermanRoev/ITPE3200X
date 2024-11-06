@@ -21,7 +21,7 @@ builder.Services.AddDefaultIdentity<ApplicationUser>(options => {
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
-builder.Services.AddRazorPages(); // order of adding services does not matter
+builder.Services.AddRazorPages();
 builder.Services.AddSession();
 
 builder.Services.AddScoped<IPostRepository, PostRepository>();
@@ -40,12 +40,12 @@ builder.Logging.AddSerilog(logger);
 
 var app = builder.Build();
 
-DBInit.Seed(app); // Uncomment to seed the database
+DbInit.Seed(app); // Uncomment to seed the database
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
-    DBInit.Seed(app); // Uncomment to seed the database
+    DbInit.Seed(app); // Uncomment to seed the database
     app.UseDeveloperExceptionPage();
 }
 

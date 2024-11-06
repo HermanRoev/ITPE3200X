@@ -12,14 +12,21 @@ namespace ITPE3200X.DAL.Repositories
             _context = context;
         }
         
-        //Tina Special Lol prank haha tihi
-       public async Task<ApplicationUser> GetUserdataById(String userId)
-       {
-           return await _context.Users
-                       .Include(u => u.Followers)
-                       .Include(u => u.Following)
-                       .FirstOrDefaultAsync(u => u.Id == userId);
-       }
+        // User methods
+        public async Task<ApplicationUser> GetUserdataById(string userId)
+        {
+            var user = await _context.Users
+                .Include(u => u.Followers)
+                .Include(u => u.Following)
+                .FirstOrDefaultAsync(u => u.Id == userId);
+
+            if (user == null)
+            {
+                throw new KeyNotFoundException($"User with ID '{userId}' not found.");
+            }
+
+            return user;
+        }
 
         // Follower methods
         public async Task<IEnumerable<ApplicationUser>> GetFollowersAsync(string userId)

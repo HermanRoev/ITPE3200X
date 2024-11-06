@@ -1,7 +1,7 @@
 ﻿@model List<ITPE3200X.ViewModels.PostViewModel>
 
 @{
-ViewData["Title"] = "Home Page";
+    ViewData["Title"] = "Home Page";
 }
 
 <div class="container-fluid text-center my-4">
@@ -12,14 +12,10 @@ ViewData["Title"] = "Home Page";
     <div class="mx-auto my-3" style="width: 56%; height: 2px; background-color: #79959E; box-shadow: 0 4px 10px 0 #7cbeea; max-width: 350px"></div> <!-- Divider with shadow -->
 </div>
 <div class="container">
-    <div class="row g-2 justify-content-center">
-        @foreach (var post in Model)
-        {
-        <div id="post-@post.PostId" class="col-12 col-sm-6 col-md-12 d-flex justify-content-center">
-            <div class="card border-0 w-100 bg-transparent">
-                <partial name="_PostPartial" model="post" />
-            </div>
+    @foreach (var post in Model)
+    {
+        <div id="post-@post.PostId">
+            <partial name="_PostPartial" model="post" />
         </div>
-        }
-    </div>
+    }
 </div>

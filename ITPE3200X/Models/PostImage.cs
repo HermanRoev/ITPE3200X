@@ -1,4 +1,3 @@
-using System;
 using System.ComponentModel.DataAnnotations;
 
 namespace ITPE3200X.Models
@@ -28,8 +27,5 @@ namespace ITPE3200X.Models
             PostId = postId ?? throw new ArgumentNullException(nameof(postId));
             ImageUrl = imageUrl ?? throw new ArgumentNullException(nameof(imageUrl));
         }
-
-        // Private parameterless constructor for EF Core
-        protected PostImage() { }
     }
 }

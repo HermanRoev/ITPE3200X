@@ -1,4 +1,3 @@
-using System;
 using System.ComponentModel.DataAnnotations;
 
 namespace ITPE3200X.Models
@@ -34,8 +33,5 @@ namespace ITPE3200X.Models
             UserId = userId ?? throw new ArgumentNullException(nameof(userId));
             Content = content ?? throw new ArgumentNullException(nameof(content));
         }
-
-        // Private parameterless constructor for EF Core
-        protected Comment() { }
     }
 }

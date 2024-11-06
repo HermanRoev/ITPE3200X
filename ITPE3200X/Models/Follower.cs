@@ -1,4 +1,3 @@
-using System;
 using System.ComponentModel.DataAnnotations;
 
 namespace ITPE3200X.Models
@@ -25,8 +24,5 @@ namespace ITPE3200X.Models
             FollowerUserId = followerUserId ?? throw new ArgumentNullException(nameof(followerUserId));
             FollowedUserId = followedUserId ?? throw new ArgumentNullException(nameof(followedUserId));
         }
-
-        // Private parameterless constructor for EF Core
-        protected Follower() { }
     }
 }

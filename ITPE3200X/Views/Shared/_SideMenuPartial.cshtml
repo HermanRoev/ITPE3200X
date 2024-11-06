@@ -13,7 +13,7 @@
     {
         <div id="side-menu" class="side-menu">
             <div class="text-center p-3 w-100">
-                @if (!string.IsNullOrEmpty(user.ProfilePictureUrl))
+                @if (!string.IsNullOrEmpty(user!.ProfilePictureUrl))
                 {
                     <div class="profile-border">
                         <img src="@user.ProfilePictureUrl" alt="Profile Picture" class="profile-pic"/>
@@ -40,7 +40,7 @@
                     </a>
                 </li>
                 <li class="nav-item mt-3">
-                    <a id="saved" class="nav-link @(currentPath == "/home/savedposts" ? "active" : "")" asp-area="" asp-controller="Home" asp-action="SavedPosts" title="Saved Posts View">
+                    <a id="saved" class="nav-link @(currentPath == "/home/savedposts" ? "active" : "")" asp-area="" asp-controller="Post" asp-action="SavedPosts" title="Saved Posts View">
                         <i class="bi bi-bookmark"></i> Saved
                     </a>
                 </li>
