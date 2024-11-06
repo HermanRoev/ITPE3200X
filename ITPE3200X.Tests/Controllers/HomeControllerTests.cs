@@ -74,5 +74,22 @@ public class HomeControllerTests
         Assert.False(model.First().IsSavedByCurrentUser);
         Assert.True(model.First().IsOwnedByCurrentUser);
     }
+    
+    //negative test for index method
+    [Fact]
+    public async Task Index_ReturnsViewWithNoPosts()
+    {
+        // Arrange
+        _mockPostRepository.Setup(repo => repo.GetAllPostsAsync()).ReturnsAsync(new List<Post>());
+        _mockUserManager.Setup(manager => manager.GetUserId(It.IsAny<System.Security.Claims.ClaimsPrincipal>())).Returns("1");
+
+        // Act
+        var result = await _controller.Index();
+
+        // Assert
+        var viewResult = Assert.IsType<ViewResult>(result);
+        var model = Assert.IsAssignableFrom<List<PostViewModel>>(viewResult.ViewData.Model);
+        Assert.Empty(model);
+    }
 }
 
