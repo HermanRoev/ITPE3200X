@@ -211,19 +211,31 @@ namespace ITPE3200X.DAL.Repositories
 
         }
         
-        public async Task EditCommentAsync(string commentId, string userId, string content)
+        public async Task<bool> EditCommentAsync(string commentId, string userId, string content)
         {
-            var comment = await _context.Comments.FindAsync(commentId);
-
-            if (comment != null)
+            try
             {
-                if (comment.UserId != userId)
-                {
-                    throw new UnauthorizedAccessException("You are not authorized to edit this comment.");
-                }
+                var comment = await _context.Comments.FindAsync(commentId);
 
-                comment.Content = content;
-                await _context.SaveChangesAsync();
+                if (comment != null)
+                {
+                    if (comment.UserId != userId)
+                    {
+                        throw new UnauthorizedAccessException("You are not authorized to edit this comment.");
+                    }
+
+                    comment.Content = content;
+                    await _context.SaveChangesAsync();
+                    
+                    return true;
+                }
+                
+                return false;
+            }
+            catch (Exception e)
+            {
+                _logger.LogError(e, "An error occurred while editing a comment.");
+                return false;
             }
         }
 

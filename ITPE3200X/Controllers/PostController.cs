@@ -484,7 +484,13 @@ public class PostController : Controller
             return BadRequest(ModelState);
         }
 
-        await _postRepository.EditCommentAsync(commentId, userId, content); //
+        var result = await _postRepository.EditCommentAsync(commentId, userId, content);
+        
+        if(!result)
+        {
+            _logger.LogError("[PostController][EditComment] Error editing comment in database.");
+            return BadRequest();
+        }
 
         var postViewModelUpdated = await GetPostViewModelById(postId, homefeed);
 

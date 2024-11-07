@@ -16,7 +16,7 @@ namespace ITPE3200X.DAL.Repositories
         // Comment methods
         Task<bool> AddCommentAsync(Comment comment);
         Task<bool> DeleteCommentAsync(string commentId, string userId);
-        Task EditCommentAsync(string commentId, string userId, string content);
+        Task<bool> EditCommentAsync(string commentId, string userId, string content);
 
         // Like methods
         Task AddLikeAsync(string postId, string userId);

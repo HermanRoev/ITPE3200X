@@ -270,7 +270,15 @@ namespace ITPE3200X.Controllers
                 return Unauthorized();
             }
 
-            await _userRepository.AddFollowerAsync(currentUserId, userToFollow.Id);
+            var result = await _userRepository.AddFollowerAsync(currentUserId, userToFollow.Id);
+            
+            if (!result)
+            {
+                _logger.LogError("[ProfileController][Follow] Failed to follow user '{Username}'.", username);
+                ModelState.AddModelError("", "Could not follow user.");
+                return RedirectToAction("Profile", new { username });
+            }
+            
             return RedirectToAction("Profile", new { username });
         }
 
@@ -280,6 +288,7 @@ namespace ITPE3200X.Controllers
         public async Task<IActionResult> Unfollow(string username)
         {
             var userToUnfollow = await _userManager.FindByNameAsync(username);
+            
             if (userToUnfollow == null)
             {
                 _logger.LogWarning("[ProfileController][Unfollow] User '{Username}' not found.", username);
@@ -287,12 +296,21 @@ namespace ITPE3200X.Controllers
             }
 
             var currentUserId = _userManager.GetUserId(User);
+            
             if (string.IsNullOrEmpty(currentUserId))
             {
                 return Unauthorized();
             }
 
-            await _userRepository.RemoveFollowerAsync(currentUserId, userToUnfollow.Id);
+            var result = await _userRepository.RemoveFollowerAsync(currentUserId, userToUnfollow.Id);
+            
+            if (!result)
+            {
+                _logger.LogError("[ProfileController][Unfollow] Failed to unfollow user '{Username}'.", username);
+                ModelState.AddModelError("", "Could not unfollow user.");
+                return RedirectToAction("Profile", new { username });
+            }
+            
             return RedirectToAction("Profile", new { username });
         }
     }
