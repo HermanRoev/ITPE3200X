@@ -5,11 +5,8 @@ using ITPE3200X.Controllers;
 using ITPE3200X.DAL.Repositories;
 using ITPE3200X.Models;
 using ITPE3200X.ViewModels;
-using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Logging;
 using Moq;
 
 namespace ITPE3200X.Tests.Controllers;
@@ -25,7 +22,7 @@ public class HomeControllerTests
         _mockPostRepository = new Mock<IPostRepository>();
         _mockUserManager = new Mock<UserManager<ApplicationUser>>(
             new Mock<IUserStore<ApplicationUser>>().Object,
-            null, null, null, null, null, null, null, null
+            null!, null!, null!, null!, null!, null!, null!, null!
         );
         _controller = new HomeController(_mockPostRepository.Object, _mockUserManager.Object);
     }
@@ -67,7 +64,7 @@ public class HomeControllerTests
     {
         // Arrange
         _mockPostRepository.Setup(repo => repo.GetAllPostsAsync()).ReturnsAsync(new List<Post>());
-        _mockUserManager.Setup(manager => manager.GetUserId(It.IsAny<System.Security.Claims.ClaimsPrincipal>()))
+        _mockUserManager.Setup(manager => manager.GetUserId(It.IsAny<ClaimsPrincipal>()))
             .Returns("1");
 
         // Act
@@ -79,7 +76,7 @@ public class HomeControllerTests
         Assert.Empty(model);
     }
     
-    //negativ test for index method when GetAllPostsAsync throws an exception 
+    //negative test for index method when GetAllPostsAsync throws an exception 
     [Fact]
     public async Task Index_ThrowsException()
     //trenger vi egt denne da vi har try catch i index metoden?
@@ -109,7 +106,7 @@ public class HomeControllerTests
         Assert.NotNull(methodInfo);
 
         // Act
-        var result = (string)methodInfo.Invoke(_controller, new object[] { createdAt });
+        var result = (string)methodInfo.Invoke(_controller, new object[] { createdAt })!;
 
         // Assert
         Assert.Equal("30 m ago", result);
@@ -127,7 +124,7 @@ public class HomeControllerTests
         Assert.NotNull(methodInfo);
 
         // Act
-        var result = (string)methodInfo.Invoke(_controller, new object[] { createdAt });
+        var result = (string)methodInfo.Invoke(_controller, new object[] { createdAt })!;
 
         // Assert
         Assert.Equal("10 h ago", result);
@@ -145,7 +142,7 @@ public class HomeControllerTests
         Assert.NotNull(methodInfo);
 
         // Act
-        var result = (string)methodInfo.Invoke(_controller, new object[] { createdAt });
+        var result = (string)methodInfo.Invoke(_controller, new object[] { createdAt })!;
 
         // Assert
         Assert.Equal("2 d ago", result);
