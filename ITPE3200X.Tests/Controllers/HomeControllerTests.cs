@@ -79,9 +79,10 @@ public class HomeControllerTests
         Assert.Empty(model);
     }
     
-    //negativ test for index method when GetAllPostsAsync throws an exception
+    //negativ test for index method when GetAllPostsAsync throws an exception 
     [Fact]
     public async Task Index_ThrowsException()
+    //trenger vi egt denne da vi har try catch i index metoden?
     {
         // Arrange
         _mockPostRepository.Setup(repo => repo.GetAllPostsAsync()).ThrowsAsync(new Exception());
@@ -112,6 +113,42 @@ public class HomeControllerTests
 
         // Assert
         Assert.Equal("30 m ago", result);
+    }
+    
+    //positive test for CalculateTimeSincePosted method when time is less than 24 hours ago
+    [Fact]
+    public void CalculateTimeSincePosted_LessThanDayAgo()
+    {
+        // Arrange
+        var createdAt = DateTime.UtcNow.AddHours(-10);
+
+        // Use reflection to get the private method
+        var methodInfo = typeof(HomeController).GetMethod("CalculateTimeSincePosted", BindingFlags.NonPublic | BindingFlags.Instance);
+        Assert.NotNull(methodInfo);
+
+        // Act
+        var result = (string)methodInfo.Invoke(_controller, new object[] { createdAt });
+
+        // Assert
+        Assert.Equal("10 h ago", result);
+    }
+    
+    //positive test for CalculateTimeSincePosted method when time is more than a day ago
+    [Fact]
+    public void CalculateTimeSincePosted_MoreThanDayAgo()
+    {
+        // Arrange
+        var createdAt = DateTime.UtcNow.AddDays(-2);
+
+        // Use reflection to get the private method
+        var methodInfo = typeof(HomeController).GetMethod("CalculateTimeSincePosted", BindingFlags.NonPublic | BindingFlags.Instance);
+        Assert.NotNull(methodInfo);
+
+        // Act
+        var result = (string)methodInfo.Invoke(_controller, new object[] { createdAt });
+
+        // Assert
+        Assert.Equal("2 d ago", result);
     }
     
 //ERROR METHOD 
