@@ -13,6 +13,7 @@ namespace ITPE3200X.DAL.Repositories
         }
         
         // User methods
+        // Gets user data based on a user id
         public async Task<ApplicationUser> GetUserdataById(string userId)
         {
             var user = await _context.Users
@@ -70,28 +71,8 @@ namespace ITPE3200X.DAL.Repositories
             return await _context.Followers
                 .AnyAsync(f => f.FollowerUserId == followerUserId && f.FollowedUserId == followedUserId);
         }
-
-        // SavedPost methods
-        public async Task<IEnumerable<Post>> GetSavedPostsByUserIdAsync(string userId)
-        {
-            var savedPosts = await _context.SavedPosts
-                .Where(sp => sp.UserId == userId)
-                .OrderByDescending(sp => sp.CreatedAt)
-                .Include(sp => sp.Post)
-                .ThenInclude(p => p.User)
-                .Include(sp => sp.Post.Images)
-                .Include(sp => sp.Post.Comments)
-                .ThenInclude(c => c.User)
-                .Include(sp => sp.Post.Likes)
-                .ThenInclude(l => l.User)
-                .AsNoTracking()
-                .ToListAsync();
-
-            var posts = savedPosts.Select(sp => sp.Post);
-
-            return posts;
-        }
-
+        
+        // Saved post methods
         public async Task AddSavedPostAsync(string postId, string userId)
         {
             var savedPost = new SavedPost(postId, userId);
@@ -109,7 +90,8 @@ namespace ITPE3200X.DAL.Repositories
                 await _context.SaveChangesAsync();
             }
         }
-
+        
+        // Checks if a post is saved by a user, used to display the correct icon in the view
         public async Task<bool> IsPostSavedByUserAsync(string postId, string userId)
         {
             return await _context.SavedPosts

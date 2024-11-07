@@ -1,40 +1,43 @@
 using ITPE3200X.DAL.Repositories;
 using ITPE3200X.Models;
 using ITPE3200X.ViewModels;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-
 
 namespace ITPE3200X.Controllers;
 
 public class PostController : Controller
 {
     private readonly UserManager<ApplicationUser> _userManager;
-    private readonly IUserRepository _userRepository;
     private readonly IPostRepository _postRepository;
     private readonly IWebHostEnvironment _webHostEnvironment;
-    private readonly ILogger<HomeController> _logger;
+    private readonly ILogger<PostController> _logger;
 
+    // Constructor injecting dependencies
     public PostController(
-        ILogger<HomeController> logger,
+        ILogger<PostController> logger,
         UserManager<ApplicationUser> userManager,
-        IUserRepository userRepository,
         IPostRepository postRepository,
         IWebHostEnvironment webHostEnvironment
     )
     {
         _logger = logger;
         _userManager = userManager;
-        _userRepository = userRepository;
         _postRepository = postRepository;
         _webHostEnvironment = webHostEnvironment;
     }
-    
-    public IActionResult CreatePost()
-        {
-            return View();
-        }
 
+    // Returns the create post view
+    [Authorize]
+    [HttpGet]
+    public IActionResult CreatePost()
+    {
+        return View();
+    }
+
+    // Creates a new post, saves it to the database, and redirects to the user's profile
+    [Authorize]
     [HttpPost]
     [ValidateAntiForgeryToken]
     public async Task<IActionResult> CreatePost(string content, List<IFormFile> imageFiles)
@@ -44,82 +47,88 @@ public class PostController : Controller
             ModelState.AddModelError("Content", "Content is required.");
         }
 
+        if (!imageFiles.Any())
+        {
+            ModelState.AddModelError("ImageFiles", "At least one image is required.");
+        }
+
         if (!ModelState.IsValid)
         {
-            ModelState.AddModelError("", "Invalid model.");
+            _logger.LogWarning("[PostController][CreatePost] Invalid model state.");
             return View();
         }
 
         var userId = _userManager.GetUserId(User);
-        
+
         var post = new Post(userId!, content);
 
         // Handle image files
-        if (imageFiles.Count > 0)
+        foreach (var imageFile in imageFiles)
         {
-            foreach (var imageFile in imageFiles)
+            if (imageFile.Length > 0)
             {
-                if (imageFile.Length > 0)
+                // Validate the image file
+                if (!IsImageFile(imageFile))
                 {
-                    // Validate the image file (optional but recommended)
-                    if (!IsImageFile(imageFile))
-                    {
-                        ModelState.AddModelError("ImageFiles", "One or more files are not valid images.");
-                        return View();
-                    }
-
-                    // Generate a unique file name
-                    var fileName = $"{Guid.NewGuid()}_{Path.GetFileName(imageFile.FileName)}";
-                    var uploads = Path.Combine(_webHostEnvironment.WebRootPath, "uploads");
-                    var filePath = Path.Combine(uploads, fileName);
-
-                    // Ensure the uploads directory exists
-                    if (!Directory.Exists(uploads))
-                    {
-                        Directory.CreateDirectory(uploads);
-                    }
-
-                    // Save the image to the server
-                    using (var fileStream = new FileStream(filePath, FileMode.Create))
-                    {
-                        await imageFile.CopyToAsync(fileStream);
-                    }
-
-                    // Create PostImage entity and add to the post
-                    var imageEntity = new PostImage(post.PostId, $"/uploads/{fileName}");
-                    post.Images.Add(imageEntity);
+                    ModelState.AddModelError("ImageFiles", "One or more files are not valid images.");
+                    return View();
                 }
+
+                // Generate a unique file name
+                var fileName = $"{Guid.NewGuid()}_{Path.GetFileName(imageFile.FileName)}";
+                var uploads = Path.Combine(_webHostEnvironment.WebRootPath, "uploads");
+                var filePath = Path.Combine(uploads, fileName);
+
+                // Ensure the uploads directory exists
+                if (!Directory.Exists(uploads))
+                {
+                    Directory.CreateDirectory(uploads);
+                }
+
+                // Save the image to the server
+                using (var fileStream = new FileStream(filePath, FileMode.Create))
+                {
+                    await imageFile.CopyToAsync(fileStream);
+                }
+
+                // Create PostImage entity and add to the post
+                var imageEntity = new PostImage(post.PostId, $"/uploads/{fileName}");
+                post.Images.Add(imageEntity);
             }
-        }
-        else
-        {
-            ModelState.AddModelError("ImageFiles", "At least one image is required.");
-            return View();
         }
 
         // Save the post to the database
-        await _postRepository.AddPostAsync(post);
-
+        var result = await _postRepository.AddPostAsync(post);
+        
+        if(!result)
+        {
+            _logger.LogError("[PostController][CreatePost] Error adding post to database.");
+            return View();
+        }
+        
         return RedirectToAction("Profile", "Profile", new { username = _userManager.GetUserName(User) });
     }
 
+    // Checks if a file is a valid image file based on its extension
     private bool IsImageFile(IFormFile file)
     {
         var permittedExtensions = new[] { ".jpg", ".jpeg", ".png" };
         var extension = Path.GetExtension(file.FileName).ToLowerInvariant();
 
-        if (string.IsNullOrEmpty(extension) || !permittedExtensions.Contains(extension))
-        {
-            return false;
-        }
-
-        return true;
+        return !string.IsNullOrEmpty(extension) && permittedExtensions.Contains(extension);
     }
-    
-    public async Task<PostViewModel> GetPostViewModelById(String postId, bool homefeed)
+
+    // Returns a post view model by post id, used to update the view after actions
+    private async Task<PostViewModel?> GetPostViewModelById(string postId, bool homefeed)
     {
         var post = await _postRepository.GetPostByIdAsync(postId);
         
+        if (post == null)
+        {
+            _logger.LogWarning("[PostController][GetPostViewModelById] Post not found: {PostId}", postId);
+            return null;
+        }
+
         var currentUserId = _userManager.GetUserId(User);
 
         return new PostViewModel
@@ -127,7 +136,7 @@ public class PostController : Controller
             PostId = post.PostId,
             Content = post.Content,
             Images = post.Images.ToList(),
-            UserName = post.User.UserName!,
+            UserName = post.User.UserName ?? "Unknown User",
             ProfilePicture = post.User.ProfilePictureUrl ?? "/images/default-profile.png",
             IsLikedByCurrentUser = post.Likes.Any(l => l.UserId == currentUserId),
             IsSavedByCurrentUser = post.SavedPosts.Any(sp => sp.UserId == currentUserId),
@@ -136,13 +145,12 @@ public class PostController : Controller
             LikeCount = post.Likes.Count,
             CommentCount = post.Comments.Count,
             Comments = post.Comments
-                .OrderBy(c => c.CreatedAt) // Order comments by CreatedAt (ascending)
-                // .OrderByDescending(c => c.CreatedAt) // Use this line instead for descending order
+                .OrderBy(c => c.CreatedAt)
                 .Select(c => new CommentViewModel
                 {
                     IsCreatedByCurrentUser = c.UserId == currentUserId,
                     CommentId = c.CommentId,
-                    UserName = c.User.UserName!,
+                    UserName = c.User.UserName ?? "Unknown User",
                     Content = c.Content,
                     CreatedAt = c.CreatedAt,
                     TimeSincePosted = CalculateTimeSincePosted(c.CreatedAt)
@@ -150,10 +158,19 @@ public class PostController : Controller
                 .ToList()
         };
     }
-    
+
+    // Calculates the time since a comment was created
     private string CalculateTimeSincePosted(DateTime createdAt)
     {
-        var timeSpan = DateTime.UtcNow - createdAt;
+        var currentTime = DateTime.UtcNow;
+
+        if (createdAt > currentTime)
+        {
+            _logger.LogWarning("[PostController][CalculateTimeSincePosted] CreatedAt timestamp is in the future: {CreatedAt}", createdAt);
+            createdAt = currentTime;
+        }
+
+        var timeSpan = currentTime - createdAt;
 
         if (timeSpan.TotalMinutes < 60)
         {
@@ -168,81 +185,111 @@ public class PostController : Controller
             return $"{(int)timeSpan.TotalDays} d ago";
         }
     }
-    
+
+    // Toggles the like status of a post
+    [Authorize]
     [HttpPost]
     [ValidateAntiForgeryToken]
-    public ActionResult ToggleLike(string postId, bool isLike, bool homefeed)
+    public async Task<ActionResult> ToggleLike(string postId, bool isLike, bool homefeed)
     {
         var userId = _userManager.GetUserId(User);
+
         if (string.IsNullOrWhiteSpace(userId))
         {
             return Unauthorized();
         }
 
         // Retrieve the post
-        var post = _postRepository.GetPostByIdAsync(postId).Result;
+        var post = await _postRepository.GetPostByIdAsync(postId);
+        
+        if(post == null)
+        {
+            return NotFound();
+        }
 
         if (isLike)
         {
             // Add like
-            if (!post.Likes.Any(l => l.UserId == userId))
+            if (post.Likes.Any(l => l.UserId == userId))
             {
-                _postRepository.AddLikeAsync(postId, userId);
+                await _postRepository.AddLikeAsync(postId, userId);
             }
         }
         else
         {
-                _postRepository.RemoveLikeAsync(postId, userId);
+            // Remove like
+            await _postRepository.RemoveLikeAsync(postId, userId);
         }
 
         // Prepare the updated model
-        var model = GetPostViewModelById(postId, homefeed).Result;
+        var model = await GetPostViewModelById(postId, homefeed);
 
         return PartialView("_PostPartial", model);
     }
 
+    // Toggles the save status of a post
+    [Authorize]
     [HttpPost]
     [ValidateAntiForgeryToken]
-    public ActionResult ToggleSave(string postId, bool isSave, bool homefeed)
+    public async Task<ActionResult> ToggleSave(string postId, bool isSave, bool homefeed)
     {
         var userId = _userManager.GetUserId(User);
+
         if (string.IsNullOrWhiteSpace(userId))
         {
             return Unauthorized();
         }
 
         // Retrieve the post
-        var post = _postRepository.GetPostByIdAsync(postId).Result;
+        var post = await _postRepository.GetPostByIdAsync(postId);
+        
+        if(post == null)
+        {
+            return NotFound();
+        }
 
         if (isSave)
         {
             // Add save
-            if (!post.SavedPosts.Any(sp => sp.UserId == userId))
+            if (post.SavedPosts.Any(sp => sp.UserId == userId))
             {
-                _postRepository.AddSavedPost(postId, userId);
+                await _postRepository.AddSavedPost(postId, userId);
             }
         }
         else
         {
-                _postRepository.RemoveSavedPost(postId, userId);
+            // Remove save
+            await _postRepository.RemoveSavedPost(postId, userId);
         }
 
         // Prepare the updated model
-        var model = GetPostViewModelById(postId, homefeed).Result;
+        var model = await GetPostViewModelById(postId, homefeed);
 
         return PartialView("_PostPartial", model);
     }
-    
+
+    // Returns the edit post view
+    [Authorize]
     [HttpGet]
     public async Task<IActionResult> EditPost(string postId)
     {
         var userId = _userManager.GetUserId(User);
 
-        var post = await _postRepository.GetPostByIdAsync(postId);
-
-        if (post.UserId != userId)
+        if (string.IsNullOrEmpty(userId))
         {
             return Unauthorized();
+        }
+
+        var post = await _postRepository.GetPostByIdAsync(postId);
+        
+        if(post == null)
+        {
+            return NotFound();
+        }
+        
+        if (post.UserId != userId)
+        {
+            return Forbid();
         }
 
         var model = new EditPostViewModel
@@ -254,26 +301,33 @@ public class PostController : Controller
 
         return View(model);
     }
-    
+
+    // Updates a post, saves it to the database, and redirects to the user's profile
+    [Authorize]
     [HttpPost]
     [ValidateAntiForgeryToken]
     public async Task<IActionResult> EditPost(string postId, string content, List<IFormFile>? imageFiles)
     {
         var userId = _userManager.GetUserId(User);
+
         if (string.IsNullOrEmpty(userId))
         {
             return Unauthorized();
         }
 
+        if (string.IsNullOrWhiteSpace(content))
+        {
+            ModelState.AddModelError("Content", "Content is required.");
+        }
+
         if (!ModelState.IsValid)
         {
-            Console.WriteLine("Model state is not valid");
             return RedirectToAction("EditPost", new { postId });
         }
 
         var postToUpdate = await _postRepository.GetPostByIdAsync(postId);
-
-        if (postToUpdate.UserId != userId)
+        
+        if(postToUpdate == null)
         {
             return NotFound();
         }
@@ -281,10 +335,10 @@ public class PostController : Controller
         // Update the content
         postToUpdate.Content = content;
 
-        // Prepare a list to hold images to delete
-        List<PostImage> imagesToDelete = new List<PostImage>();
-        List<PostImage> imagesToAdd = new List<PostImage>();
-        
+        // Prepare lists to hold images to delete and add
+        var imagesToDelete = new List<PostImage>();
+        var imagesToAdd = new List<PostImage>();
+
         // Handle image replacement if there are new images
         if (imageFiles != null && imageFiles.Any())
         {
@@ -304,7 +358,7 @@ public class PostController : Controller
                     if (!IsImageFile(imageFile))
                     {
                         ModelState.AddModelError("ImageFiles", "One or more files are not valid images.");
-                        return View();
+                        return RedirectToAction("EditPost", new { postId });
                     }
 
                     // Generate a unique file name
@@ -324,7 +378,7 @@ public class PostController : Controller
                         await imageFile.CopyToAsync(fileStream);
                     }
 
-                    // Create PostImage entity and add to the post
+                    // Create PostImage entity and add to the list
                     var imageEntity = new PostImage(postToUpdate.PostId, $"/uploads/{fileName}");
                     imagesToAdd.Add(imageEntity);
                 }
@@ -332,22 +386,30 @@ public class PostController : Controller
         }
 
         // Save changes to the database
-        await _postRepository.UpdatePostAsync(postToUpdate, imagesToDelete, imagesToAdd);
+        var result = await _postRepository.UpdatePostAsync(postToUpdate, imagesToDelete, imagesToAdd);
 
+        if(!result)
+        {
+            _logger.LogError("[PostController][EditPost] Error updating post in database.");
+            return RedirectToAction("EditPost", new { postId });
+        }
+        
         return RedirectToAction("Profile", "Profile", new { username = _userManager.GetUserName(User) });
     }
-        
+
+    // Adds a comment to a post
+    [Authorize]
     [HttpPost]
     [ValidateAntiForgeryToken]
-    public ActionResult AddComment(string postId, string content, bool homefeed)
+    public async Task<ActionResult> AddComment(string postId, string content, bool homefeed)
     {
         var userId = _userManager.GetUserId(User);
+
         if (string.IsNullOrWhiteSpace(userId))
         {
             return Unauthorized();
         }
 
-        // Validate content
         if (string.IsNullOrWhiteSpace(content))
         {
             ModelState.AddModelError("Content", "Comment cannot be empty.");
@@ -355,40 +417,62 @@ public class PostController : Controller
 
         if (!ModelState.IsValid)
         {
-            // Return the current comments partial with validation errors
-            var postViewModel = GetPostViewModelById(postId, homefeed).Result;
+            var postViewModel = await GetPostViewModelById(postId, homefeed);
             return PartialView("_PostPartial", postViewModel);
         }
 
-        // Add the comment
         var comment = new Comment(postId, userId, content);
-        _postRepository.AddCommentAsync(comment);
+        var result = await _postRepository.AddCommentAsync(comment);
+        
+        if(!result)
+        {
+            _logger.LogError("[PostController][AddComment] Error adding comment to database.");
+            return BadRequest();
+        }
 
-        // Retrieve updated comments
-        var postViewModelUpdated = GetPostViewModelById(postId, homefeed).Result;
+        var postViewModelUpdated = await GetPostViewModelById(postId, homefeed);
 
         return PartialView("_PostPartial", postViewModelUpdated);
     }
-    
+
+    // Deletes a comment from a post
+    [Authorize]
     [HttpPost]
     [ValidateAntiForgeryToken]
-    public ActionResult DeleteComment(string postId, string commentId, bool homefeed)
+    public async Task<ActionResult> DeleteComment(string postId, string commentId, bool homefeed)
     {
         var userId = _userManager.GetUserId(User);
+
+        if (string.IsNullOrWhiteSpace(userId))
+        {
+            return Unauthorized();
+        }
+
+        var result = await _postRepository.DeleteCommentAsync(commentId, userId);
         
-        _postRepository.DeleteCommentAsync(commentId, userId!);
-        
-        // Retrieve updated comments
-        var postViewModelUpdated = GetPostViewModelById(postId, homefeed).Result;
+        if(!result)
+        {
+            _logger.LogError("[PostController][DeleteComment] Error deleting comment from database.");
+            return BadRequest();
+        }
+
+        var postViewModelUpdated = await GetPostViewModelById(postId, homefeed);
 
         return PartialView("_PostPartial", postViewModelUpdated);
     }
-    
+
+    // Edits a comment on a post
+    [Authorize]
     [HttpPost]
     [ValidateAntiForgeryToken]
     public async Task<IActionResult> EditComment(string postId, string commentId, string content, bool homefeed)
     {
         var userId = _userManager.GetUserId(User);
+
+        if (string.IsNullOrWhiteSpace(userId))
+        {
+            return Unauthorized();
+        }
 
         if (string.IsNullOrWhiteSpace(content))
         {
@@ -397,37 +481,40 @@ public class PostController : Controller
 
         if (!ModelState.IsValid)
         {
-            // Handle invalid model state, possibly return an error response
             return BadRequest(ModelState);
         }
 
-        try
-        {
-            await _postRepository.EditCommentAsync(commentId, userId!, content);
+        await _postRepository.EditCommentAsync(commentId, userId, content); //
 
-            // Retrieve updated post view model
-            var postViewModelUpdated = GetPostViewModelById(postId, homefeed).Result;
+        var postViewModelUpdated = await GetPostViewModelById(postId, homefeed);
 
-            return PartialView("_PostPartial", postViewModelUpdated);
-        }
-        catch (UnauthorizedAccessException)
-        {
-            return Unauthorized();
-        }
+        return PartialView("_PostPartial", postViewModelUpdated);
     }
-    
+
+    // Deletes a post and associated images
+    [Authorize]
     [HttpPost]
     [ValidateAntiForgeryToken]
     public async Task<IActionResult> DeletePost(string postId, bool homefeed)
     {
         var userId = _userManager.GetUserId(User);
 
+        if (string.IsNullOrEmpty(userId))
+        {
+            return Unauthorized();
+        }
+
         // Retrieve the post with images
         var post = await _postRepository.GetPostByIdAsync(postId);
+        
+        if(post == null)
+        {
+            return NotFound();
+        }
 
         if (post.UserId != userId)
         {
-            return Unauthorized();
+            return Forbid();
         }
 
         // Delete image files from the file system
@@ -436,16 +523,24 @@ public class PostController : Controller
             DeleteImageFile(image.ImageUrl);
         }
 
-        // Delete the post (and associated images) from the database
-        await _postRepository.DeletePostAsync(postId, userId);
+        // Delete the post from the database
+        var result = await _postRepository.DeletePostAsync(postId, userId);
+        
+        if(!result)
+        {
+            _logger.LogError("[PostController][DeletePost] Error deleting post from database.");
+            return BadRequest();
+        }
 
         if (homefeed)
         {
             return RedirectToAction("Index", "Home");
         }
-        return RedirectToAction("Profile", "Profile");
+
+        return RedirectToAction("Profile", "Profile", new { username = _userManager.GetUserName(User) });
     }
 
+    // Deletes an image file from the file system
     private void DeleteImageFile(string imageUrl)
     {
         try
@@ -462,44 +557,56 @@ public class PostController : Controller
         catch (Exception ex)
         {
             // Log the exception
-            _logger.LogError(ex, $"Error deleting image file: {imageUrl}");
+            _logger.LogError(ex, "[PostController][DeleteImageFile] Error deleting image file: {ImageUrl}", imageUrl);
         }
     }
-    
-    public IActionResult SavedPosts()
+
+    // Returns the saved posts view
+    [Authorize]
+    [HttpGet]
+    public async Task<IActionResult> SavedPosts()
     {
         var userId = _userManager.GetUserId(User);
         
-        var savedPosts = _userRepository.GetSavedPostsByUserIdAsync(userId!).Result;
+        if (string.IsNullOrEmpty(userId))
+        {
+            return NotFound();
+        }
+
+        var savedPosts = await _postRepository.GetSavedPostsByUserIdAsync(userId);
         
+        if(savedPosts == null)
+        {
+            return NotFound();
+        }
+
         var postViewModels = savedPosts.Select(p => new PostViewModel
         {
             PostId = p.PostId,
             Content = p.Content,
             Images = p.Images.ToList(),
-            UserName = p.User.UserName!,
-            ProfilePicture = p.User.ProfilePictureUrl!,
+            UserName = p.User.UserName,
+            ProfilePicture = p.User.ProfilePictureUrl,
             IsLikedByCurrentUser = p.Likes.Any(l => l.UserId == userId),
-            IsSavedByCurrentUser = p.SavedPosts.Any(sp => sp.UserId == userId),
+            IsSavedByCurrentUser = true, // Since these are saved posts
             IsOwnedByCurrentUser = p.UserId == userId,
             HomeFeed = false,
             LikeCount = p.Likes.Count,
             CommentCount = p.Comments.Count,
             Comments = p.Comments
-                .OrderBy(c => c.CreatedAt) // Order comments by CreatedAt (ascending)
-                // .OrderByDescending(c => c.CreatedAt) // Use this line instead for descending order
+                .OrderBy(c => c.CreatedAt)
                 .Select(c => new CommentViewModel
                 {
                     IsCreatedByCurrentUser = c.UserId == userId,
                     CommentId = c.CommentId,
-                    UserName = c.User.UserName!,
+                    UserName = c.User.UserName,
                     Content = c.Content,
                     CreatedAt = c.CreatedAt,
                     TimeSincePosted = CalculateTimeSincePosted(c.CreatedAt)
                 })
                 .ToList()
         }).ToList();
-        
+
         return View(postViewModels);
     }
 }
