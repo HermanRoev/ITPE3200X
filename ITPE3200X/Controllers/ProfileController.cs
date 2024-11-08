@@ -1,61 +1,74 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using ITPE3200X.Models;
 using ITPE3200X.DAL.Repositories;
 using Microsoft.AspNetCore.Identity;
 using ITPE3200X.ViewModels;
-
+using Microsoft.Extensions.Logging;
 
 namespace ITPE3200X.Controllers
 {
+    [Authorize]
     public class ProfileController : Controller
     {
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly IUserRepository _userRepository;
         private readonly IPostRepository _postRepository;
         private readonly IWebHostEnvironment _webHostEnvironment;
+        private readonly ILogger<ProfileController> _logger;
 
+        // Constructor injecting dependencies
         public ProfileController(
             UserManager<ApplicationUser> userManager,
             IUserRepository userRepository,
             IPostRepository postRepository,
-            IWebHostEnvironment webHostEnvironment
+            IWebHostEnvironment webHostEnvironment,
+            ILogger<ProfileController> logger
         )
         {
             _userManager = userManager;
             _userRepository = userRepository;
             _postRepository = postRepository;
             _webHostEnvironment = webHostEnvironment;
+            _logger = logger;
         }
 
         // GET: Profile
+        [AllowAnonymous]
         public async Task<IActionResult> Profile(string? username)
         {
-            if (!string.IsNullOrEmpty(username))
+            if (string.IsNullOrEmpty(username))
             {
-                var userExists = _userManager.Users.Any(u => u.UserName == username);
-                if (!userExists)
+                // If username is not provided, get the current user's username to show their profile
+                username = _userManager.GetUserName(User);
+                if (string.IsNullOrEmpty(username))
                 {
-                    return NotFound();
+                    // There is no profile to show
+                    return NotFound("User not found");
                 }
             }
-            else
+
+            // Retrieve the user by username
+            var user = await _userManager.FindByNameAsync(username);
+            if (user == null)
             {
-                username = _userManager.GetUserName(User);
+                _logger.LogWarning("[ProfileController][Profile] User '{Username}' not found.", username);
+                return NotFound("User not found");
             }
-            
+
             var currentUserId = _userManager.GetUserId(User);
-            
-            var user = _userManager.Users.FirstOrDefault(u => u.UserName == username);
-            
-            var posts = _postRepository.GetPostsByUserAsync(user!.Id).Result;
-            
+
+            // Retrieve posts by the user
+            var posts = await _postRepository.GetPostsByUserAsync(user.Id);
+
+            // Construct the list of PostViewModels
             var postViewModels = posts.Select(p => new PostViewModel
             {
                 PostId = p.PostId,
                 Content = p.Content,
                 Images = p.Images.ToList(),
-                UserName = p.User.UserName!,
-                ProfilePicture = p.User.ProfilePictureUrl!,
+                UserName = p.User.UserName ?? "Unknown User",
+                ProfilePicture = p.User.ProfilePictureUrl ?? "/images/default-profile.png",
                 IsLikedByCurrentUser = p.Likes.Any(l => l.UserId == currentUserId),
                 IsSavedByCurrentUser = p.SavedPosts.Any(sp => sp.UserId == currentUserId),
                 IsOwnedByCurrentUser = p.UserId == currentUserId,
@@ -63,13 +76,12 @@ namespace ITPE3200X.Controllers
                 LikeCount = p.Likes.Count,
                 CommentCount = p.Comments.Count,
                 Comments = p.Comments
-                    .OrderBy(c => c.CreatedAt) // Order comments by CreatedAt (ascending)
-                    // .OrderByDescending(c => c.CreatedAt) // Use this line instead for descending order
+                    .OrderBy(c => c.CreatedAt)
                     .Select(c => new CommentViewModel
                     {
                         IsCreatedByCurrentUser = c.UserId == currentUserId,
                         CommentId = c.CommentId,
-                        UserName = c.User.UserName!,
+                        UserName = c.User.UserName ?? "Unknown User",
                         Content = c.Content,
                         CreatedAt = c.CreatedAt,
                         TimeSincePosted = CalculateTimeSincePosted(c.CreatedAt)
@@ -77,21 +89,40 @@ namespace ITPE3200X.Controllers
                     .ToList()
             }).ToList();
 
+            // Determine if the current user is following the profile user
+            var isFollowing = false;
+            if (User.Identity!.IsAuthenticated && currentUserId != user.Id)
+            {
+                isFollowing = await _userRepository.IsFollowingAsync(currentUserId!, user.Id);
+            }
+
+            // Prepare the ProfileViewModel
             var profile = new ProfileViewModel
             {
                 User = user,
                 Posts = postViewModels,
                 IsCurrentUserProfile = user.Id == currentUserId,
-                IsFollowing = await _userRepository.IsFollowingAsync(currentUserId!, user.Id)
+                IsFollowing = isFollowing
             };
 
             return View(profile);
         }
 
+        // Calculates the time since a post or comment was created
         private string CalculateTimeSincePosted(DateTime createdAt)
         {
-            var timeSpan = DateTime.UtcNow - createdAt;
+            var currentTime = DateTime.UtcNow;
 
+            // Check if the createdAt timestamp is in the future
+            if (createdAt > currentTime)
+            {
+                _logger.LogWarning("[ProfileController][CalculateTimeSincePosted] CreatedAt timestamp is in the future: {CreatedAt}", createdAt);
+                createdAt = currentTime;
+            }
+
+            var timeSpan = currentTime - createdAt;
+
+            // Determine the appropriate time format
             if (timeSpan.TotalMinutes < 60)
             {
                 return $"{(int)timeSpan.TotalMinutes} m ago";
@@ -107,19 +138,24 @@ namespace ITPE3200X.Controllers
         }
 
         // GET: EditProfile
-        public IActionResult Edit()
+        public async Task<IActionResult> Edit()
         {
-            var user = _userManager.GetUserAsync(User).Result;
+            var user = await _userManager.GetUserAsync(User);
+            if (user == null)
+            {
+                return Unauthorized();
+            }
 
             var model = new EditProfileViewModel
             {
-                Bio = user!.Bio,
+                Bio = user.Bio,
                 ProfilePictureUrl = user.ProfilePictureUrl
             };
 
             return View(model);
         }
 
+        // POST: EditProfile
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(EditProfileViewModel model)
@@ -130,12 +166,16 @@ namespace ITPE3200X.Controllers
                 return View(model);
             }
 
-            var user = _userManager.GetUserAsync(User).Result;
+            var user = await _userManager.GetUserAsync(User);
+            if (user == null)
+            {
+                return Unauthorized();
+            }
 
             // Handle Profile Picture Upload
             if (model.ImageFile != null)
             {
-                // Validate the image file (optional but recommended)
+                // Validate the image file
                 if (!IsImageFile(model.ImageFile))
                 {
                     ModelState.AddModelError("ImageFile", "The file is not a valid image.");
@@ -160,7 +200,7 @@ namespace ITPE3200X.Controllers
                 }
 
                 // Delete the old profile picture if it exists and is not the default
-                if (!string.IsNullOrEmpty(user!.ProfilePictureUrl))
+                if (!string.IsNullOrEmpty(user.ProfilePictureUrl))
                 {
                     DeleteImageFile(user.ProfilePictureUrl);
                 }
@@ -170,11 +210,12 @@ namespace ITPE3200X.Controllers
             }
 
             // Update other user properties
-            user!.Bio = model.Bio;
+            user.Bio = model.Bio;
 
             var result = await _userManager.UpdateAsync(user);
             if (!result.Succeeded)
             {
+                _logger.LogError("[ProfileController][Edit POST] Failed to update user profile for '{UserId}'.", user.Id);
                 ModelState.AddModelError("", "Could not update profile.");
                 return View(model);
             }
@@ -182,6 +223,7 @@ namespace ITPE3200X.Controllers
             return RedirectToAction("Profile", new { username = user.UserName });
         }
 
+        // Deletes an image file from the file system
         private void DeleteImageFile(string imageUrl)
         {
             try
@@ -197,39 +239,78 @@ namespace ITPE3200X.Controllers
             }
             catch (Exception ex)
             {
-                // Log the exception (you can inject a logger if needed)
-                Console.WriteLine($"Error deleting image file: {ex.Message}");
+                _logger.LogError(ex, "[ProfileController][DeleteImageFile] Error deleting image file: {ImageUrl}", imageUrl);
             }
         }
 
+        // Checks if a file is a valid image file based on its extension
         private bool IsImageFile(IFormFile file)
         {
             var permittedExtensions = new[] { ".jpg", ".jpeg", ".png" };
             var extension = Path.GetExtension(file.FileName).ToLowerInvariant();
 
-            if (string.IsNullOrEmpty(extension) || !permittedExtensions.Contains(extension))
-            {
-                return false;
-            }
-
-            return true;
+            return !string.IsNullOrEmpty(extension) && permittedExtensions.Contains(extension);
         }
 
+        // POST: Follow a user
+        [HttpPost]
+        [ValidateAntiForgeryToken]
         public async Task<IActionResult> Follow(string username)
         {
-            var user = _userManager.Users.FirstOrDefault(u => u.UserName == username);
-            var userId = user?.Id;
+            var userToFollow = await _userManager.FindByNameAsync(username);
+            if (userToFollow == null)
+            {
+                _logger.LogWarning("[ProfileController][Follow] User '{Username}' not found.", username);
+                return NotFound("User not found");
+            }
+
             var currentUserId = _userManager.GetUserId(User);
-            await _userRepository.AddFollowerAsync(currentUserId!, userId!);
+            if (string.IsNullOrEmpty(currentUserId))
+            {
+                return Unauthorized();
+            }
+
+            var result = await _userRepository.AddFollowerAsync(currentUserId, userToFollow.Id);
+            
+            if (!result)
+            {
+                _logger.LogError("[ProfileController][Follow] Failed to follow user '{Username}'.", username);
+                ModelState.AddModelError("", "Could not follow user.");
+                return RedirectToAction("Profile", new { username });
+            }
+            
             return RedirectToAction("Profile", new { username });
         }
 
+        // POST: Unfollow a user
+        [HttpPost]
+        [ValidateAntiForgeryToken]
         public async Task<IActionResult> Unfollow(string username)
         {
-            var user = _userManager.Users.FirstOrDefault(u => u.UserName == username);
-            var userId = user?.Id;
+            var userToUnfollow = await _userManager.FindByNameAsync(username);
+            
+            if (userToUnfollow == null)
+            {
+                _logger.LogWarning("[ProfileController][Unfollow] User '{Username}' not found.", username);
+                return NotFound("User not found");
+            }
+
             var currentUserId = _userManager.GetUserId(User);
-            await _userRepository.RemoveFollowerAsync(currentUserId!, userId!);
+            
+            if (string.IsNullOrEmpty(currentUserId))
+            {
+                return Unauthorized();
+            }
+
+            var result = await _userRepository.RemoveFollowerAsync(currentUserId, userToUnfollow.Id);
+            
+            if (!result)
+            {
+                _logger.LogError("[ProfileController][Unfollow] Failed to unfollow user '{Username}'.", username);
+                ModelState.AddModelError("", "Could not unfollow user.");
+                return RedirectToAction("Profile", new { username });
+            }
+            
             return RedirectToAction("Profile", new { username });
         }
     }
