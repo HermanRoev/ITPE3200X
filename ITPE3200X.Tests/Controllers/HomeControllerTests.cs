@@ -1,35 +1,27 @@
-using System.Diagnostics;
-using System.Drawing;
 using System.Reflection;
-using System.Security.Claims;
 using ITPE3200X.Controllers;
 using ITPE3200X.DAL.Repositories;
 using ITPE3200X.Models;
 using ITPE3200X.ViewModels;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Logging;
 using Moq;
-using NuGet.Common;
 
 namespace ITPE3200X.Tests.Controllers;
 
 public class HomeControllerTests
 {
     private readonly Mock<IPostRepository> _mockPostRepository;
-    private readonly Mock<UserManager<ApplicationUser>> _mockUserManager;
-    private readonly Mock<ILogger<HomeController>> _mockLogger;
     private readonly HomeController _controller;
 
     public HomeControllerTests()
     {
         _mockPostRepository = new Mock<IPostRepository>();
-        _mockUserManager = new Mock<UserManager<ApplicationUser>>(
+        Mock<UserManager<ApplicationUser>> mockUserManager = new(
             new Mock<IUserStore<ApplicationUser>>().Object,
             null!, null!, null!, null!, null!, null!, null!, null!
         );
-        _mockLogger = new Mock<ILogger<HomeController>>();
-        _controller = new HomeController(_mockPostRepository.Object, _mockUserManager.Object, _mockLogger.Object);
+        _controller = new HomeController(_mockPostRepository.Object, mockUserManager.Object, null!);
     }
     
 //INDEX TESTS
