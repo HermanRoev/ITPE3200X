@@ -91,7 +91,6 @@
 
                     <!-- Like Button -->
                     <form asp-action="ToggleLike" asp-controller="Post" asp-route-postId="@Model.PostId" method="post" data-ajax="true" data-ajax-mode="replace" data-ajax-update="#post-@Model.PostId" class="d-inline">
-                        @Html.AntiForgeryToken()
                         @if (Model.IsLikedByCurrentUser)
                         {
                         <button type="submit" name="isLike" value="false" class="btn btn-sm text-white">
@@ -110,7 +109,6 @@
 
                     <!-- Save Button -->
                     <form asp-action="ToggleSave" asp-controller="Post" asp-route-postId="@Model.PostId" method="post" data-ajax="true" data-ajax-mode="replace" data-ajax-update="#post-@Model.PostId" class="d-inline">
-                        @Html.AntiForgeryToken()
                         @if (Model.IsSavedByCurrentUser)
                         {
                         <button type="submit" name="isSave" value="false" class="btn btn-sm text-white">
@@ -178,7 +176,6 @@
                                                   data-ajax-mode="replace"
                                                   data-ajax-update="#post-@Model.PostId"
                                                   class="d-inline-block">
-                                                @Html.AntiForgeryToken()
                                                 <button type="submit" class="btn btn-icon">
                                                     <i class="bi bi-trash text-danger"></i>
                                                 </button>
@@ -208,7 +205,6 @@
                                                   data-ajax="true"
                                                   data-ajax-mode="replace"
                                                   data-ajax-update="#post-@Model.PostId">
-                                                @Html.AntiForgeryToken()
                                                 <div class="modal-body">
                                                     <div class="mb-3">
                                                         <label for="commentContent-@comment.CommentId" class="form-label">Content</label>
@@ -234,7 +230,6 @@
                     @if (SignInManager.IsSignedIn(User))
                     {
                     <form asp-action="AddComment" asp-controller="Post" asp-route-postId="@Model.PostId" method="post" data-ajax="true" data-ajax-mode="replace" data-ajax-update="#post-@Model.PostId" class="comment-form">
-                        @Html.AntiForgeryToken()
                         <div class="input-group mt-3">
                             <input type="text" name="Content" class="form-control bg-dark text-white border-dark" placeholder="Add a comment..." required />
                             <button type="submit" class="btn loginbtn-primary">Post</button>

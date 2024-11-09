@@ -7,13 +7,12 @@ ViewData["Title"] = "Create Post";
         <div class="col-md-8 text-md-start text-center">
             <h2 class="px-4" style="color: #7cbeea;">Create a Post</h2>
             <form asp-action="CreatePost" asp-controller="Post" method="post" enctype="multipart/form-data" class="card bg-transparent text-dark p-4 border-0">
-                @Html.AntiForgeryToken()
-                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
 
                 <div class="form-floating mb-3">
                     <textarea class="form-control" id="content" name="Content" placeholder="Write your post content here..."></textarea>
                     <label for="content">Content</label>
-                    @Html.ValidationMessage("Content", "", new { @class = "text-danger" })
+                    <span asp-validation-for="Content" class="text-danger"></span>
                 </div>
 
                 <!-- Custom File Upload Section -->
@@ -24,7 +23,7 @@ ViewData["Title"] = "Create Post";
                     <label for="imageFiles" id="fileLabel" class="custom-file-label text-start">Choose Files</label>
                     <!-- Trash can icon for clearing selected files -->
                     <i class="bi bi-trash text-danger" id="clearFilesIcon" style="cursor: pointer; position: absolute; right: 1em; top: 50%; transform: translateY(-50%); display: none;" onclick="clearFiles()"></i>
-                    @Html.ValidationMessage("ImageFiles", "", new { @class = "text-danger" })
+                    <span asp-validation-for="ImageFiles" class="text-danger"></span>
                 </div>
 
                 <button type="submit" class="btn loginbtn-primary btn-lg w-100">Create Post</button>

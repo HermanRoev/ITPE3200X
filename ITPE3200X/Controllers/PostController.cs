@@ -39,7 +39,6 @@ public class PostController : Controller
     // Creates a new post, saves it to the database, and redirects to the user's profile
     [Authorize]
     [HttpPost]
-    [ValidateAntiForgeryToken]
     public async Task<IActionResult> CreatePost(string content, List<IFormFile> imageFiles)
     {
         if (string.IsNullOrWhiteSpace(content))
@@ -189,7 +188,6 @@ public class PostController : Controller
     // Toggles the like status of a post
     [Authorize]
     [HttpPost]
-    [ValidateAntiForgeryToken]
     public async Task<ActionResult> ToggleLike(string postId, bool homefeed)
     {
         var userId = _userManager.GetUserId(User);
@@ -229,7 +227,6 @@ public class PostController : Controller
     // Toggles the save status of a post
     [Authorize]
     [HttpPost]
-    [ValidateAntiForgeryToken]
     public async Task<ActionResult> ToggleSave(string postId, bool homefeed)
     {
         var userId = _userManager.GetUserId(User);
@@ -301,7 +298,6 @@ public class PostController : Controller
     // Updates a post, saves it to the database, and redirects to the user's profile
     [Authorize]
     [HttpPost]
-    [ValidateAntiForgeryToken]
     public async Task<IActionResult> EditPost(string postId, string content, List<IFormFile>? imageFiles)
     {
         var userId = _userManager.GetUserId(User);
@@ -396,7 +392,6 @@ public class PostController : Controller
     // Adds a comment to a post
     [Authorize]
     [HttpPost]
-    [ValidateAntiForgeryToken]
     public async Task<ActionResult> AddComment(string postId, string content, bool homefeed)
     {
         var userId = _userManager.GetUserId(User);
@@ -434,7 +429,6 @@ public class PostController : Controller
     // Deletes a comment from a post
     [Authorize]
     [HttpPost]
-    [ValidateAntiForgeryToken]
     public async Task<ActionResult> DeleteComment(string postId, string commentId, bool homefeed)
     {
         var userId = _userManager.GetUserId(User);
@@ -460,7 +454,6 @@ public class PostController : Controller
     // Edits a comment on a post
     [Authorize]
     [HttpPost]
-    [ValidateAntiForgeryToken]
     public async Task<IActionResult> EditComment(string postId, string commentId, string content, bool homefeed)
     {
         var userId = _userManager.GetUserId(User);
@@ -496,7 +489,6 @@ public class PostController : Controller
     // Deletes a post and associated images
     [Authorize]
     [HttpPost]
-    [ValidateAntiForgeryToken]
     public async Task<IActionResult> DeletePost(string postId, bool homefeed)
     {
         var userId = _userManager.GetUserId(User);
