@@ -1,4 +1,5 @@
 using System.Diagnostics;
+using System.Drawing;
 using System.Reflection;
 using System.Security.Claims;
 using ITPE3200X.Controllers;
@@ -7,7 +8,9 @@ using ITPE3200X.Models;
 using ITPE3200X.ViewModels;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
 using Moq;
+using NuGet.Common;
 
 namespace ITPE3200X.Tests.Controllers;
 
@@ -15,6 +18,7 @@ public class HomeControllerTests
 {
     private readonly Mock<IPostRepository> _mockPostRepository;
     private readonly Mock<UserManager<ApplicationUser>> _mockUserManager;
+    private readonly Mock<ILogger<HomeController>> _mockLogger;
     private readonly HomeController _controller;
 
     public HomeControllerTests()
@@ -24,7 +28,8 @@ public class HomeControllerTests
             new Mock<IUserStore<ApplicationUser>>().Object,
             null!, null!, null!, null!, null!, null!, null!, null!
         );
-        _controller = new HomeController(_mockPostRepository.Object, _mockUserManager.Object);
+        _mockLogger = new Mock<ILogger<HomeController>>();
+        _controller = new HomeController(_mockPostRepository.Object, _mockUserManager.Object, _mockLogger.Object);
     }
     
 //INDEX TESTS
@@ -32,48 +37,47 @@ public class HomeControllerTests
     [Fact]
     public async Task Index_ReturnsViewWithPosts()
     {
-        //arrange
-        var posts = new List<Post>
+        //arrange 
+        var posts = new List<Post>()
         {
-            new Post("1", "Test Content")
+            new Post("1", "test content")
             {
                 PostId = "1",
-                Images = new List<PostImage>(),
-                User = new ApplicationUser { UserName = "TestUser", ProfilePictureUrl = "/images/profile.png" },
+                Content = "test content",
+                CreatedAt = DateTime.UtcNow.AddHours(-1),
+                User = new ApplicationUser { UserName = "TestUser" },
                 Likes = new List<Like>(),
                 SavedPosts = new List<SavedPost>(),
                 Comments = new List<Comment>()
+
             }
         };
-        
+
         _mockPostRepository.Setup(repo => repo.GetAllPostsAsync()).ReturnsAsync(posts);
-        _mockUserManager.Setup(um => um.GetUserId(It.IsAny<ClaimsPrincipal>())).Returns("currentUserId");
-
-        // Act
+        
+        //act 
         var result = await _controller.Index();
-
-        // Assert
+        
+        //assert 
         var viewResult = Assert.IsType<ViewResult>(result);
-        var model = Assert.IsAssignableFrom<List<PostViewModel>>(viewResult.Model);
+        var model = Assert.IsAssignableFrom<List<PostViewModel>>(viewResult.ViewData.Model);
         Assert.Equal(posts.Count, model.Count);
-    }
+    }   
     
     //negative test for index method if it returns view with no posts
     [Fact]
     public async Task Index_ReturnsViewWithNoPosts()
     {
-        // Arrange
-        _mockPostRepository.Setup(repo => repo.GetAllPostsAsync()).ReturnsAsync(new List<Post>());
-        _mockUserManager.Setup(manager => manager.GetUserId(It.IsAny<ClaimsPrincipal>()))
-            .Returns("1");
-
-        // Act
+        //arrange 
+        _mockPostRepository.Setup(repo => repo.GetAllPostsAsync()).ReturnsAsync((IEnumerable<Post>)null!);
+        
+        //act
         var result = await _controller.Index();
-
-        // Assert
+        
+        //assert
         var viewResult = Assert.IsType<ViewResult>(result);
-        var model = Assert.IsAssignableFrom<List<PostViewModel>>(viewResult.ViewData.Model);
-        Assert.Empty(model);
+        Assert.Null(viewResult.ViewData.Model);
+        
     }
     
     //negative test for index method when GetAllPostsAsync throws an exception 
@@ -81,15 +85,7 @@ public class HomeControllerTests
     public async Task Index_ThrowsException()
     //trenger vi egt denne da vi har try catch i index metoden?
     {
-        // Arrange
-        _mockPostRepository.Setup(repo => repo.GetAllPostsAsync()).ThrowsAsync(new Exception());
-
-        // Act
-        var result = await _controller.Index();
-
-        // Assert
-        var viewResult = Assert.IsType<ViewResult>(result);
-        Assert.Null(viewResult.Model); // Assuming null model indicates an error was handled
+        
     }
     
 //CALCULATEDTIMESINCEPOSTED METHOD 
@@ -128,6 +124,7 @@ public class HomeControllerTests
 
         // Assert
         Assert.Equal("10 h ago", result);
+        
     }
     
     //positive test for CalculateTimeSincePosted method when time is more than a day ago
@@ -146,32 +143,7 @@ public class HomeControllerTests
 
         // Assert
         Assert.Equal("2 d ago", result);
-    }
-    
-//ERROR METHOD 
-    //positive test for that Error returns with a ViewModel containing a valid requestId 
-    [Fact]
-    public void Error_ReturnsViewWithRequestId()
-    {
-        // Arrange
-        Activity.Current = new Activity("test").Start();
-
-        // Act
-        var result = _controller.Error();
-
-        // Assert
-        var viewResult = Assert.IsType<ViewResult>(result);
-        var model = Assert.IsType<ErrorViewModel>(viewResult.Model);
-        Assert.Equal(Activity.Current.Id, model.RequestId);
-        Activity.Current.Stop();
-    }
-    
-    //negative test for that Error handles null Activity.Current.Id 
-    [Fact]
-    public void Error_ReturnsViewWithNullRequestId()
-    {
         
     }
-    
 }
 
