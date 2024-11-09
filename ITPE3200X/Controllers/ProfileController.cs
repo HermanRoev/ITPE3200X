@@ -4,7 +4,6 @@ using ITPE3200X.Models;
 using ITPE3200X.DAL.Repositories;
 using Microsoft.AspNetCore.Identity;
 using ITPE3200X.ViewModels;
-using Microsoft.Extensions.Logging;
 
 namespace ITPE3200X.Controllers
 {
@@ -67,8 +66,8 @@ namespace ITPE3200X.Controllers
                 PostId = p.PostId,
                 Content = p.Content,
                 Images = p.Images.ToList(),
-                UserName = p.User.UserName ?? "Unknown User",
-                ProfilePicture = p.User.ProfilePictureUrl ?? "/images/default-profile.png",
+                UserName = p.User.UserName,
+                ProfilePicture = p.User.ProfilePictureUrl,
                 IsLikedByCurrentUser = p.Likes.Any(l => l.UserId == currentUserId),
                 IsSavedByCurrentUser = p.SavedPosts.Any(sp => sp.UserId == currentUserId),
                 IsOwnedByCurrentUser = p.UserId == currentUserId,
@@ -81,7 +80,7 @@ namespace ITPE3200X.Controllers
                     {
                         IsCreatedByCurrentUser = c.UserId == currentUserId,
                         CommentId = c.CommentId,
-                        UserName = c.User.UserName ?? "Unknown User",
+                        UserName = c.User.UserName,
                         Content = c.Content,
                         CreatedAt = c.CreatedAt,
                         TimeSincePosted = CalculateTimeSincePosted(c.CreatedAt)
