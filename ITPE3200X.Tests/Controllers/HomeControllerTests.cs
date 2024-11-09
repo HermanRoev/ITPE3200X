@@ -18,7 +18,7 @@ public class HomeControllerTests
     {
         _mockPostRepository = new Mock<IPostRepository>();
         Mock<UserManager<ApplicationUser>> mockUserManager = new(
-            new Mock<IUserStore<ApplicationUser>>().Object,
+            new Mock<IUserStore<ApplicationUser>>(),
             null!, null!, null!, null!, null!, null!, null!, null!
         );
         _controller = new HomeController(_mockPostRepository.Object, mockUserManager.Object, null!);
