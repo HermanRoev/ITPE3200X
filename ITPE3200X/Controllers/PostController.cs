@@ -136,8 +136,8 @@ public class PostController : Controller
             PostId = post.PostId,
             Content = post.Content,
             Images = post.Images.ToList(),
-            UserName = post.User.UserName ?? "Unknown User",
-            ProfilePicture = post.User.ProfilePictureUrl ?? "/images/default-profile.png",
+            UserName = post.User.UserName,
+            ProfilePicture = post.User.ProfilePictureUrl,
             IsLikedByCurrentUser = post.Likes.Any(l => l.UserId == currentUserId),
             IsSavedByCurrentUser = post.SavedPosts.Any(sp => sp.UserId == currentUserId),
             IsOwnedByCurrentUser = post.UserId == currentUserId,
@@ -150,7 +150,7 @@ public class PostController : Controller
                 {
                     IsCreatedByCurrentUser = c.UserId == currentUserId,
                     CommentId = c.CommentId,
-                    UserName = c.User.UserName ?? "Unknown User",
+                    UserName = c.User.UserName,
                     Content = c.Content,
                     CreatedAt = c.CreatedAt,
                     TimeSincePosted = CalculateTimeSincePosted(c.CreatedAt)
@@ -190,12 +190,13 @@ public class PostController : Controller
     [Authorize]
     [HttpPost]
     [ValidateAntiForgeryToken]
-    public async Task<ActionResult> ToggleLike(string postId, bool isLike, bool homefeed)
+    public async Task<ActionResult> ToggleLike(string postId, bool homefeed)
     {
         var userId = _userManager.GetUserId(User);
 
         if (string.IsNullOrWhiteSpace(userId))
         {
+            _logger.LogWarning("[PostController][ToggleLike] User not authenticated.");
             return Unauthorized();
         }
 
@@ -204,16 +205,14 @@ public class PostController : Controller
         
         if(post == null)
         {
+            _logger.LogWarning("[PostController][ToggleLike] Post not found: {PostId}", postId);
             return NotFound();
         }
-
-        if (isLike)
+        
+        // Add like
+        if (!post.Likes.Any(l => l.UserId == userId))
         {
-            // Add like
-            if (post.Likes.Any(l => l.UserId == userId))
-            {
-                await _postRepository.AddLikeAsync(postId, userId);
-            }
+            await _postRepository.AddLikeAsync(postId, userId);
         }
         else
         {
@@ -231,7 +230,7 @@ public class PostController : Controller
     [Authorize]
     [HttpPost]
     [ValidateAntiForgeryToken]
-    public async Task<ActionResult> ToggleSave(string postId, bool isSave, bool homefeed)
+    public async Task<ActionResult> ToggleSave(string postId, bool homefeed)
     {
         var userId = _userManager.GetUserId(User);
 
@@ -248,13 +247,10 @@ public class PostController : Controller
             return NotFound();
         }
 
-        if (isSave)
+        // Add save
+        if (!post.SavedPosts.Any(sp => sp.UserId == userId))
         {
-            // Add save
-            if (post.SavedPosts.Any(sp => sp.UserId == userId))
-            {
-                await _postRepository.AddSavedPost(postId, userId);
-            }
+            await _postRepository.AddSavedPost(postId, userId);
         }
         else
         {
@@ -594,7 +590,7 @@ public class PostController : Controller
             UserName = p.User.UserName,
             ProfilePicture = p.User.ProfilePictureUrl,
             IsLikedByCurrentUser = p.Likes.Any(l => l.UserId == userId),
-            IsSavedByCurrentUser = true, // Since these are saved posts
+            IsSavedByCurrentUser = true, // Saved posts are always saved by the current user
             IsOwnedByCurrentUser = p.UserId == userId,
             HomeFeed = false,
             LikeCount = p.Likes.Count,

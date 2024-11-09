@@ -70,7 +70,7 @@
                     <a class="nav-link d-flex align-items-center" style="padding: 0; max-width: 100%;" asp-controller="Profile" asp-action="Profile" asp-route-username="@Model.UserName">
                         @if (string.IsNullOrEmpty(Model.ProfilePicture))
                         {
-                        <i class="bi bi-person-circle" style="font-size: 2rem; color: #7cbeea;"></i> <!-- Default Profile Picture -->
+                        <i class="bi bi-person-circle" style="font-size: 2.5rem !important; color: #7cbeea;"></i> <!-- Default Profile Picture -->
                         <span class="username text-white ms-2" style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: calc(100% - 2rem);">@Model.UserName</span>
                         }
                         else
