@@ -23,7 +23,7 @@ public class PostControllerTest
     public PostControllerTest()
     {
         _mockUserManager = new Mock<UserManager<ApplicationUser>>(
-            Mock.Of<IUserStore<ApplicationUser>>(), null, null, null, null, null, null, null, null
+            Mock.Of<IUserStore<ApplicationUser>>(), null!, null!, null!, null!, null!, null!, null!, null!
         );
         _mockPostRepository = new Mock<IPostRepository>();
         _mockWebHostEnvironment = new Mock<IWebHostEnvironment>();
@@ -139,7 +139,8 @@ public class PostControllerTest
         var result = await _controller.ToggleLike(postId, false) as NotFoundResult;
 
         // Assert
-        Assert.NotNull(result);
+        var viewResult = Assert.IsType<NotFoundResult>(result); // Checks if the result is a NotFoundResult
+        Assert.NotNull(viewResult); // Ensure NotFoundResult is not null 
     }
     
     //negative test for toggling like when unauthorized user tries to like a post
@@ -197,7 +198,8 @@ public class PostControllerTest
         var result = await _controller.ToggleSave(postId, homefeed);
 
         // Assert
-        Assert.NotNull(result);
+        var viewResult = Assert.IsType<ViewResult>(result); // Checks if the result is a ViewResult
+        Assert.NotNull(viewResult.ViewData); // Ensure ViewData is not null (optional)
     }
     
     //negative test for toggling a save on a post that does not exist
@@ -215,7 +217,77 @@ public class PostControllerTest
         var result = await _controller.ToggleSave(postId, false) as NotFoundResult;
 
         // Assert
-        Assert.NotNull(result);
+        var viewResult = Assert.IsType<NotFoundResult>(result); // Checks if the result is a NotFoundResult
+        Assert.NotNull(viewResult); // Ensure NotFoundResult is not null 
     }
+    
+    //negative test for toggling save when unauthorized user tries to save a post
+    [Fact]
+    public async Task ToggleSave_UnauthorizedUser()
+    {
+        // Arrange
+        var postId = "testPostId";
+        var homefeed = true;
+
+        // Simulate unauthenticated user by providing an empty ClaimsIdentity
+        _controller.ControllerContext = new ControllerContext()
+        {
+            HttpContext = new DefaultHttpContext()
+            {
+                User = new ClaimsPrincipal(new ClaimsIdentity()) // Empty identity ensures User.Identity is not null
+            }
+        };
+
+        // Mock GetUserId to return null
+        _mockUserManager.Setup(um => um.GetUserId(It.IsAny<ClaimsPrincipal>())).Returns((string)null!);
+
+        // Act
+        var result = await _controller.ToggleSave(postId, homefeed);
+
+        // Assert
+        Assert.IsType<UnauthorizedResult>(result);
+    }
+    
+//EDIT POST VIEW METHOD 
+    //positive test for editing a post
+    
+    //negative test for showing EditPostView when unauthorized user tries to edit a post
+    
+//EDIT POST METHOD 
+    //positive test for editing a post
+    
+    //negative test for editing a post when unauthorized user tries to edit a post
+    
+//ADD COMMENT METHOD 
+    //positive 
+    
+    //negative
+
+//DELETE COMMENT METHOD
+    //positive
+    
+    //negative
+
+//EDIT COMMENT METHOD
+    //positive
+    
+    //negative
+
+//DELETE POST AND IMAGES METHOD
+    //positive
+    
+    //negative
+
+//DELETE IMAGES FROM FILE SYSTEM METHOD
+    //positive
+    
+    //negative
+
+//RETURN SAVEDPOST VIEW METHOD
+    //positive
+    
+    //negative
+
+    
     
 }    
