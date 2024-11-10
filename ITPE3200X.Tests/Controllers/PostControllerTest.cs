@@ -2,6 +2,7 @@ using System.Security.Claims;
 using ITPE3200X.Controllers;
 using ITPE3200X.DAL.Repositories;
 using ITPE3200X.Models;
+using ITPE3200X.ViewModels;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
@@ -39,6 +40,7 @@ public class PostControllerTest
         // Set up the mock environment root path for file handling
         _mockWebHostEnvironment.Setup(e => e.WebRootPath).Returns("wwwroot");
     }
+
 
 //CREATE POST TESTS
     //positive test for creating a post
@@ -96,18 +98,30 @@ public class PostControllerTest
     [Fact]
     public async Task ToggleLike_ValidPost()
     {
-        // Arrange
+        //Arrange
         var postId = "testPostId";
+        var homefeed = true;
         var userId = "testUserId";
 
-        _mockUserManager.Setup(m => m.GetUserId(It.IsAny<ClaimsPrincipal>())).Returns(userId);
-        _mockPostRepository.Setup(r => r.AddLikeAsync(postId, userId)).Returns(Task.CompletedTask);
+        // Mock post data
+        var post = new Post(userId, "Test content")
+        {
+            PostId = postId,
+            UserId = userId,
+            Likes = new List<Like>(), // Initially no likes
+            Comments = new List<Comment>(),
+            Images = new List<PostImage>()
+        };
+
+        // Mock methods
+        _mockPostRepository.Setup(pr => pr.GetPostByIdAsync(postId)).ReturnsAsync(post);
+        _mockPostRepository.Setup(pr => pr.AddLikeAsync(postId, userId)).Returns(Task.CompletedTask);
 
         // Act
-        var result = await _controller.ToggleLike(postId, false) as OkResult;
+        var result = await _controller.ToggleLike(postId, homefeed);
 
         // Assert
-        Assert.NotNull(result);
+        Assert.NotNull(result); 
     }
     
     //negative test for toggling a like on a post that does not exist
@@ -127,4 +141,81 @@ public class PostControllerTest
         // Assert
         Assert.NotNull(result);
     }
+    
+    //negative test for toggling like when unauthorized user tries to like a post
+    [Fact]
+    public async Task ToggleLike_UnauthorizedUser()
+    {
+        // Arrange
+        var postId = "testPostId";
+        var homefeed = true;
+
+        // Simulate unauthenticated user by providing an empty ClaimsIdentity
+        _controller.ControllerContext = new ControllerContext()
+        {
+            HttpContext = new DefaultHttpContext()
+            {
+                User = new ClaimsPrincipal(new ClaimsIdentity()) // Empty identity ensures User.Identity is not null
+            }
+        };
+
+        // Mock GetUserId to return null
+        _mockUserManager.Setup(um => um.GetUserId(It.IsAny<ClaimsPrincipal>())).Returns((string)null!);
+
+        // Act
+        var result = await _controller.ToggleLike(postId, homefeed);
+
+        // Assert
+        Assert.IsType<UnauthorizedResult>(result);
+    }
+
+//TOGGLE SAVE METHOD 
+    //positive test for toggling a save on a post 
+    [Fact]
+    public async Task ToggleSave_ValidPost()
+    {
+        // Arrange
+        var postId = "testPostId";
+        var userId = "testUserId";
+        var homefeed = true;
+
+        // Mock post data
+        var post = new Post(userId, "Test content")
+        {
+            PostId = postId,
+            UserId = userId,
+            Likes = new List<Like>(),
+            Comments = new List<Comment>(),
+            Images = new List<PostImage>()
+        };
+
+        // Mock methods
+        _mockPostRepository.Setup(pr => pr.GetPostByIdAsync(postId)).ReturnsAsync(post);
+        _mockPostRepository.Setup(pr => pr.AddSavedPost(postId, userId)).Returns(Task.CompletedTask);
+
+        // Act
+        var result = await _controller.ToggleSave(postId, homefeed);
+
+        // Assert
+        Assert.NotNull(result);
+    }
+    
+    //negative test for toggling a save on a post that does not exist
+    [Fact]
+    public async Task ToggleSave_InvalidPost()
+    {
+        // Arrange
+        var postId = "testPostId";
+        var userId = "testUserId";
+
+        _mockUserManager.Setup(m => m.GetUserId(It.IsAny<ClaimsPrincipal>())).Returns(userId);
+        _mockPostRepository.Setup(r => r.AddSavedPost(postId, userId)).Returns(Task.CompletedTask);
+
+        // Act
+        var result = await _controller.ToggleSave(postId, false) as NotFoundResult;
+
+        // Assert
+        Assert.NotNull(result);
+    }
+    
 }    

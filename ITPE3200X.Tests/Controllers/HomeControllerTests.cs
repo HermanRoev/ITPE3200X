@@ -72,14 +72,6 @@ public class HomeControllerTests
         
     }
     
-    //negative test for index method when GetAllPostsAsync throws an exception 
-    [Fact]
-    public async Task Index_ThrowsException()
-    //trenger vi egt denne da vi har try catch i index metoden?
-    {
-        
-    }
-    
 //CALCULATEDTIMESINCEPOSTED METHOD 
     //positive test for CalculateTimeSincePosted method when time is less than a hour ago 
     [Fact]
