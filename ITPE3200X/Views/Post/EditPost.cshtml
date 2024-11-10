@@ -9,9 +9,7 @@ ViewData["Title"] = "Edit Post";
         <div class="col-md-8 text-md-start text-center">
             <h2 class="px-4" style="color: #7cbeea;">Edit your Post</h2>
             <form asp-action="EditPost" asp-controller="Post" method="post" asp-route-postId="@Model.PostId" enctype="multipart/form-data" class="card bg-transparent text-dark p-4 border-0">
-                @Html.AntiForgeryToken()
                 @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-
                 <div class="form-floating mb-3">
                     <textarea class="form-control" id="content" name="Content" placeholder="Write your post content here...">@Model.Content</textarea>
                     <label for="content">Content</label>
@@ -28,7 +26,6 @@ ViewData["Title"] = "Edit Post";
                     <i class="bi bi-trash text-danger" id="clearFilesIcon" style="cursor: pointer; position: absolute; right: 1em; top: 50%; transform: translateY(-50%); display: none;" onclick="clearFiles()"></i>
                     @Html.ValidationMessage("ImageFiles", "", new { @class = "text-danger" })
                 </div>
-
                 <button type="submit" class="btn loginbtn-primary btn-lg w-100">Edit Post</button>
             </form>
         </div>

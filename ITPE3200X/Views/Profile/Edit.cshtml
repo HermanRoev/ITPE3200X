@@ -9,7 +9,6 @@ ViewData["Title"] = "Edit Profile";
         <div class="col-md-8 text-md-start text-center">
             <h2 class="px-4" style="color: #7cbeea;">Edit Profile</h2>
             <form asp-action="Edit" asp-controller="Profile" method="post" enctype="multipart/form-data" class="card bg-transparent text-dark p-4 border-0">
-                @Html.AntiForgeryToken()
                 <div asp-validation-summary="ModelOnly" class="text-danger"></div>
 
                 <!-- Display Current Profile Picture or Icon -->
