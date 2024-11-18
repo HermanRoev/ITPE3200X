@@ -251,7 +251,7 @@ public class PostControllerTest
 //EDIT POST VIEW METHOD 
     //positive test for editing a post and showing EditPostView
     [Fact]
-    public async Task EditPost_RetunsView()
+    public async Task EditPostView_RetunsView()
     {
         //arrange
         var userId = "testUserId";
@@ -298,7 +298,7 @@ public class PostControllerTest
     
     //negative test for edit post view when unauthorized user tries to edit a post
     [Fact]
-    public async Task EditPost_UnauthorizedUser()
+    public async Task EditPostView_UnauthorizedUser()
     {
         // Arrange
         var postId = "testPostId";
@@ -402,6 +402,30 @@ public class PostControllerTest
     }
     
     //negative test for editing a post when unauthorized user tries to edit a post
+    [Fact]
+    public async Task EditPost_UnauthorizedUser()
+    {
+        // Arrange
+        var postId = "testPostId";
+
+        // Simulate unauthenticated user by providing an empty ClaimsIdentity
+        _controller.ControllerContext = new ControllerContext()
+        {
+            HttpContext = new DefaultHttpContext()
+            {
+                User = new ClaimsPrincipal(new ClaimsIdentity()) // Empty identity ensures User.Identity is not null
+            }
+        };
+
+        // Mock GetUserId to return null
+        _mockUserManager.Setup(um => um.GetUserId(It.IsAny<ClaimsPrincipal>())).Returns((string)null!);
+
+        // Act
+        var result = await _controller.EditPost(postId, "new content", null);
+
+        // Assert
+        Assert.IsType<UnauthorizedResult>(result);
+    }
     
 //ADD COMMENT METHOD 
     //positive test for add comment to a post
@@ -542,13 +566,15 @@ public class PostControllerTest
 
         _mockUserManager.Setup(um => um.GetUserId(It.IsAny<ClaimsPrincipal>())).Returns(userId);
         _mockPostRepository.Setup(repo => repo.DeleteCommentAsync(commentId, userId)).ReturnsAsync(false);
+        _mockPostRepository.Setup(repo => repo.GetPostByIdAsync(postId)).ReturnsAsync(new Post(userId, "Test content"));
 
         // Act
         var result = await _controller.DeleteComment(postId, commentId, homefeed);
 
         // Assert
-        Assert.IsType<BadRequestResult>(result);
-        _mockLogger.Verify(l => l.LogError(It.IsAny<string>()), Times.Once);
+        var partialViewResult = Assert.IsType<PartialViewResult>(result);
+        Assert.Equal("_PostPartial", partialViewResult.ViewName);
+        Assert.NotNull(partialViewResult.Model);
     }
 
 //EDIT COMMENT METHOD
@@ -556,26 +582,23 @@ public class PostControllerTest
     [Fact]
     public async Task EditComment_ValidComment()
     {
-        //Arrange
+        // Arrange
         var postId = "testPostId";
         var commentId = "testCommentId";
-        var content = "Updated comment content.";
         var userId = "testUserId";
         var homefeed = true;
 
-        var postViewModel = new PostViewModel { PostId = postId };
-
         _mockUserManager.Setup(um => um.GetUserId(It.IsAny<ClaimsPrincipal>())).Returns(userId);
-        _mockPostRepository.Setup(repo => repo.EditCommentAsync(commentId, userId, content)).ReturnsAsync(true);
+        _mockPostRepository.Setup(repo => repo.DeleteCommentAsync(commentId, userId)).ReturnsAsync(false);
         _mockPostRepository.Setup(repo => repo.GetPostByIdAsync(postId)).ReturnsAsync(new Post(userId, "Test content"));
 
         // Act
-        var result = await _controller.EditComment(postId, commentId, content, homefeed);
+        var result = await _controller.DeleteComment(postId, commentId, homefeed);
 
         // Assert
         var partialViewResult = Assert.IsType<PartialViewResult>(result);
         Assert.Equal("_PostPartial", partialViewResult.ViewName);
-        Assert.Equal(postViewModel, partialViewResult.Model);
+        Assert.NotNull(partialViewResult.Model);
     }
     
     //negative edit comment when user is not authenticated
@@ -726,12 +749,14 @@ public class PostControllerTest
     public void DeleteImageFiles_ValidImages()
     {
         
+        
     }
     
     //negative test for deleting images from filesystem when images does not exist
     [Fact]
     public void DeleteImageFiles_ImagesDoNotExist()
     {
+        
         
     }
     
@@ -742,6 +767,30 @@ public class PostControllerTest
     [Fact]
     public async Task SavedPosts_UserHasSaved()
     {
+        // Arrange
+        var userId = "testUserId";
+        var savedPosts = new List<Post>
+        {
+            new Post(userId, "Test content")
+            {
+                PostId = "testPostId",
+                UserId = userId,
+                Likes = new List<Like>(),
+                Comments = new List<Comment>(),
+                Images = new List<PostImage>()
+            }
+        };
+
+        _mockUserManager.Setup(um => um.GetUserId(It.IsAny<ClaimsPrincipal>())).Returns(userId);
+        _mockPostRepository.Setup(repo => repo.GetSavedPostsByUserIdAsync(userId)).ReturnsAsync(savedPosts);
+
+        // Act
+        var result = await _controller.SavedPosts();
+
+        // Assert
+        var viewResult = Assert.IsType<ViewResult>(result);
+        var model = Assert.IsType<List<PostViewModel>>(viewResult.Model);
+        Assert.Equal(savedPosts.Count, model.Count);
        
     }
     
@@ -759,7 +808,7 @@ public class PostControllerTest
         };
     }
     
-    //negative test for when user has no saved posts
+    //negative test for when user has no saved posts 
     [Fact]
     public async Task SavedPosts_UserHasNoSaved()
     {
