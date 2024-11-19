@@ -5,6 +5,7 @@ using ITPE3200X.Models;
 using ITPE3200X.ViewModels;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
 using Moq;
 
 namespace ITPE3200X.Tests.Controllers;
@@ -12,16 +13,19 @@ namespace ITPE3200X.Tests.Controllers;
 public class HomeControllerTests
 {
     private readonly Mock<IPostRepository> _mockPostRepository;
+    private readonly Mock<UserManager<ApplicationUser>> _mockUserManager;
+    private readonly Mock<ILogger<HomeController>> _mockLogger;
     private readonly HomeController _controller;
 
     public HomeControllerTests()
     {
         _mockPostRepository = new Mock<IPostRepository>();
-        Mock<UserManager<ApplicationUser>> mockUserManager = new(
-            new Mock<IUserStore<ApplicationUser>>(),
-            null!, null!, null!, null!, null!, null!, null!, null!
+        _mockUserManager = new Mock<UserManager<ApplicationUser>>(
+            Mock.Of<IUserStore<ApplicationUser>>(), null, null, null, null, null, null, null, null
         );
-        _controller = new HomeController(_mockPostRepository.Object, mockUserManager.Object, null!);
+        _mockLogger = new Mock<ILogger<HomeController>>();
+
+        _controller = new HomeController(_mockPostRepository.Object, _mockUserManager.Object, _mockLogger.Object);
     }
     
 //INDEX TESTS
@@ -37,15 +41,15 @@ public class HomeControllerTests
                 PostId = "1",
                 Content = "test content",
                 CreatedAt = DateTime.UtcNow.AddHours(-1),
-                User = new ApplicationUser { UserName = "TestUser" },
+                User = new ApplicationUser { UserName = "TestUser", Id="1"},
                 Likes = new List<Like>(),
                 SavedPosts = new List<SavedPost>(),
                 Comments = new List<Comment>()
-
             }
         };
 
         _mockPostRepository.Setup(repo => repo.GetAllPostsAsync()).ReturnsAsync(posts);
+        _mockUserManager.Setup(um => um.GetUserId(It.IsAny<System.Security.Claims.ClaimsPrincipal>())).Returns("1");
         
         //act 
         var result = await _controller.Index();
@@ -61,15 +65,15 @@ public class HomeControllerTests
     public async Task Index_ReturnsViewWithNoPosts()
     {
         //arrange 
-        _mockPostRepository.Setup(repo => repo.GetAllPostsAsync()).ReturnsAsync((IEnumerable<Post>)null!);
+        _mockPostRepository.Setup(repo => repo.GetAllPostsAsync()).ReturnsAsync((List<Post>)null);
         
-        //act
+        //act 
         var result = await _controller.Index();
         
-        //assert
+        //assert 
         var viewResult = Assert.IsType<ViewResult>(result);
         Assert.Null(viewResult.ViewData.Model);
-        
+
     }
     
 //CALCULATEDTIMESINCEPOSTED METHOD 
