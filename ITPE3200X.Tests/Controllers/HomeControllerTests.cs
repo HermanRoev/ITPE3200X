@@ -25,7 +25,10 @@ public class HomeControllerTests
         );
         _mockLogger = new Mock<ILogger<HomeController>>();
 
-        _controller = new HomeController(_mockPostRepository.Object, _mockUserManager.Object, _mockLogger.Object);
+        _controller = new HomeController(
+            _mockPostRepository.Object,
+            _mockUserManager.Object,
+            _mockLogger.Object);
     }
     
 //INDEX TESTS

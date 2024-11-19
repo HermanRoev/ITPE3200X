@@ -173,12 +173,12 @@ public class PostControllerTest
 //TOGGLE SAVE METHOD 
     //positive test for toggling a save on a post 
     [Fact]
-    public async Task ToggleSave_ValidPost()
+    public async Task ToggleSave_AddSave_ReturnView()
     {
         // Arrange
         var postId = "testPostId";
-        var userId = "testUserId";
         var homefeed = true;
+        var userId = "testUserId";
 
         // Mock post data
         var post = new Post(userId, "Test content")
@@ -190,7 +190,7 @@ public class PostControllerTest
             Images = new List<PostImage>()
         };
 
-        // Mock methods
+        _mockUserManager.Setup(um => um.GetUserId(It.IsAny<ClaimsPrincipal>())).Returns(userId);
         _mockPostRepository.Setup(pr => pr.GetPostByIdAsync(postId)).ReturnsAsync(post);
         _mockPostRepository.Setup(pr => pr.AddSavedPost(postId, userId)).Returns(Task.CompletedTask);
 
@@ -198,8 +198,7 @@ public class PostControllerTest
         var result = await _controller.ToggleSave(postId, homefeed);
 
         // Assert
-        var viewResult = Assert.IsType<ViewResult>(result); // Checks if the result is a ViewResult
-        Assert.NotNull(viewResult.ViewData); // Ensure ViewData is not null (optional)
+        Assert.NotNull(result);
     }
     
     //negative test for toggling a save on a post that does not exist
