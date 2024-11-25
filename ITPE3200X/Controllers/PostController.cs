@@ -247,12 +247,12 @@ public class PostController : Controller
         // Add save
         if (!post.SavedPosts.Any(sp => sp.UserId == userId))
         {
-            await _postRepository.AddSavedPost(postId, userId);
+            await _postRepository.AddSavedPostAsync(postId, userId);
         }
         else
         {
             // Remove save
-            await _postRepository.RemoveSavedPost(postId, userId);
+            await _postRepository.RemoveSavedPostAsync(postId, userId);
         }
 
         // Prepare the updated model

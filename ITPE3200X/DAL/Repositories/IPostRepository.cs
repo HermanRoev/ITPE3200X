@@ -22,7 +22,7 @@ namespace ITPE3200X.DAL.Repositories
         Task AddLikeAsync(string postId, string userId);
         Task RemoveLikeAsync(string postId, string userId);
         // Save methods
-        Task AddSavedPost(String postId, string userId);
-        Task RemoveSavedPost(String postId, string userId);
+        Task AddSavedPostAsync(String postId, string userId);
+        Task RemoveSavedPostAsync(String postId, string userId);
     }
 }

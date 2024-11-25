@@ -121,7 +121,7 @@ namespace ITPE3200X.DAL.Repositories
                 {
                     foreach (var image in imagesToDelete)
                     {
-                        _context.PostImages.Remove(image);
+                       _context.PostImages.Remove(image);
                     }
                 }
                 if (imagesToAdd.Count > 0)
@@ -258,14 +258,14 @@ namespace ITPE3200X.DAL.Repositories
             }
         }
 
-        public async Task AddSavedPost(String postId, string userId)
+        public async Task AddSavedPostAsync(String postId, string userId)
         {
             var savedPost = new SavedPost(postId, userId);
             await _context.SavedPosts.AddAsync(savedPost);
             await _context.SaveChangesAsync();
         }
         
-        public async Task RemoveSavedPost(String postId, string userId)
+        public async Task RemoveSavedPostAsync(String postId, string userId)
         {
             var savedPost = await _context.SavedPosts
                 .FirstOrDefaultAsync(sp => sp.PostId == postId && sp.UserId == userId);
