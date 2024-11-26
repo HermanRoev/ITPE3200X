@@ -4,6 +4,7 @@ html {
   min-height: 100%;
 }
 
+/* Media query to adjust font size on larger screens */
 @media (min-width: 768px) {
   html {
     font-size: 16px;
