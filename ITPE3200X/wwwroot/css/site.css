@@ -4,6 +4,7 @@ html {
   min-height: 100%;
 }
 
+/* Media query to adjust font size on larger screens */
 @media (min-width: 768px) {
   html {
     font-size: 16px;
@@ -67,13 +68,24 @@ i:active, form:active {
   color: #212529;
 }
 
+/* Force remove the outline on the hamburger button in bootstrap library */
+.navbar-toggler {
+  outline: none !important;
+  border: none !important;
+  box-shadow: none !important;
+  background-color: transparent !important; /* Optional: Ensure no background color */
+}
 
- /* Force remove the outline on the hamburger button in bootstrap library */
-.navbar-toggler:focus,
-.navbar-toggler:active,
-.navbar-toggler-icon:focus {
-  outline: none;
-  box-shadow: none;
+/* Adjust the bi-list icon as needed */
+.navbar-toggler .bi-list {
+  font-size: 1.5rem; /* Adjust icon size */
+  color: #ffffff; /* Set icon color to white */
+  transition: color 0.2s ease-in-out;
+}
+
+/* Hover effect for the icon */
+.navbar-toggler:hover .bi-list {
+  color: #efefef; /* Change icon color on hover */
 }
 
 /* Remove default margins and padding */

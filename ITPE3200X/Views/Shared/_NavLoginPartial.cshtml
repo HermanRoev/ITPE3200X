@@ -22,7 +22,7 @@
     <ul class="navbar-nav flex-grow-1 text-left d-lg-none d-md-none" style="font-size: 1.4rem;">
         <li class="nav-item mt-3"><a id="navhome" class="nav-link" asp-area="" asp-controller="Home" asp-action="Index" title="Home View">Home</a>
         <li class="nav-item mt-3"><a id="navprofile" class="nav-link" asp-area="" asp-controller="Profile" asp-action="Profile" title="Profile View">Profile</a></li>
-        <li class="nav-item mt-3"><a class="nav-link" href="#">Saved</a></li>
+        <li class="nav-item mt-3"><a class="nav-link" asp-controller="Post" asp-action="SavedPosts" title="Saved Posts">Saved</a></li>        
         <li class="nav-item mt-3"><a id="navsettings" class="nav-link text-white" asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage">Settings</a></li>
     </ul>
     }
