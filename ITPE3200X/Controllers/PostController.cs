@@ -502,6 +502,7 @@ public class PostController : Controller
 
         return PartialView("_PostPartial", postViewModelUpdated);
     }
+    
 
     // Deletes a post and associated images
     [Authorize]
@@ -554,7 +555,7 @@ public class PostController : Controller
     }
 
     // Deletes an image file from the file system
-    private void DeleteImageFile(string imageUrl)
+    public void DeleteImageFile(string imageUrl)
     {
         try
         {

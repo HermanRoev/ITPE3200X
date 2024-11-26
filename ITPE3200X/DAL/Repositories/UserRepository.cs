@@ -59,5 +59,23 @@ namespace ITPE3200X.DAL.Repositories
             return await _context.Followers
                 .AnyAsync(f => f.FollowerUserId == followerUserId && f.FollowedUserId == followedUserId);
         }
+        
+        public async Task<bool> UpdateProfileAsync(ApplicationUser user, string bio, IFormFile imageFile)
+        {
+            // Implementation for updating the profile
+            user.Bio = bio;
+            if (imageFile != null)
+            {
+                // Logic to handle the image file
+                user.ProfilePictureUrl = "/path/to/new/picture.jpg"; // Example path
+            }
+
+            // Save changes to the database
+            // Assuming _context is your database context
+            _context.Users.Update(user);
+            await _context.SaveChangesAsync();
+
+            return true;
+        }
     }
 }

@@ -234,10 +234,24 @@ public class ProfileControllerTests
             ProfilePictureUrl = "/path/to/picture.jpg"
         };
 
+        // Create a valid image file with a memory stream
+        var fileContent = "Fake image content";
+        var fileName = "profilePicture.jpg";
+        var contentType = "image/jpeg";
+        var fileStream = new MemoryStream();
+        var writer = new StreamWriter(fileStream);
+        writer.Write(fileContent);
+        writer.Flush();
+        fileStream.Position = 0;
+
         var model = new EditProfileViewModel
         {
             Bio = "New bio",
-            ImageFile = new FormFile(null, 0, 0, "profilePicture", "profilePicture.jpg")
+            ImageFile = new FormFile(fileStream, 0, fileStream.Length, "profilePicture", fileName)
+            {
+                Headers = new HeaderDictionary(),
+                ContentType = contentType
+            }
         };
 
         // Mock the authenticated user
@@ -255,14 +269,20 @@ public class ProfileControllerTests
         };
 
         _mockUserManager.Setup(x => x.GetUserAsync(principal)).ReturnsAsync(currentUser);
-        _mockWebHostEnvironment.Setup(x => x.WebRootPath).Returns("/webroot");
+        _mockUserRepository.Setup(x => x.UpdateProfileAsync(currentUser, model.Bio, model.ImageFile)).ReturnsAsync(true);
 
+        // Ensure WebRootPath is properly set
+        var fakeWebRootPath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot");
+        Directory.CreateDirectory(fakeWebRootPath); // Create the directory if it doesn't exist
+        _mockWebHostEnvironment.Setup(x => x.WebRootPath).Returns(fakeWebRootPath);
+        
         // Act
         var result = await _controller.Edit(model);
 
         // Assert
-        var redirectToActionResult = Assert.IsType<RedirectToActionResult>(result);
-        Assert.Equal("Profile", redirectToActionResult.ActionName);
+        var redirectResult = Assert.IsType<RedirectToActionResult>(result);
+        Assert.Equal("Profile", redirectResult.ActionName);
+        Assert.Equal(currentUser.UserName, redirectResult.RouteValues["username"]);
     }
     
     //negative test: invalid model
