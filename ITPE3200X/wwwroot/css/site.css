@@ -68,8 +68,7 @@ i:active, form:active {
   color: #212529;
 }
 
- /* Force remove the outline on the hamburger button in bootstrap library */
-/* Remove outline and border from the navbar-toggler button */
+/* Force remove the outline on the hamburger button in bootstrap library */
 .navbar-toggler {
   outline: none !important;
   border: none !important;
