@@ -22,7 +22,7 @@ public class HomeControllerTests
     public HomeControllerTests()
     {
         _mockUserManager = new Mock<UserManager<ApplicationUser>>(
-            Mock.Of<IUserStore<ApplicationUser>>(), null!, null!, null!, null!, null!, null!, null!, null!
+            Mock.Of<IUserStore<ApplicationUser>>(), null, null, null, null, null, null, null, null
         );
         _mockPostRepository = new Mock<IPostRepository>();
         _mockWebHostEnvironment = new Mock<IWebHostEnvironment>();
@@ -45,7 +45,7 @@ public class HomeControllerTests
         //arrange 
         var posts = new List<Post>()
         {
-            new Post("1", "test content")
+            new Post("testuserid", "test content")
             {
                 PostId = "1",
                 Content = "test content",
@@ -58,15 +58,16 @@ public class HomeControllerTests
         };
 
         _mockPostRepository.Setup(repo => repo.GetAllPostsAsync()).ReturnsAsync(posts);
-        _mockUserManager.Setup(um => um.GetUserId(It.IsAny<System.Security.Claims.ClaimsPrincipal>())).Returns("1");
+        _mockUserManager.Setup(um => um.GetUserId(It.IsAny<System.Security.Claims.ClaimsPrincipal>())).Returns("");
         
         //act 
         var result = await _controller.Index();
         
         //assert 
         var viewResult = Assert.IsType<ViewResult>(result);
-        var model = Assert.IsAssignableFrom<List<PostViewModel>>(viewResult.ViewData.Model);
-        Assert.Equal(posts.Count, model.Count);
+        var model = Assert.IsAssignableFrom<List<PostViewModel>>(viewResult.Model);
+        Assert.Single(model);
+        Assert.Equal("test content", model[0].Content);
     }   
     
     //negative test for index method if it returns view with no posts

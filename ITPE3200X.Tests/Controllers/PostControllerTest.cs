@@ -188,7 +188,7 @@ public class PostControllerTest
 
         _mockUserManager.Setup(um => um.GetUserId(It.IsAny<ClaimsPrincipal>())).Returns(userId);
         _mockPostRepository.Setup(repo => repo.GetPostByIdAsync(postId)).ReturnsAsync(post);
-        _mockPostRepository.Setup(repo => repo.AddSavedPost(postId, userId)).Returns(Task.CompletedTask);
+        _mockPostRepository.Setup(repo => repo.AddSavedPostAsync(postId, userId)).Returns(Task.CompletedTask);
 
         _controller.ControllerContext = new ControllerContext()
         {
@@ -208,7 +208,7 @@ public class PostControllerTest
         var partialViewResult = Assert.IsType<PartialViewResult>(result);
         var model = Assert.IsType<PostViewModel>(partialViewResult.Model);
         Assert.Equal(postId, model.PostId);
-        _mockPostRepository.Verify(repo => repo.AddSavedPost(postId, userId), Times.Once);
+        _mockPostRepository.Verify(repo => repo.AddSavedPostAsync(postId, userId), Times.Once);
     }
     
     //negative test for toggling a save on a post that does not exist
@@ -220,7 +220,7 @@ public class PostControllerTest
         var userId = "testUserId";
 
         _mockUserManager.Setup(m => m.GetUserId(It.IsAny<ClaimsPrincipal>())).Returns(userId);
-        _mockPostRepository.Setup(r => r.AddSavedPost(postId, userId)).Returns(Task.CompletedTask);
+        _mockPostRepository.Setup(r => r.AddSavedPostAsync(postId, userId)).Returns(Task.CompletedTask);
 
         // Act
         var result = await _controller.ToggleSave(postId, false) as NotFoundResult;
