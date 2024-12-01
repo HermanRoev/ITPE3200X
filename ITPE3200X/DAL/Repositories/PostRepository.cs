@@ -73,7 +73,7 @@ namespace ITPE3200X.DAL.Repositories
             }
         }
 
-
+        // Returns all posts
         public async Task<IEnumerable<Post>?> GetAllPostsAsync()
         {
             try
@@ -96,7 +96,8 @@ namespace ITPE3200X.DAL.Repositories
             }
             
         }
-
+        
+        // Post methods
         public async Task<bool> AddPostAsync(Post post)
         {
             try
@@ -112,11 +113,13 @@ namespace ITPE3200X.DAL.Repositories
             }
             
         }
-
+        
+        // Update Post methods
         public async Task<bool> UpdatePostAsync(Post post, List<PostImage> imagesToDelete, List<PostImage> imagesToAdd)
         {
             try
             {
+                // Remove images that are to be deleted
                 if (imagesToDelete.Count > 0)
                 {
                     foreach (var image in imagesToDelete)
@@ -124,6 +127,7 @@ namespace ITPE3200X.DAL.Repositories
                        _context.PostImages.Remove(image);
                     }
                 }
+                // Add new images
                 if (imagesToAdd.Count > 0)
                 {
                     foreach (var image in imagesToAdd)
@@ -144,11 +148,13 @@ namespace ITPE3200X.DAL.Repositories
             }
 
         }
-
+        
+        // Delete post methods
         public async Task<bool> DeletePostAsync(string postId, string userId)
         {
             try
             {
+                // Check if the user is authorized to delete the post
                 var post = await _context.Posts.FindAsync(postId);
                 if (post!.UserId != userId)
                 {
@@ -169,6 +175,7 @@ namespace ITPE3200X.DAL.Repositories
         // Comment methods
         public async Task<bool> AddCommentAsync(Comment comment)
         {
+            // Add the comment to the database
             try
             {
                 await _context.Comments.AddAsync(comment);
@@ -182,13 +189,16 @@ namespace ITPE3200X.DAL.Repositories
                 return false;
             }
         }
-
+        
+        // Delete Comment methods
         public async Task<bool> DeleteCommentAsync(string commentId, string userId)
         {
+            // Delete the comment from the database
             try
             {
                 var comment = await _context.Comments.FindAsync(commentId);
                 
+                // Check if the user is authorized to delete the comment
                 if (comment != null)
                 {
                     if (comment.UserId != userId)
@@ -211,12 +221,13 @@ namespace ITPE3200X.DAL.Repositories
 
         }
         
+        // Edit Comment methods
         public async Task<bool> EditCommentAsync(string commentId, string userId, string content)
         {
             try
             {
                 var comment = await _context.Comments.FindAsync(commentId);
-
+                // Check if the user is authorized to edit the comment
                 if (comment != null)
                 {
                     if (comment.UserId != userId)
@@ -246,7 +257,8 @@ namespace ITPE3200X.DAL.Repositories
             await _context.Likes.AddAsync(like);
             await _context.SaveChangesAsync();
         }
-
+        
+        // Remove Like methods
         public async Task RemoveLikeAsync(string postId, string userId)
         {
             var like = await _context.Likes
@@ -257,7 +269,8 @@ namespace ITPE3200X.DAL.Repositories
                 await _context.SaveChangesAsync();
             }
         }
-
+        
+        // Save methods
         public async Task AddSavedPostAsync(String postId, string userId)
         {
             var savedPost = new SavedPost(postId, userId);
@@ -265,6 +278,7 @@ namespace ITPE3200X.DAL.Repositories
             await _context.SaveChangesAsync();
         }
         
+        // Remove Save methods
         public async Task RemoveSavedPostAsync(String postId, string userId)
         {
             var savedPost = await _context.SavedPosts
@@ -275,7 +289,8 @@ namespace ITPE3200X.DAL.Repositories
                 await _context.SaveChangesAsync();
             }
         }
-
+        
+        // Get posts by user methods
         public async Task<IEnumerable<Post>> GetPostsByUserAsync(string userId)
         {
             return await _context.Posts

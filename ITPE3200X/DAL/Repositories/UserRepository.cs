@@ -13,11 +13,13 @@ namespace ITPE3200X.DAL.Repositories
             _context = context;
             _logger = logger;
         }
-
+        
+        // Follower methods
         public async Task<bool> AddFollowerAsync(string followerUserId, string followedUserId)
         {
             try
             {
+                // Check if the follower is already following the user
                 var follower = new Follower(followerUserId, followedUserId);
                 await _context.Followers.AddAsync(follower);
                 await _context.SaveChangesAsync();
@@ -30,7 +32,8 @@ namespace ITPE3200X.DAL.Repositories
                 return false;
             }
         }
-
+        
+        // Follower methods
         public async Task<bool> RemoveFollowerAsync(string followerUserId, string followedUserId)
         {
             try
@@ -53,29 +56,12 @@ namespace ITPE3200X.DAL.Repositories
                 return false;
             }
         }
-
+        
+        // Follower methods
         public async Task<bool> IsFollowingAsync(string followerUserId, string followedUserId)
         {
             return await _context.Followers
                 .AnyAsync(f => f.FollowerUserId == followerUserId && f.FollowedUserId == followedUserId);
-        }
-        
-        public async Task<bool> UpdateProfileAsync(ApplicationUser user, string bio, IFormFile imageFile)
-        {
-            // Implementation for updating the profile
-            user.Bio = bio;
-            if (imageFile != null)
-            {
-                // Logic to handle the image file
-                user.ProfilePictureUrl = "/path/to/new/picture.jpg"; // Example path
-            }
-
-            // Save changes to the database
-            // Assuming _context is your database context
-            _context.Users.Update(user);
-            await _context.SaveChangesAsync();
-
-            return true;
         }
     }
 }
