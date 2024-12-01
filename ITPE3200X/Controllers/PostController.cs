@@ -44,11 +44,13 @@ public class PostController : Controller
         if (string.IsNullOrWhiteSpace(content))
         {
             ModelState.AddModelError("Content", "Content is required.");
+            _logger.LogWarning("[PostController][CreatePost] Content is required.");
         }
 
         if (!imageFiles.Any())
         {
             ModelState.AddModelError("ImageFiles", "At least one image is required.");
+            _logger.LogWarning("[PostController][CreatePost] At least one image is required.");
         }
 
         if (!ModelState.IsValid)
@@ -190,6 +192,7 @@ public class PostController : Controller
     [HttpPost]
     public async Task<ActionResult> ToggleLike(string postId, bool homefeed)
     {
+        // Get the user id
         var userId = _userManager.GetUserId(User);
 
         if (string.IsNullOrWhiteSpace(userId))
@@ -229,6 +232,7 @@ public class PostController : Controller
     [HttpPost]
     public async Task<ActionResult> ToggleSave(string postId, bool homefeed)
     {
+        // Get the user id
         var userId = _userManager.GetUserId(User);
 
         if (string.IsNullOrWhiteSpace(userId))
@@ -273,6 +277,7 @@ public class PostController : Controller
         // Check if the user is authenticated
         if (string.IsNullOrEmpty(userId))
         {
+            _logger.LogWarning("[PostController][EditPost] User not authenticated.");
             return Unauthorized();
         }
         
@@ -281,12 +286,14 @@ public class PostController : Controller
         
         if(post == null)
         {
+            _logger.LogWarning("[PostController][EditPost] Post not found: {PostId}", postId);
             return NotFound();
         }
         
         // Check if the current user is the owner of the post
         if (post.UserId != userId)
         {
+            _logger.LogWarning("[PostController][EditPost] User is not owner of the post: {PostId}", postId);
             return Forbid();
         }
 
@@ -311,12 +318,14 @@ public class PostController : Controller
         // Check if the user is authenticated
         if (string.IsNullOrEmpty(userId))
         {
+            _logger.LogWarning("[PostController][EditPost] User not authenticated.");
             return Unauthorized();
         }
         
         // Validate the content
         if (string.IsNullOrWhiteSpace(content))
         {
+            _logger.LogWarning("[PostController][EditPost] Content is required.");
             ModelState.AddModelError("Content", "Content is required.");
         }
         
@@ -359,6 +368,7 @@ public class PostController : Controller
                     // Validate the image file
                     if (!IsImageFile(imageFile))
                     {
+                        _logger.LogWarning("[PostController][EditPost] One or more files are not valid images.");
                         ModelState.AddModelError("ImageFiles", "One or more files are not valid images.");
                         return RedirectToAction("EditPost", new { postId });
                     }
@@ -408,18 +418,21 @@ public class PostController : Controller
 
         if (string.IsNullOrWhiteSpace(userId))
         {
+            _logger.LogWarning("[PostController][AddComment] User not authenticated.");
             return Unauthorized();
         }
         
         // Validate the content
         if (string.IsNullOrWhiteSpace(content))
         {
+            _logger.LogWarning("[PostController][AddComment] Comment cannot be empty.");
             ModelState.AddModelError("Content", "Comment cannot be empty.");
         }
         
         // Check if the model state is valid
         if (!ModelState.IsValid)
         {
+            _logger.LogWarning("[PostController][AddComment] Invalid model state.");
             var postViewModel = await GetPostViewModelById(postId, homefeed);
             return PartialView("_PostPartial", postViewModel);
         }
@@ -449,6 +462,7 @@ public class PostController : Controller
         // Check if the user is authenticated
         if (string.IsNullOrWhiteSpace(userId))
         {
+            _logger.LogWarning("[PostController][DeleteComment] User not authenticated.");
             return Unauthorized();
         }
 
@@ -475,17 +489,20 @@ public class PostController : Controller
 
         if (string.IsNullOrWhiteSpace(userId))
         {
+            _logger.LogWarning("[PostController][EditComment] User not authenticated.");
             return Unauthorized();
         }
         
         // Validate the content
         if (string.IsNullOrWhiteSpace(content))
         {
+            _logger.LogWarning("[PostController][EditComment] Content is required.");
             ModelState.AddModelError("Content", "Content is required.");
         }
 
         if (!ModelState.IsValid)
         {
+            _logger.LogWarning("[PostController][EditComment] Invalid model state.");
             return BadRequest(ModelState);
         }
 
@@ -513,6 +530,7 @@ public class PostController : Controller
 
         if (string.IsNullOrEmpty(userId))
         {
+            _logger.LogWarning("[PostController][DeletePost] User not authenticated.");
             return Unauthorized();
         }
 
@@ -521,12 +539,14 @@ public class PostController : Controller
         
         if(post == null)
         {
+            _logger.LogWarning("[PostController][DeletePost] Post not found: {PostId}", postId);
             return NotFound();
         }
         
         // Check if the current user is the owner of the post
         if (post.UserId != userId)
         {
+            _logger.LogWarning("[PostController][DeletePost] User is not owner of the post: {PostId}", postId);
             return Forbid();
         }
 

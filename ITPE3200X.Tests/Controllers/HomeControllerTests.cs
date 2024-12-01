@@ -15,7 +15,6 @@ public class HomeControllerTests
 {
     private readonly Mock<UserManager<ApplicationUser>> _mockUserManager;
     private readonly Mock<IPostRepository> _mockPostRepository;
-    private readonly Mock<IWebHostEnvironment> _mockWebHostEnvironment;
     private readonly Mock<ILogger<HomeController>> _mockLogger;
     private readonly HomeController _controller;
 
@@ -25,15 +24,13 @@ public class HomeControllerTests
             Mock.Of<IUserStore<ApplicationUser>>(), null, null, null, null, null, null, null, null
         );
         _mockPostRepository = new Mock<IPostRepository>();
-        _mockWebHostEnvironment = new Mock<IWebHostEnvironment>();
         _mockLogger = new Mock<ILogger<HomeController>>();
 
         // Initialize the controller with mocked dependencies
         _controller = new HomeController(
             _mockPostRepository.Object,
             _mockUserManager.Object,
-            _mockLogger.Object,
-            _mockWebHostEnvironment.Object
+            _mockLogger.Object
         );
     }
     
@@ -75,7 +72,7 @@ public class HomeControllerTests
     public async Task Index_ReturnsViewWithNoPosts()
     {
         //arrange 
-        _mockPostRepository.Setup(repo => repo.GetAllPostsAsync()).ReturnsAsync((List<Post>)null);
+        _mockPostRepository.Setup(repo => repo.GetAllPostsAsync()).ReturnsAsync((List<Post>?)null);
         
         //act 
         var result = await _controller.Index();
@@ -90,7 +87,6 @@ public class HomeControllerTests
     //positive test for CalculateTimeSincePosted method when time is less than a hour ago 
     [Fact]
     public void CalculateTimeSincePosted_LessThanHourAgo()
-    //funker men vet ikke om vi skal ta med testing for denne metoden siden den er privat
     {
         // Arrange
         var createdAt = DateTime.UtcNow.AddMinutes(-30);
@@ -137,11 +133,10 @@ public class HomeControllerTests
         Assert.NotNull(methodInfo);
 
         // Act
-        var result = (string)methodInfo.Invoke(_controller, new object[] { createdAt })!;
+        var result = (string)methodInfo.Invoke(_controller, new object[] { createdAt }!);
 
         // Assert
         Assert.Equal("2 d ago", result);
-        
     }
 }
 
