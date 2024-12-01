@@ -1,4 +1,5 @@
 using ITPE3200X.Models;
+using ITPE3200X.ViewModels;
 
 namespace ITPE3200X.DAL.Repositories
 {
@@ -21,6 +22,7 @@ namespace ITPE3200X.DAL.Repositories
         // Like methods
         Task AddLikeAsync(string postId, string userId);
         Task RemoveLikeAsync(string postId, string userId);
+        
         // Save methods
         Task AddSavedPostAsync(String postId, string userId);
         Task RemoveSavedPostAsync(String postId, string userId);

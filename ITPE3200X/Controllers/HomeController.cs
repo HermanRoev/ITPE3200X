@@ -12,11 +12,10 @@ public class HomeController : Controller
     private readonly UserManager<ApplicationUser> _userManager;
     private readonly ILogger<HomeController> _logger;
 
-    public HomeController(
-        IPostRepository postRepository,
+    public HomeController(IPostRepository postRepository,
         UserManager<ApplicationUser> userManager,
-        ILogger<HomeController> logger
-        )
+        ILogger<HomeController> logger, 
+        IWebHostEnvironment mockEnvironmentObject)
     {
         _postRepository = postRepository;
         _userManager = userManager;

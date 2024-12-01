@@ -4,6 +4,7 @@ using ITPE3200X.Models;
 using ITPE3200X.DAL.Repositories;
 using Microsoft.AspNetCore.Identity;
 using ITPE3200X.ViewModels;
+using Microsoft.DotNet.Scaffolding.Shared.Project;
 
 namespace ITPE3200X.Controllers
 {
@@ -159,8 +160,10 @@ namespace ITPE3200X.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(EditProfileViewModel model)
         {
-            if (!ModelState.IsValid)
+            if (string.IsNullOrWhiteSpace(model.Bio) || string.IsNullOrWhiteSpace(model.ProfilePictureUrl) 
+                                                     || model.ImageFile == null)
             {
+                _logger.LogWarning("[ProfileController][Edit POST] Invalid model.");
                 ModelState.AddModelError("", "Invalid model.");
                 return View(model);
             }
@@ -168,7 +171,8 @@ namespace ITPE3200X.Controllers
             var user = await _userManager.GetUserAsync(User);
             if (user == null)
             {
-                return Unauthorized();
+                _logger.LogWarning("[ProfileController][Edit POST] User not found.");
+                return Unauthorized("User not found");
             }
 
             // Handle Profile Picture Upload
