@@ -12,10 +12,11 @@
     <div class="mx-auto my-3" style="width: 56%; height: 2px; background-color: #79959E; box-shadow: 0 4px 10px 0 #7cbeea; max-width: 350px"></div> <!-- Divider with shadow -->
 </div>
 <div class="container">
+    <!-- Index site, rendering PostPartial -->
     @foreach (var post in Model)
     {
         <div id="post-@post.PostId">
-            <partial name="_PostPartial" model="post" />
+            <partial name="_PostPartial" model="post"/>
         </div>
     }
 </div>
