@@ -225,64 +225,33 @@ public class ProfileControllerTests
     [Fact]
     public async Task EditProfilePost_ValidModel_ValidImage()
     {
-        // Arrange
-        var currentUser = new ApplicationUser
+        // Arrange 
+        var user = new ApplicationUser
         {
-            UserName = "currentuser",
-            Id = "currentuserid",
-            Bio = "Bio",
-            ProfilePictureUrl = "/path/to/picture.jpg"
+            UserName = "testuser",
+            ProfilePictureUrl = "/path/to/picture.jpg",
+            Bio = "Bio"
         };
-
-        // Create a valid image file with a memory stream
-        var fileContent = "Fake image content";
-        var fileName = "profilePicture.jpg";
-        var contentType = "image/jpeg";
-        var fileStream = new MemoryStream();
-        var writer = new StreamWriter(fileStream);
-        writer.Write(fileContent);
-        writer.Flush();
-        fileStream.Position = 0;
 
         var model = new EditProfileViewModel
         {
-            Bio = "New bio",
-            ImageFile = new FormFile(fileStream, 0, fileStream.Length, "profilePicture", fileName)
-            {
-                Headers = new HeaderDictionary(),
-                ContentType = contentType
-            }
+            Bio = "test new bio",
+            ProfilePictureUrl = "/path/to/picture.jpg",
+            ImageFile = new FormFile(Mock.Of<Stream>(), 0, 100, "profilePicture", "profilePicture.jpg")
         };
-
-        // Mock the authenticated user
-        var claims = new List<Claim>
-        {
-            new Claim(ClaimTypes.NameIdentifier, currentUser.Id),
-            new Claim(ClaimTypes.Name, currentUser.UserName)
-        };
-        var identity = new ClaimsIdentity(claims, "TestAuthType");
-        var principal = new ClaimsPrincipal(identity);
-
-        _controller.ControllerContext = new ControllerContext
-        {
-            HttpContext = new DefaultHttpContext { User = principal }
-        };
-
-        _mockUserManager.Setup(x => x.GetUserAsync(principal)).ReturnsAsync(currentUser);
-        _mockUserRepository.Setup(x => x.UpdateProfileAsync(currentUser, model.Bio, model.ImageFile)).ReturnsAsync(true);
-
-        // Ensure WebRootPath is properly set
-        var fakeWebRootPath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot");
-        Directory.CreateDirectory(fakeWebRootPath); // Create the directory if it doesn't exist
-        _mockWebHostEnvironment.Setup(x => x.WebRootPath).Returns(fakeWebRootPath);
+        
+        _mockUserManager.Setup(x => x.GetUserAsync(It.IsAny<ClaimsPrincipal>())).ReturnsAsync(user);
+        _mockUserManager.Setup(x => x.UpdateAsync(It.IsAny<ApplicationUser>())).ReturnsAsync(IdentityResult.Success);
+        
+        _mockWebHostEnvironment.Setup(whe => whe.WebRootPath).Returns("wwwroot");
         
         // Act
         var result = await _controller.Edit(model);
-
+        
         // Assert
         var redirectResult = Assert.IsType<RedirectToActionResult>(result);
         Assert.Equal("Profile", redirectResult.ActionName);
-        Assert.Equal(currentUser.UserName, redirectResult.RouteValues["username"]);
+        Assert.Equal("testuser", redirectResult.RouteValues["username"]);
     }
     
     //negative test: invalid model
@@ -353,18 +322,21 @@ public class ProfileControllerTests
     public async Task EditProfilePost_notAuthenticated()
     {
         // Arrange
-        var model = new EditProfileViewModel();
-
-        _controller.ControllerContext = new ControllerContext
+        var model = new EditProfileViewModel
         {
-            HttpContext = new DefaultHttpContext()
+            Bio = "New Bio",
+            ProfilePictureUrl = "valid-url",
+            ImageFile = new Mock<IFormFile>().Object
         };
+
+        _mockUserManager.Setup(x => x.GetUserAsync(It.IsAny<ClaimsPrincipal>())).ReturnsAsync((ApplicationUser)null);
 
         // Act
         var result = await _controller.Edit(model);
 
         // Assert
-        Assert.IsType<UnauthorizedResult>(result);
+        var unauthorizedResult = Assert.IsType<UnauthorizedObjectResult>(result);
+        Assert.Equal("User not found", unauthorizedResult.Value);
     }
 
 //FOLLOW METHOD 
