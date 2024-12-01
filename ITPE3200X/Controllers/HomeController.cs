@@ -14,8 +14,7 @@ public class HomeController : Controller
 
     public HomeController(IPostRepository postRepository,
         UserManager<ApplicationUser> userManager,
-        ILogger<HomeController> logger, 
-        IWebHostEnvironment mockEnvironmentObject)
+        ILogger<HomeController> logger)
     {
         _postRepository = postRepository;
         _userManager = userManager;

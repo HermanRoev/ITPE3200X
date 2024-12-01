@@ -15,7 +15,6 @@ public class HomeControllerTests
 {
     private readonly Mock<UserManager<ApplicationUser>> _mockUserManager;
     private readonly Mock<IPostRepository> _mockPostRepository;
-    private readonly Mock<IWebHostEnvironment> _mockWebHostEnvironment;
     private readonly Mock<ILogger<HomeController>> _mockLogger;
     private readonly HomeController _controller;
 
@@ -25,15 +24,13 @@ public class HomeControllerTests
             Mock.Of<IUserStore<ApplicationUser>>(), null, null, null, null, null, null, null, null
         );
         _mockPostRepository = new Mock<IPostRepository>();
-        _mockWebHostEnvironment = new Mock<IWebHostEnvironment>();
         _mockLogger = new Mock<ILogger<HomeController>>();
 
         // Initialize the controller with mocked dependencies
         _controller = new HomeController(
             _mockPostRepository.Object,
             _mockUserManager.Object,
-            _mockLogger.Object,
-            _mockWebHostEnvironment.Object
+            _mockLogger.Object
         );
     }
     
