@@ -44,6 +44,7 @@ namespace ITPE3200X.Controllers
                 if (string.IsNullOrEmpty(username))
                 {
                     // There is no profile to show
+                    _logger.LogWarning("[ProfileController][Profile] No username provided and no user is authenticated.");
                     return NotFound("User not found");
                 }
             }
@@ -141,8 +142,11 @@ namespace ITPE3200X.Controllers
         public async Task<IActionResult> Edit()
         {
             var user = await _userManager.GetUserAsync(User);
+            
+            // If the user is not found, return Unauthorized
             if (user == null)
             {
+                _logger.LogWarning("[ProfileController][Edit GET] User not found.");
                 return Unauthorized();
             }
 
@@ -160,6 +164,7 @@ namespace ITPE3200X.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(EditProfileViewModel model)
         {
+            // Validate the model
             if (string.IsNullOrWhiteSpace(model.Bio) || string.IsNullOrWhiteSpace(model.ProfilePictureUrl) 
                                                      || model.ImageFile == null)
             {
@@ -270,6 +275,7 @@ namespace ITPE3200X.Controllers
             var currentUserId = _userManager.GetUserId(User);
             if (string.IsNullOrEmpty(currentUserId))
             {
+                _logger.LogWarning("[ProfileController][Follow] User not authenticated.");
                 return Unauthorized();
             }
 
@@ -302,6 +308,7 @@ namespace ITPE3200X.Controllers
             
             if (string.IsNullOrEmpty(currentUserId))
             {
+                _logger.LogWarning("[ProfileController][Unfollow] User not authenticated.");
                 return Unauthorized();
             }
 
