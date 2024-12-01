@@ -156,7 +156,8 @@ public class PostControllerTest
         {
             HttpContext = new DefaultHttpContext()
             {
-                User = new ClaimsPrincipal(new ClaimsIdentity()) // Empty identity ensures User.Identity is not null
+                // Empty identity ensures User.Identity is not null
+                User = new ClaimsPrincipal(new ClaimsIdentity()) 
             }
         };
 
@@ -205,7 +206,8 @@ public class PostControllerTest
         {
             HttpContext = new DefaultHttpContext()
             {
-                User = new ClaimsPrincipal(new ClaimsIdentity()) // Empty identity ensures User.Identity is not null
+                // Empty identity ensures User.Identity is not null
+                User = new ClaimsPrincipal(new ClaimsIdentity()) 
             }
         };
 
@@ -279,7 +281,8 @@ public class PostControllerTest
         {
             HttpContext = new DefaultHttpContext()
             {
-                User = new ClaimsPrincipal(new ClaimsIdentity()) // Empty identity ensures User.Identity is not null
+                // Empty identity ensures User.Identity is not null
+                User = new ClaimsPrincipal(new ClaimsIdentity()) 
             }
         };
 
@@ -384,7 +387,8 @@ public class PostControllerTest
         {
             HttpContext = new DefaultHttpContext()
             {
-                User = new ClaimsPrincipal(new ClaimsIdentity()) // Empty identity ensures User.Identity is not null
+                // Empty identity ensures User.Identity is not null
+                User = new ClaimsPrincipal(new ClaimsIdentity()) 
             }
         };
 
@@ -507,7 +511,8 @@ public class PostControllerTest
         {
             HttpContext = new DefaultHttpContext()
             {
-                User = new ClaimsPrincipal(new ClaimsIdentity()) // Empty identity ensures User.Identity is not null
+                // Empty identity ensures User.Identity is not null
+                User = new ClaimsPrincipal(new ClaimsIdentity()) 
             }
         };
 
@@ -561,7 +566,8 @@ public class PostControllerTest
         {
             HttpContext = new DefaultHttpContext()
             {
-                User = new ClaimsPrincipal(new ClaimsIdentity()) // Empty identity ensures User.Identity is not null
+                // Empty identity ensures User.Identity is not null
+                User = new ClaimsPrincipal(new ClaimsIdentity()) 
             }
         };
 
@@ -675,9 +681,9 @@ public class PostControllerTest
             l => l.Log(
                 LogLevel.Error,
                 It.IsAny<EventId>(),
-                It.Is<It.IsAnyType>((v, t) => v.ToString().Contains("Error deleting post from database.")),
+                It.Is<It.IsAnyType>((v, t) => v.ToString()!.Contains("Error deleting post from database.")),
                 It.IsAny<Exception>(),
-                It.IsAny<Func<It.IsAnyType, Exception, string>>()),
+                It.IsAny<Func<It.IsAnyType, Exception, string>>()!),
             Times.Once);
     }
 

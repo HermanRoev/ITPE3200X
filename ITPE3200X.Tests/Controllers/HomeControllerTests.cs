@@ -72,7 +72,7 @@ public class HomeControllerTests
     public async Task Index_ReturnsViewWithNoPosts()
     {
         //arrange 
-        _mockPostRepository.Setup(repo => repo.GetAllPostsAsync()).ReturnsAsync((List<Post>)null);
+        _mockPostRepository.Setup(repo => repo.GetAllPostsAsync()).ReturnsAsync((List<Post>?)null);
         
         //act 
         var result = await _controller.Index();
@@ -87,7 +87,6 @@ public class HomeControllerTests
     //positive test for CalculateTimeSincePosted method when time is less than a hour ago 
     [Fact]
     public void CalculateTimeSincePosted_LessThanHourAgo()
-    //funker men vet ikke om vi skal ta med testing for denne metoden siden den er privat
     {
         // Arrange
         var createdAt = DateTime.UtcNow.AddMinutes(-30);
@@ -134,11 +133,10 @@ public class HomeControllerTests
         Assert.NotNull(methodInfo);
 
         // Act
-        var result = (string)methodInfo.Invoke(_controller, new object[] { createdAt })!;
+        var result = (string)methodInfo.Invoke(_controller, new object[] { createdAt }!);
 
         // Assert
         Assert.Equal("2 d ago", result);
-        
     }
 }
 
