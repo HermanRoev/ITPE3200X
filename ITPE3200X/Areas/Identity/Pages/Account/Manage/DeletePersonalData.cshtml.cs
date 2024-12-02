@@ -34,7 +34,8 @@ namespace ITPE3200X.Areas.Identity.Pages.Account.Manage
         ///     directly from your code. This API may change or be removed in future releases.
         /// </summary>
         [BindProperty]
-        public InputModel Input { get; set; }
+        [Required]
+        public InputModel Input { get; set; } = new InputModel();
 
         /// <summary>
         ///     This API supports the ASP.NET Core Identity default UI infrastructure and is not intended to be used
@@ -46,9 +47,8 @@ namespace ITPE3200X.Areas.Identity.Pages.Account.Manage
             ///     This API supports the ASP.NET Core Identity default UI infrastructure and is not intended to be used
             ///     directly from your code. This API may change or be removed in future releases.
             /// </summary>
-            [Required]
             [DataType(DataType.Password)]
-            public string Password { get; set; }
+            public string? Password { get; set; }
         }
 
         /// <summary>
@@ -71,6 +71,10 @@ namespace ITPE3200X.Areas.Identity.Pages.Account.Manage
 
         public async Task<IActionResult> OnPostAsync()
         {
+            if (string.IsNullOrEmpty(Input.Password))
+            {
+                return Page();
+            }
             var user = await _userManager.GetUserAsync(User);
             if (user == null)
             {
