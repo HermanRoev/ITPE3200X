@@ -41,7 +41,7 @@ public class PostControllerTest
         _mockWebHostEnvironment.Setup(e => e.WebRootPath).Returns("wwwroot");
     }
 
-//CREATE POST TESTS
+//CREATE POST METHOD
     //positive test for creating a post
     [Fact]
     public Task CreatePost_ReturnsViewWithPost()
@@ -342,7 +342,7 @@ public class PostControllerTest
        //assert 
        var redirectResult = Assert.IsType<RedirectToActionResult>(result);
        Assert.Equal("EditPost", redirectResult.ActionName);
-       Assert.Equal(postId, redirectResult.RouteValues!["postId"]);
+       Assert.Equal(postId, redirectResult.RouteValues?["postId"]);
     }
     
     //negative test for editing a post when repository fails to update post

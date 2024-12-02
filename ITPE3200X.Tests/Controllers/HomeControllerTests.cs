@@ -3,7 +3,6 @@ using ITPE3200X.Controllers;
 using ITPE3200X.DAL.Repositories;
 using ITPE3200X.Models;
 using ITPE3200X.ViewModels;
-using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
@@ -96,7 +95,7 @@ public class HomeControllerTests
         Assert.NotNull(methodInfo);
 
         // Act
-        var result = (string)methodInfo.Invoke(_controller, new object[] { createdAt })!;
+        var result = (string?)methodInfo.Invoke(_controller, new object[] { createdAt });
 
         // Assert
         Assert.Equal("30 m ago", result);
@@ -114,7 +113,7 @@ public class HomeControllerTests
         Assert.NotNull(methodInfo);
 
         // Act
-        var result = (string)methodInfo.Invoke(_controller, new object[] { createdAt })!;
+        var result = (string?)methodInfo.Invoke(_controller, new object[] { createdAt });
 
         // Assert
         Assert.Equal("10 h ago", result);
@@ -133,7 +132,7 @@ public class HomeControllerTests
         Assert.NotNull(methodInfo);
 
         // Act
-        var result = (string)methodInfo.Invoke(_controller, new object[] { createdAt }!);
+        var result = (string?)methodInfo.Invoke(_controller, new object[] { createdAt });
 
         // Assert
         Assert.Equal("2 d ago", result);

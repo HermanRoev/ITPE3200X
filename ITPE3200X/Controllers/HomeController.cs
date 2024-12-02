@@ -30,6 +30,7 @@ public class HomeController : Controller
         if (posts == null)
         {
             // Error in the repository, return an empty view
+            _logger.LogError("[HomeController][Index] Error retrieving posts from repository");
             return View();
         }
 

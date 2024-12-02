@@ -16,8 +16,6 @@ public class ProfileControllerTests
 {
     private readonly Mock<UserManager<ApplicationUser>> _mockUserManager;
     private readonly Mock<IUserRepository> _mockUserRepository;
-    private readonly Mock<IPostRepository> _mockPostRepository;
-    private readonly Mock<ILogger<ProfileController>> _mockLogger;
     private readonly Mock<IWebHostEnvironment> _mockWebHostEnvironment;
     private readonly ProfileController _controller;
 
@@ -29,17 +27,17 @@ public class ProfileControllerTests
             store.Object, null, null, null, null, null, null, null, null);
 
         _mockUserRepository = new Mock<IUserRepository>();
-        _mockPostRepository = new Mock<IPostRepository>();
+        Mock<IPostRepository> mockPostRepository = new();
         _mockWebHostEnvironment = new Mock<IWebHostEnvironment>();
-        _mockLogger = new Mock<ILogger<ProfileController>>();
+        Mock<ILogger<ProfileController>> mockLogger = new();
 
         // Initialize the controller with mocked dependencies
         _controller = new ProfileController(
             _mockUserManager.Object,
             _mockUserRepository.Object,
-            _mockPostRepository.Object,
+            mockPostRepository.Object,
             _mockWebHostEnvironment.Object,
-            _mockLogger.Object
+            mockLogger.Object
         );
     }
 
@@ -51,7 +49,6 @@ public class ProfileControllerTests
         //arrange
         string username = "testuser";
         var user = new ApplicationUser { UserName = username, Id = "testuserid" };
-        var posts = new List<Post>(); // Assume posts are populated
         
         // Mock the authenticated user
         var claims = new List<Claim>
@@ -72,8 +69,6 @@ public class ProfileControllerTests
         _mockUserManager.Setup(x => x.GetUserName(principal)).Returns(user.UserName);
         _mockUserManager.Setup(x => x.FindByNameAsync(user.UserName)).ReturnsAsync(user);
         _mockUserManager.Setup(x => x.GetUserId(principal)).Returns(user.Id);
-        _mockPostRepository.Setup(x => x.GetPostsByUserAsync(user.Id)).ReturnsAsync(posts);
-        _mockUserRepository.Setup(x => x.IsFollowingAsync(It.IsAny<string>(), It.IsAny<string>())).ReturnsAsync(false);
         
         // Act
         var result = await _controller.Profile(username);
@@ -89,9 +84,8 @@ public class ProfileControllerTests
     public async Task Profile_UsernameIsNull_authenticated_ReturnView()
     {
         // Arrange
-        string username = null;
+        string username = "currentuser";
         var currentUser = new ApplicationUser { UserName = "currentuser", Id = "currentuserid" };
-        var posts = new List<Post>(); // Assume posts are populated
 
         // Mock the authenticated user
         var claims = new List<Claim>
@@ -111,8 +105,6 @@ public class ProfileControllerTests
         _mockUserManager.Setup(x => x.GetUserName(principal)).Returns(currentUser.UserName);
         _mockUserManager.Setup(x => x.FindByNameAsync(currentUser.UserName)).ReturnsAsync(currentUser);
         _mockUserManager.Setup(x => x.GetUserId(principal)).Returns(currentUser.Id);
-        _mockPostRepository.Setup(x => x.GetPostsByUserAsync(currentUser.Id)).ReturnsAsync(posts);
-        _mockUserRepository.Setup(x => x.IsFollowingAsync(It.IsAny<string>(), It.IsAny<string>())).ReturnsAsync(false);
 
         // Act
         var result = await _controller.Profile(username);
@@ -128,7 +120,7 @@ public class ProfileControllerTests
     public async Task Profile_UsernameIsNull_notAuthenticated()
     {
         //arrange 
-        string username = null;
+        string username = "currentuser";
         _controller.ControllerContext = new ControllerContext
         {
             HttpContext = new DefaultHttpContext()
@@ -287,7 +279,7 @@ public class ProfileControllerTests
         var model = new EditProfileViewModel
         {
             Bio = "New bio",
-            ImageFile = new FormFile(null, 0, 0, "profilePicture", "profilePicture.txt")
+            ImageFile = new FormFile(Mock.Of<Stream>(), 0, 0, "profilePicture", "profilePicture.jpg")
         };
 
         // Mock the authenticated user
@@ -372,7 +364,7 @@ public class ProfileControllerTests
         // Assert
         var redirectResult = Assert.IsType<RedirectToActionResult>(result);
         Assert.Equal("Profile", redirectResult.ActionName);
-        Assert.Equal(userToFollow.UserName, redirectResult.RouteValues["username"]);
+        Assert.Equal(userToFollow.UserName, redirectResult.RouteValues?["username"]);
     }
     
     //negative test: user to follow does not exist
@@ -424,7 +416,7 @@ public class ProfileControllerTests
         // Assert
         var redirectResult = Assert.IsType<RedirectToActionResult>(result);
         Assert.Equal("Profile", redirectResult.ActionName);
-        Assert.Equal(userToFollow.UserName, redirectResult.RouteValues["username"]);
+        Assert.Equal(userToFollow.UserName, redirectResult.RouteValues?["username"]);
     }
     
 //UNFOLLOW METHOD
@@ -461,7 +453,7 @@ public class ProfileControllerTests
         // Assert
         var redirectResult = Assert.IsType<RedirectToActionResult>(result);
         Assert.Equal("Profile", redirectResult.ActionName);
-        Assert.Equal(userToUnfollow.UserName, redirectResult.RouteValues["username"]);
+        Assert.Equal(userToUnfollow.UserName, redirectResult.RouteValues?["username"]);
     }
     
     //negative test: user to unfollow does not exist
@@ -513,6 +505,6 @@ public class ProfileControllerTests
         // Assert
         var redirectResult = Assert.IsType<RedirectToActionResult>(result);
         Assert.Equal("Profile", redirectResult.ActionName);
-        Assert.Equal(userToUnfollow.UserName, redirectResult.RouteValues["username"]);
+        Assert.Equal(userToUnfollow.UserName, redirectResult.RouteValues?["username"]);
     }
 }
