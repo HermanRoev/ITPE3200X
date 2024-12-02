@@ -4,6 +4,7 @@ using ITPE3200X.Models;
 using ITPE3200X.DAL.Repositories;
 using Microsoft.AspNetCore.Identity;
 using ITPE3200X.ViewModels;
+using Microsoft.DotNet.Scaffolding.Shared.Project;
 
 namespace ITPE3200X.Controllers
 {
@@ -43,6 +44,7 @@ namespace ITPE3200X.Controllers
                 if (string.IsNullOrEmpty(username))
                 {
                     // There is no profile to show
+                    _logger.LogWarning("[ProfileController][Profile] No username provided and no user is authenticated.");
                     return NotFound("User not found");
                 }
             }
@@ -140,11 +142,15 @@ namespace ITPE3200X.Controllers
         public async Task<IActionResult> Edit()
         {
             var user = await _userManager.GetUserAsync(User);
+            
+            // If the user is not found, return Unauthorized
             if (user == null)
             {
+                _logger.LogWarning("[ProfileController][Edit GET] User not found.");
                 return Unauthorized();
             }
-
+            
+            // Prepare the EditProfileViewModel
             var model = new EditProfileViewModel
             {
                 Bio = user.Bio,
@@ -159,16 +165,21 @@ namespace ITPE3200X.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(EditProfileViewModel model)
         {
-            if (!ModelState.IsValid)
+            // Validate the model
+            if (string.IsNullOrWhiteSpace(model.Bio) || string.IsNullOrWhiteSpace(model.ProfilePictureUrl) 
+                                                     || model.ImageFile == null)
             {
+                _logger.LogWarning("[ProfileController][Edit POST] Invalid model.");
                 ModelState.AddModelError("", "Invalid model.");
                 return View(model);
             }
 
+            // Retrieve the user
             var user = await _userManager.GetUserAsync(User);
             if (user == null)
             {
-                return Unauthorized();
+                _logger.LogWarning("[ProfileController][Edit POST] User not found.");
+                return Unauthorized("User not found");
             }
 
             // Handle Profile Picture Upload
@@ -227,6 +238,7 @@ namespace ITPE3200X.Controllers
         {
             try
             {
+                // Construct the file path
                 var wwwRootPath = _webHostEnvironment.WebRootPath;
                 var filePath = Path.Combine(wwwRootPath,
                     imageUrl.TrimStart('/').Replace('/', Path.DirectorySeparatorChar));
@@ -256,19 +268,23 @@ namespace ITPE3200X.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Follow(string username)
         {
+            // Retrieve the user to follow
             var userToFollow = await _userManager.FindByNameAsync(username);
             if (userToFollow == null)
             {
                 _logger.LogWarning("[ProfileController][Follow] User '{Username}' not found.", username);
                 return NotFound("User not found");
             }
-
+            
+            // Retrieve the current user
             var currentUserId = _userManager.GetUserId(User);
             if (string.IsNullOrEmpty(currentUserId))
             {
+                _logger.LogWarning("[ProfileController][Follow] User not authenticated.");
                 return Unauthorized();
             }
 
+            // Add the user to follow as a follower of the current user
             var result = await _userRepository.AddFollowerAsync(currentUserId, userToFollow.Id);
             
             if (!result)
@@ -288,6 +304,7 @@ namespace ITPE3200X.Controllers
         {
             var userToUnfollow = await _userManager.FindByNameAsync(username);
             
+            // Check if the user to unfollow exists
             if (userToUnfollow == null)
             {
                 _logger.LogWarning("[ProfileController][Unfollow] User '{Username}' not found.", username);
@@ -296,11 +313,14 @@ namespace ITPE3200X.Controllers
 
             var currentUserId = _userManager.GetUserId(User);
             
+            // Check if the current user is authenticated
             if (string.IsNullOrEmpty(currentUserId))
             {
+                _logger.LogWarning("[ProfileController][Unfollow] User not authenticated.");
                 return Unauthorized();
             }
 
+            // Remove the user to unfollow as a follower of the current user
             var result = await _userRepository.RemoveFollowerAsync(currentUserId, userToUnfollow.Id);
             
             if (!result)

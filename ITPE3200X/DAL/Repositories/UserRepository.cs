@@ -13,11 +13,13 @@ namespace ITPE3200X.DAL.Repositories
             _context = context;
             _logger = logger;
         }
-
+        
+        // Follower methods
         public async Task<bool> AddFollowerAsync(string followerUserId, string followedUserId)
         {
             try
             {
+                // Check if the follower is already following the user
                 var follower = new Follower(followerUserId, followedUserId);
                 await _context.Followers.AddAsync(follower);
                 await _context.SaveChangesAsync();
@@ -30,7 +32,8 @@ namespace ITPE3200X.DAL.Repositories
                 return false;
             }
         }
-
+        
+        // Follower methods
         public async Task<bool> RemoveFollowerAsync(string followerUserId, string followedUserId)
         {
             try
@@ -53,7 +56,8 @@ namespace ITPE3200X.DAL.Repositories
                 return false;
             }
         }
-
+        
+        // Follower methods
         public async Task<bool> IsFollowingAsync(string followerUserId, string followedUserId)
         {
             return await _context.Followers
